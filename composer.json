@@ -1,0 +1,34 @@
+{
+	"name": "alexpechkarev/google-maps",
+	"description": "Collection of Google Maps Web Services for Laravel",
+	"keywords": ["google maps api", "geocoding api", "directions api", "distance matrix api", "elevation api", "geolocation api", "roads api", "time zone api", "places api web service"],
+	"license": "MIT",
+        "authors": [
+            {
+                "name": "Alexander Pechkarev",
+                "email": "alexpechkarev@gmail.com"
+            }
+        ],    
+        "minimum-stability": "stable",
+	"require": { 
+		"laravel/framework": "5.*"
+	},
+
+        "require-dev": {
+            "laravel/framework": "5.*",
+            "phpunit/phpunit": "4.7.*"
+        },         
+	"autoload": {
+		"psr-4": {
+			"GoogleMaps\\": "src/"
+		}
+	},        
+        
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+    
+	
+}
