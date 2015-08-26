@@ -7,6 +7,7 @@
  */
 
 use \App\GoogleMaps\WebService;
+use \App\GoogleMaps\ParamRoutine\DefaultParameters;
 
 class GoogleMaps{
     
@@ -51,34 +52,7 @@ class GoogleMaps{
     |
     */     
     private $service;    
-    
-    /*
-    |--------------------------------------------------------------------------
-    | Web Service Parameter Routine
-    |--------------------------------------------------------------------------
-    |
-    |
-    |
-    */     
-    private $paramroutine =  [
-        'geocoding'                 => 'App\GoogleMaps\ParamRoutine\GeocodingParameters',
-        'directions'                => 'App\GoogleMaps\ParamRoutine\DirectionsParameters',
-        'distancematrix'            => 'App\GoogleMaps\ParamRoutine\DistanceMatrixParameters',
-        'elevation'                 => 'App\GoogleMaps\ParamRoutine\ElevationParameters',
-        'geolocate'                 => 'https://www.googleapis.com/geolocation/v1/geolocate/',
-        'roads'                     => 'https://roads.googleapis.com/v1/snapToRoads?',
-        'speedLimits'               => 'https://roads.googleapis.com/v1/speedLimits?',
-        'timezone'                  => 'https://maps.googleapis.com/maps/api/timezone/',
-        'nearbysearch'              => 'https://maps.googleapis.com/maps/api/place/nearbysearch/',
-        'textsearch'                => 'https://maps.googleapis.com/maps/api/place/textsearch/',
-        'radarsearch'               => 'https://maps.googleapis.com/maps/api/place/radarsearch/',
-        'placedetails'              => 'https://maps.googleapis.com/maps/api/place/details/',
-        'placeadd'                  => 'https://maps.googleapis.com/maps/api/place/add/',
-        'placedelete'               => 'https://maps.googleapis.com/maps/api/place/delete/',
-        'placephoto'                => 'https://maps.googleapis.com/maps/api/place/photo?',
-        'placeautocomplete'         => 'https://maps.googleapis.com/maps/api/place/autocomplete/',
-        'placequeryautocomplete'    => 'https://maps.googleapis.com/maps/api/place/queryautocomplete/',
-        ];    
+      
     
     /*
     |--------------------------------------------------------------------------
@@ -91,21 +65,21 @@ class GoogleMaps{
     private $defaultKey =  [
         'geocoding'                 => 'place_id',
         'directions'                => 'geocoded_waypoints',
-        'distancematrix'            => 'App\GoogleMaps\ParamRoutine\DistanceMatrixParameters',
-        'elevation'                 => 'App\GoogleMaps\ParamRoutine\ElevationParameters',
-        'geolocate'                 => '',
-        'roads'                     => '',
-        'speedLimits'               => '',
-        'timezone'                  => '',
-        'nearbysearch'              => '',
-        'textsearch'                => '',
-        'radarsearch'               => '',
-        'placedetails'              => '',
-        'placeadd'                  => '',
-        'placedelete'               => '',
-        'placephoto'                => '',
-        'placeautocomplete'         => '',
-        'placequeryautocomplete'    => '',
+        'distancematrix'            => 'origin_addresses',
+        'elevation'                 => 'elevation',
+        'geolocate'                 => 'location',
+        'roads'                     => 'snappedPoints',
+        'speedLimits'               => 'speedLimits',
+        'timezone'                  => 'dstOffset',
+        'nearbysearch'              => 'results',
+        'textsearch'                => 'results',
+        'radarsearch'               => 'geometry',
+        'placedetails'              => 'result',
+        'placeadd'                  => 'place_id',
+        'placedelete'               => 'status',
+        'placephoto'                => 'image',
+        'placeautocomplete'         => 'predictions',
+        'placequeryautocomplete'    => 'predictions',
         ];      
         
     
@@ -199,8 +173,9 @@ class GoogleMaps{
      */
     public function get(){
        
-        $this->requestUrl.= $this->endpoint
-                .app( $this->paramroutine[ $this->service ] )->getQueryString( $this->param );
+        $this->requestUrl.= $this->endpoint.DefaultParameters::getQueryString( $this->param );
+        
+        dd( $this->requestUrl );
         
         return $this->make();        
         
