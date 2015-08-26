@@ -7,7 +7,7 @@
  */
 
 use \App\GoogleMaps\WebService;
-use \App\GoogleMaps\ParamRoutine\DefaultParameters;
+use \App\GoogleMaps\Parameters;
 
 class GoogleMaps{
     
@@ -173,9 +173,9 @@ class GoogleMaps{
      */
     public function get(){
        
-        $this->requestUrl.= $this->endpoint.DefaultParameters::getQueryString( $this->param );
+        $this->requestUrl.= $this->endpoint.Parameters::getQueryString( $this->param );
         
-        dd( $this->requestUrl );
+        #dd( $this->requestUrl );
         
         return $this->make();        
         

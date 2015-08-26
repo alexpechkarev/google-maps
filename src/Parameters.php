@@ -1,12 +1,12 @@
-<?php namespace App\GoogleMaps\ParamRoutine;
+<?php namespace App\GoogleMaps;
 /**
- * Description of DefaultParameters
+ * Description of Parameters
  *
  * @author alex.petchkarev
  */
 use App\GoogleMaps\GoogleMaps;
 
-class DefaultParameters{
+class Parameters{
       
     
     /**
