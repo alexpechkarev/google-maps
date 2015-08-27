@@ -335,8 +335,9 @@ class GoogleMaps{
        $ch = curl_init( $this->requestUrl );
        
        if( $isPost ){
+        curl_setopt($ch, CURLOPT_HTTPHEADERS, ['Content-Type: application/json']);
         curl_setopt($ch,CURLOPT_POST, 1);
-        curl_setopt($ch,CURLOPT_POSTFIELDS, Parameters::getQueryString( $this->param['data'] ));       
+        curl_setopt($ch,CURLOPT_POSTFIELDS, $this->param['data'] );       
        }
        
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);   
