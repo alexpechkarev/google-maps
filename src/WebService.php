@@ -108,11 +108,12 @@ class WebService{
     
     /**
      * POST response
+     * @param array $data
      * @return string
      */
-    public function post(){
+    public function post( $data ){
         
-        return \GM::post();
+        return \GM::post( $data );
     }
     /***/     
         
