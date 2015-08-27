@@ -143,7 +143,6 @@ class WebService{
             
             // iterate results
             foreach($obj as $k => $v){
-                 dd($v);
                 // get place_id
                 array_push($response, array_get($v, $key, null));
                 

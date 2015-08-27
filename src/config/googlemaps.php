@@ -131,38 +131,7 @@ return [
 
         ], 
         
-        'elevation' => [
-            'locations'     => null,
-            'path'          => null,
-            'samples'       => null,
-            'key'           => null,
-        ],   
-
-        'geolocate'   => [
-            'homeMobileCountryCode' => null,
-            'homeMobileNetworkCode' => null,
-            'radioType'             => null,
-            'carrier'               => null,
-            'considerIp'            => null,
-            'cellTowers' => [
-                'cellId'            => null,
-                'locationAreaCode'  => null,
-                'mobileCountryCode' => null,
-                'mobileNetworkCode' => null,
-                'age'               => null,
-                'signalStrength'    => null,
-                'timingAdvance'     => null,
-            ],
-            'wifiAccessPoints' => [
-                'macAddress'        => null,
-                'signalStrength'    => null,
-                'age'               => null,
-                'channel'           => null,
-                'signalToNoiseRatio'=> null,
-            ],
-
-
-        ],  
+        'elevation' => [],  
 
         'roads' =>[
             'locations'     => null,

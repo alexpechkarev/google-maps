@@ -173,7 +173,10 @@ class GoogleMaps{
      */
     public function get(){
        
-        $this->requestUrl.= $this->endpoint.Parameters::getQueryString( $this->param );
+        
+        $this->requestUrl.= in_array( $this->service, ['roads', 'speedLimits'])
+                ? Parameters::getQueryString( $this->param )
+                : $this->endpoint.Parameters::getQueryString( $this->param );
         
         #dd( $this->requestUrl );
         
@@ -184,14 +187,17 @@ class GoogleMaps{
     
     /**
      * Perform POST Request to Web Service
-     * @param array $data
+     * @param array/string $data
      * @return object
      */
     public function post( $data ){
        
         $this->requestUrl.= Parameters::getQueryString( $this->param );
         
-        $this->param['data'] = json_encode( $data );
+        $this->param['data'] = is_array( $data )
+                                ? json_encode( $data )
+                                : $data ;
+        
         #dd( $this->requestUrl );
         
         return $this->make( true );        
@@ -335,7 +341,7 @@ class GoogleMaps{
        $ch = curl_init( $this->requestUrl );
        
        if( $isPost ){
-        curl_setopt($ch, CURLOPT_HTTPHEADERS, ['Content-Type: application/json']);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
         curl_setopt($ch,CURLOPT_POST, 1);
         curl_setopt($ch,CURLOPT_POSTFIELDS, $this->param['data'] );       
        }
@@ -343,6 +349,7 @@ class GoogleMaps{
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);   
 
        $output = curl_exec($ch);
+       
        
       if( $output === false ){
           throw new \ErrorException( curl_error($ch) );
