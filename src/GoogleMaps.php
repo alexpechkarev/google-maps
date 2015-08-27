@@ -310,12 +310,19 @@ class GoogleMaps{
     
     /**
      * Make cURL request to given URL
+     * @param boolean $isPost
      * @return object
      */
-    protected function make(){
+    protected function make( $isPost = false ){
       
        $ch = curl_init( $this->requestUrl );
-       curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+       
+       if( $isPost ){
+        curl_setopt($ch,CURLOPT_POST, 1);
+        curl_setopt($ch,CURLOPT_POSTFIELDS, Parameters::getQueryString( $this->param ));       
+       }
+       
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);   
 
        $output = curl_exec($ch);
        
