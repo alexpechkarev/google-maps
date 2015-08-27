@@ -35,7 +35,7 @@ return [
         'directions'                => 'https://maps.googleapis.com/maps/api/directions/',
         'distancematrix'            => 'https://maps.googleapis.com/maps/api/distancematrix/',
         'elevation'                 => 'https://maps.googleapis.com/maps/api/elevation/',
-        'geolocate'                 => 'https://www.googleapis.com/geolocation/v1/geolocate/',
+        'geolocate'                 => 'https://www.googleapis.com/geolocation/v1/geolocate?',
         'roads'                     => 'https://roads.googleapis.com/v1/snapToRoads?',
         'speedLimits'               => 'https://roads.googleapis.com/v1/speedLimits?',
         'timezone'                  => 'https://maps.googleapis.com/maps/api/timezone/',
