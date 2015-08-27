@@ -168,7 +168,7 @@ class GoogleMaps{
     /***/
     
     /**
-     * Perform Request to Web Service
+     * Perform GET Request to Web Service
      * @return object
      */
     public function get(){
@@ -181,6 +181,21 @@ class GoogleMaps{
         
     }
     /***/
+    
+    /**
+     * Perform POST Request to Web Service
+     * @return object
+     */
+    public function post(){
+       
+        $this->requestUrl.= Parameters::getQueryString( $this->param );
+        
+        #dd( $this->requestUrl );
+        
+        return $this->make( true );        
+        
+    }
+    /***/     
     
     
     /*
