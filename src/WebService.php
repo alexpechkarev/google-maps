@@ -97,7 +97,7 @@ class WebService{
     /***/
       
     /**
-     * Get response
+     * GET response
      * @return string
      */
     public function get(){
@@ -105,6 +105,16 @@ class WebService{
         return \GM::get();
     }
     /***/
+    
+    /**
+     * POST response
+     * @return string
+     */
+    public function post(){
+        
+        return \GM::post();
+    }
+    /***/     
         
     
     /**
