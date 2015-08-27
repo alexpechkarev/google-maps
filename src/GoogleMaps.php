@@ -184,12 +184,14 @@ class GoogleMaps{
     
     /**
      * Perform POST Request to Web Service
+     * @param array $data
      * @return object
      */
-    public function post(){
+    public function post( $data ){
        
         $this->requestUrl.= Parameters::getQueryString( $this->param );
         
+        $this->param['data'] = json_encode( $data );
         #dd( $this->requestUrl );
         
         return $this->make( true );        
@@ -334,7 +336,7 @@ class GoogleMaps{
        
        if( $isPost ){
         curl_setopt($ch,CURLOPT_POST, 1);
-        curl_setopt($ch,CURLOPT_POSTFIELDS, Parameters::getQueryString( $this->param ));       
+        curl_setopt($ch,CURLOPT_POSTFIELDS, Parameters::getQueryString( $this->param['data'] ));       
        }
        
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);   
