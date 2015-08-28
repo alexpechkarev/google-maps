@@ -64,6 +64,18 @@ class WebService{
     }
     /***/
     
+        /**
+     * Sett all parameters at once
+     * @param array $param
+     * @return \App\GoogleMaps\WebService
+     */
+    public function setParam( $param ){
+        \GM::setParam($param);
+        return $this;
+    }
+    /***/
+    
+    
     /**
      * Return parameters array
      * @return array
