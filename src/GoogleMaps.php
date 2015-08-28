@@ -33,6 +33,14 @@ class GoogleMaps{
     
     /*
     |--------------------------------------------------------------------------
+    | Request Specific End Points
+    |--------------------------------------------------------------------------
+    |
+    */     
+    private $rspoint;   
+    
+    /*
+    |--------------------------------------------------------------------------
     | Parameters
     |--------------------------------------------------------------------------
     |
@@ -41,6 +49,16 @@ class GoogleMaps{
     */     
     private $param;
     
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Url Parameters
+    |--------------------------------------------------------------------------
+    |
+    |
+    |
+    */     
+    private static $urlParam = [];       
     
     
     /*
@@ -157,6 +175,16 @@ class GoogleMaps{
          }
     }
     /***/    
+    
+    /**
+     * Set all parameters at once
+     * @param array $param
+     */
+    public function setParam( $param ){
+        
+        $this->param = array_merge($this->param, $param) ;
+    }
+    /***/    
       
     /**
      * Return parameters array
@@ -174,7 +202,7 @@ class GoogleMaps{
     public function get(){
        
         
-        $this->requestUrl.= in_array( $this->service, ['roads', 'speedLimits'])
+        $this->requestUrl.= in_array( $this->service, $this->rspoint['get'])
                 ? Parameters::getQueryString( $this->param )
                 : $this->endpoint.Parameters::getQueryString( $this->param );
         
@@ -192,7 +220,10 @@ class GoogleMaps{
      */
     public function post( $data ){
        
-        $this->requestUrl.= Parameters::getQueryString( $this->param );
+        // adding endpoints for given services on POST request, see config rsendpoint
+        $this->requestUrl.= in_array( $this->service, $this->rspoint['post'])
+                ? $this->endpoint.Parameters::getQueryString( $this->param )
+                : Parameters::getQueryString( $this->param );
         
         $this->param['data'] = is_array( $data )
                                 ? json_encode( $data )
@@ -233,7 +264,10 @@ class GoogleMaps{
                                                   : config('googlemaps.key'); 
             
             // set request URL
-            $this->requestUrl = config('googlemaps.url.'.$this->service);         
+            $this->requestUrl = config('googlemaps.url.'.$this->service);    
+            
+            // request specific endpoints
+            $this->rspoint = config('googlemaps.rspoint');               
     }
     /***/
     
@@ -316,16 +350,20 @@ class GoogleMaps{
         $request = [];
         foreach($param as $key => $val)
         {  
-                // ommit parameters with empty values
-                if( !empty( $val )){
-                    $request[] = $useKey
-                                ? $key . $join .urlencode($val)
-                                #: $join .urlencode($val);
-                                : $join .$val;
-                }
-        } 
+            if( is_array( $val ) ){
+                self::joinParam( $val );
+                continue;
+            }            
+            // ommit parameters with empty values
+            if( !empty( $val )){
 
-        return implode($glue, $request);        
+                self::$urlParam[] = $useKey
+                            ? $key . $join .urlencode($val)
+                            : $join .$val;
+            }
+        } 
+        
+        return implode($glue, self::$urlParam);      
     }
     /***/
     
