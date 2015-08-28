@@ -73,6 +73,29 @@ class Parameters{
         }        
         ///
                 
+                
+   // Geolocate parameters
+        if( isset($param['location']) && is_array($param['location'])){
+           $param['location'] = GoogleMaps::joinParam( $param['location'], '', ',', false );
+        } 
+        
+        if( isset($param['types']) && is_array($param['types'])){
+           $param['types'] = GoogleMaps::joinParam( $param['types'], '', '|', false );
+        }        
+        ///        
+                
+        
+        // Roads parameters
+        if( isset($param['placeId']) && is_array($param['placeId'])){
+            $tmp = '';
+            foreach( $param['placeId'] as $key => $val ){
+                $tmp.= $key == 0 ? $val : '&placeId='.$val;
+            }
+            
+            $param['placeId'] = $tmp;
+            unset($tmp, $key, $val);
+        } 
+        ///                         
         
 
         return  GoogleMaps::joinParam( $param );
