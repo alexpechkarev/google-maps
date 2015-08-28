@@ -2,6 +2,36 @@
 
 return [
 
+  
+    /*
+    |--------------------------------------------------------------------------
+    | Notice
+    |--------------------------------------------------------------------------
+    | Fill free to change web service 'name' to anything you like.
+    | When do so please ensure that change applied to following arrays below
+    | -- url
+    | -- rspoint - if specified
+    | -- param
+    | -- key - only if using separate keys
+    | 
+    | Example of changing  'roads' to 'snapToRoads'
+    |
+    | 'url' => [
+    |       'snapToRoads' => 'https://roads.googleapis.com/v1/snapToRoads?'
+    |  ]
+    |
+    | 'rspoint' => [
+    |    'get'           => ['snapToRoads', 'speedLimits', 'placephoto'], // exclude endpoint from GET request
+    |    ...
+    |    ]
+    |
+    |  'param' => [
+    |    'snapToRoads'    => [...]
+    |    ...
+    |    ]
+    |
+    */
+
     /*
     |--------------------------------------------------------------------------
     | Service Keys
@@ -71,6 +101,32 @@ return [
     ],
     
     
+ /*
+    |--------------------------------------------------------------------------
+    | NO CHANGES REQUIRED BEYOND THIS POINT
+    |--------------------------------------------------------------------------
+    */       
+    
+    
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Request specific End point
+    |--------------------------------------------------------------------------
+    | Add or ommit end point for given web services requests 
+    | - placeadd  is POST type request allow specifying end point 
+    | - geolocation  is POST type request have no end point
+    | - snapToRoads  is GET type request have no end point
+    | - speedLimits  is GET type request have no end point
+    */
+
+    'rspoint' => [
+        'get'           => ['roads', 'speedLimits', 'placephoto'], // exclude endpoint from GET request
+        'post'          => ['placeadd', 'placedelete'], // include endpoint into POST request
+    ],    
+    
+        
+    
     /*
     |--------------------------------------------------------------------------
     | Service parameters
@@ -78,8 +134,7 @@ return [
     |
     |
     */
-
-    'param' => [
+ 'param' => [
         'geocoding' => [
             'address'       => null,
             'bounds'        => null,
@@ -131,7 +186,14 @@ return [
 
         ], 
         
-        'elevation' => [],  
+        'elevation' => [
+            'locations'     => null,
+            'path'          => null,
+            'samples'       => null,
+            'key'           => null,
+        ],   
+
+        'geolocate'   => [], // empty for post requests 
 
         'roads' =>[
             'locations'     => null,
@@ -207,27 +269,10 @@ return [
         ], 
         
         
-        'placeadd' => [
-            'key' => null,  
-            'accuracy' => null,
-            'address' => null,
-            'language' => null,
-            'location' => null,
-            'name' => null,
-            'phone_number' => null,
-            'types' => null,
-            'website' => null,
-            'name' => null,
-            'name' => null,
-            
-        ],         
+        'placeadd' => [], // empty for post requests     
         
         
-        'placedelete' => [
-            'key' => null,  
-            'place_id' => null,
-            
-        ],  
+        'placedelete' => [], // empty for post requests       
         
         'placephoto' => [
             'key' => null,  
