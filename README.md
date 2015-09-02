@@ -1,30 +1,31 @@
-# Collection of Google Maps API Web Services for Laravel 5
-Provides convenient way of setting up and making requests to Maps API from [**Laravel**] (http://laravel.com/) application. 
-For services documentation, API key and Usage Limits visit [**Google Maps API Web Services**] (https://developers.google.com/maps/documentation/webservices/), also check [**Maps API for Terms of Service License Restrictions**] (https://developers.google.com/maps/terms#section_10_12).
+## Collection of Google Maps API Web Services for Laravel 5
+Provides convenient way of setting up and making requests to Maps API from [Laravel] (http://laravel.com/) application. 
+For services documentation, API key and Usage Limits visit [Google Maps API Web Services] (https://developers.google.com/maps/documentation/webservices/), also check [**Maps API for Terms of Service License Restrictions**] (https://developers.google.com/maps/terms#section_10_12).
 
 Features
 ------------
 * [Directions API] (https://developers.google.com/maps/documentation/directions/)
 * [Distance Matrix API] (https://developers.google.com/maps/documentation/distance-matrix/)
-[**Elevation API**] (https://developers.google.com/maps/documentation/elevation/)
-[**Geocoding API**] (https://developers.google.com/maps/documentation/geocoding/)
-[**Geolocation API**] (https://developers.google.com/maps/documentation/geolocation/)
-[**Roads API**] (https://developers.google.com/maps/documentation/roads/)
-[**Time Zone API**] (https://developers.google.com/maps/documentation/timezone/)
-[**Places API Web Services**] (https://developers.google.com/places/web-service/)
+* [Elevation API] (https://developers.google.com/maps/documentation/elevation/)
+* [Geocoding API] (https://developers.google.com/maps/documentation/geocoding/)
+* [Geolocation API] (https://developers.google.com/maps/documentation/geolocation/)
+* [Roads API] (https://developers.google.com/maps/documentation/roads/)
+* [Time Zone API] (https://developers.google.com/maps/documentation/timezone/)
+* [Places API Web Services] (https://developers.google.com/places/web-service/)
 
 
 Dependency
 ------------
-[**PHP cURL**] (http://php.net/manual/en/curl.installation.php) required
-[**PHP 5**] (http://php.net/)
+* [PHP cURL] (http://php.net/manual/en/curl.installation.php) required
+* [PHP 5] (http://php.net/)
 
 
 Installation
 ------------
 
 Issue following command in console:
-```
+
+```php
 composer require alexpechkarev/google-maps:dev-master
 ```
 
