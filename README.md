@@ -3,19 +3,28 @@ Provides convenient way of setting up and making requests to Maps API from [**La
 For services documentation, API key and Usage Limits visit [**Google Maps API Web Services**] (https://developers.google.com/maps/documentation/webservices/), also check [**Maps API for Terms of Service License Restrictions**] (https://developers.google.com/maps/terms#section_10_12).
 
 Features
-Directions API
-Distance Matrix API
-Elevation API
-Geocoding API
-Geolocation API
-Roads API
-Time Zone API
-Places API Web Services
+------------
+*[**Directions API**] (https://developers.google.com/maps/documentation/directions/)
+
+*[**Distance Matrix API**] (https://developers.google.com/maps/documentation/distance-matrix/)
+
+[**Elevation API**] (https://developers.google.com/maps/documentation/elevation/)
+
+[**Geocoding API**] (https://developers.google.com/maps/documentation/geocoding/)
+
+[**Geolocation API**] (https://developers.google.com/maps/documentation/geolocation/)
+
+[**Roads API**] (https://developers.google.com/maps/documentation/roads/)
+
+[**Time Zone API**] (https://developers.google.com/maps/documentation/timezone/)
+
+[**Places API Web Services**] (https://developers.google.com/places/web-service/)
 
 
 Dependency
 ------------
 [**PHP cURL**] (http://php.net/manual/en/curl.installation.php) required
+
 [**PHP 5**] (http://php.net/)
 
 
@@ -28,7 +37,7 @@ composer require alexpechkarev/google-maps:dev-master
 ```
 
 Alternatively  edit composer.json by adding following line and run `composer update`
-```
+```php
 "require": { 
 		....,
 		"alexpechkarev/google-maps":"dev-master",
@@ -39,10 +48,10 @@ Alternatively  edit composer.json by adding following line and run `composer upd
 Configuration
 ------------
 
-Publish configuration file using following command `php artisan vendor:publish` or simply copy this package config file and paste into `config/googlmaps.php`
+Publish configuration file using `php artisan vendor:publish` or simply copy package configuration file and paste into `config/googlmaps.php`
 
 Open configuration file `config/googlmaps.php` and add your service key
-```
+```php
     /*
     |----------------------------------
     | Service Keys
@@ -52,18 +61,12 @@ Open configuration file `config/googlmaps.php` and add your service key
     'key'       => 'ADD YOUR SERVICE KEY HERE',
 ```
 
-If you like to use different keys for each service, specify them separately in the following way:
-```
-'key'       => [
-	
-	'geocoding'  => 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
-        'directions' => 'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
-	...
-            ],
-```
+If you like to use different keys for any of the services, see `service` array in `config/googlmaps.php` and specify your API Key there.
+
 
 Register package service provider and facade in 'config/app.php'
-```
+
+```php
 'providers' => [
     ...
     GoogleMaps\ServiceProvider\GoogleMapsServiceProvider,
@@ -71,34 +74,36 @@ Register package service provider and facade in 'config/app.php'
 
 'aliases' => [
     ...
-    'GM' => ' GoogleMaps\Facade\GoogleMapsFacade' ,
+    'GoogleMaps' => ' GoogleMaps\Facade\GoogleMapsFacade',
 ]
 ```
 
 Usage
 ------------
 
-Here is an example of making GET request to Geocoding API:
-```
-$response = \GM::load('geocoding')
+Here is an example of making request to Geocoding API:
+```php
+$response = \GoogleMaps::load('geocoding')
 		->setParam (['address' =>'santa cruz'])
  		->get();
 ```
 
-By default, where appropriate, `output` parameter set to `JSON`. When using `get()` or `post()` methods do not forget to decode JSON string into PHP variable. 
+By default, where appropriate, `output` parameter set to `JSON`. Don't forget to decode JSON string into PHP variable. 
 See [**Processing Response**] (https://developers.google.com/maps/documentation/webservices/#Parsing) for more details on parsing returning output.
 
 Output parameter can be set using `setEndpoint()` method:
-```
-$response = \GM::load('geocoding')
+
+```php
+$response = \GoogleMaps::load('geocoding')
  		->setEndpoint('xml')
  		->setParam (['address' =>'santa cruz'])
  		->get();
  ```
 
-Required parameters can be specified as an array of `key:value pairs` 
-```
-$response = \GM::load('geocoding')
+Required parameters can be specified as an array of `key:value` pairs:
+
+```php
+$response = \GoogleMaps::load('geocoding')
 		->setParam ([
 		    'address'    =>'santa cruz',
          	    'components' => [
@@ -111,18 +116,20 @@ $response = \GM::load('geocoding')
  ```
  
 Alternatively parameters can be set using `setParamByKey()` method. For deeply nested array use "dot" notation as per example below.
-```
-$response = \GM::load('geocoding')
+
+```php
+$response = \GoogleMaps::load('geocoding')
               ->setParamByKey('address', 'santa cruz')
               ->setParamByKey('components.administrative_area', 'TX')
               ->setParamByKey('components.country', 'US')
               ->get();
 ```
 
-Another example showing POST request to Places API Place Add service:
-```
-$response = \GM::load('placeadd')
-          ->post([
+Another example showing request to Places API Place Add service:
+
+```php
+$response = \GoogleMaps::load('placeadd')
+          ->setParam([
              'location' => [
                 'lat' => -33.8669710,
                 'lng' => 151.1958750
@@ -134,13 +141,14 @@ $response = \GM::load('placeadd')
              "types" => ["shoe_store"],
               "website"=> "http://www.google.com.au/",
               "language"=> "en-AU"                        
-                    ]);	
+                    ])
+            ->get();	
 ```
 
 Available methods
 ------------
 
-`load( string 'service name' )` - load web service by name 
+`**load( string 'service name' )**` - load web service by name 
 
 Accepts string as parameter, web service name as specified in configuration file.
 Returns instance of WebService class, method is chainable.

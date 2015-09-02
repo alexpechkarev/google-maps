@@ -14,7 +14,7 @@ return [
     |
     */
     
-    'key'       => 'API KEY',
+    'key'       => 'ADD YOUR SERVICE KEY HERE',
         
 
     /*
