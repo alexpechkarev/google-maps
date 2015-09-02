@@ -6,22 +6,11 @@
  * @author Alexander Pechkarev <alexpechkarev@gmail.com>
  */
 
-use \App\GoogleMaps\WebService;
 use \App\GoogleMaps\Parameters;
 
 class GoogleMaps{
     
-    
-    /*
-    |--------------------------------------------------------------------------
-    | Request
-    |--------------------------------------------------------------------------
-    | Request URL with encoded parameters
-    |
-    */     
-    private $requestUrl; 
-    
-    
+        
     /*
     |--------------------------------------------------------------------------
     | Default Endpoint
@@ -29,36 +18,7 @@ class GoogleMaps{
     |
     */     
     private $endpoint;      
-    
-    
-    /*
-    |--------------------------------------------------------------------------
-    | Request Specific End Points
-    |--------------------------------------------------------------------------
-    |
-    */     
-    private $rspoint;   
-    
-    /*
-    |--------------------------------------------------------------------------
-    | Parameters
-    |--------------------------------------------------------------------------
-    |
-    |
-    |
-    */     
-    private $param;
-    
-    
-    /*
-    |--------------------------------------------------------------------------
-    | Url Parameters
-    |--------------------------------------------------------------------------
-    |
-    |
-    |
-    */     
-    private static $urlParam = [];       
+  
     
     
     /*
@@ -70,35 +30,29 @@ class GoogleMaps{
     |
     */     
     private $service;    
-      
+    
     
     /*
     |--------------------------------------------------------------------------
-    | Response Default Keys
+    | API Key
     |--------------------------------------------------------------------------
     |
     |
     |
     */     
-    private $defaultKey =  [
-        'geocoding'                 => 'place_id',
-        'directions'                => 'geocoded_waypoints',
-        'distancematrix'            => 'origin_addresses',
-        'elevation'                 => 'elevation',
-        'geolocate'                 => 'location',
-        'roads'                     => 'snappedPoints',
-        'speedLimits'               => 'speedLimits',
-        'timezone'                  => 'dstOffset',
-        'nearbysearch'              => 'results',
-        'textsearch'                => 'results',
-        'radarsearch'               => 'geometry',
-        'placedetails'              => 'result',
-        'placeadd'                  => 'place_id',
-        'placedelete'               => 'status',
-        'placephoto'                => 'image',
-        'placeautocomplete'         => 'predictions',
-        'placequeryautocomplete'    => 'predictions',
-        ];      
+    private $key;     
+    
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Service URL
+    |--------------------------------------------------------------------------
+    |
+    |
+    |
+    */     
+    private $requestUrl;     
+           
         
     
     /**
@@ -117,10 +71,9 @@ class GoogleMaps{
        */
       public function load( $service ){
           
-            $this->service = $service;
-            $this->build();
-
-            return new WebService( $this->defaultKey[ $service ] );          
+            $this->build( $service );
+     
+            return $this;
       }
       /***/
       
@@ -129,10 +82,12 @@ class GoogleMaps{
     /**
      * Setting endpoint
      * @param string $key
+     * @return $this
      */
     public function setEndpoint( $key = 'json' ){
                      
         $this->endpoint = array_get(config('googlemaps.endpoint'), $key, 'json?');
+        return $this;
     }
     /***/  
     
@@ -149,15 +104,18 @@ class GoogleMaps{
     
     /**
      * Set parameter by key
-     * @param type $key
-     * @param type $value
+     * @param string $key
+     * @param string $value
+     * @return $this
      */
     public function setParamByKey($key, $value){
         
-         if( array_key_exists( $key, array_dot( $this->param ) ) ){
+         if( array_key_exists( $key, array_dot( $this->service['param'] ) ) ){
              
-             array_set($this->param, $key, $value);
-         }   
+             array_set($this->service['param'], $key, $value);
+         }  
+         
+         return $this;
     }
     /***/
    
@@ -169,9 +127,9 @@ class GoogleMaps{
      */ 
     public function getParamByKey($key){
         
-         if( array_key_exists( $key, array_dot( $this->param ) ) ){
+         if( array_key_exists( $key, array_dot( $this->service['param'] ) ) ){
              
-             return array_get($this->param, $key);
+             return array_get($this->service['param'], $key);
          }
     }
     /***/    
@@ -179,10 +137,13 @@ class GoogleMaps{
     /**
      * Set all parameters at once
      * @param array $param
+     * @return $this
      */
     public function setParam( $param ){
         
-        $this->param = array_merge($this->param, $param) ;
+        $this->service['param'] = array_merge( $this->service['param'], $param );
+        
+        return $this;
     }
     /***/    
       
@@ -191,50 +152,110 @@ class GoogleMaps{
      * @return array
      */
     public function getParam(){
-        return $this->param;
+        return $this->service['param'];
     }
     /***/
     
-    /**
-     * Perform GET Request to Web Service
-     * @return object
-     */
+
     public function get(){
-       
         
-        $this->requestUrl.= in_array( $this->service, $this->rspoint['get'])
-                ? Parameters::getQueryString( $this->param )
-                : $this->endpoint.Parameters::getQueryString( $this->param );
+        $post = false;
         
-        #dd( $this->requestUrl );
+        // use output parameter if required by the service
+        $this->requestUrl.= $this->service['endpoint']
+                            ? $this->endpoint
+                            : ''; 
         
-        return $this->make();        
+        // set API Key
+        $this->requestUrl.= 'key='.urlencode( $this->key );
+        
+
+        switch( $this->service['type'] ){
+            
+            case 'POST':
+                
+                    $post =  json_encode( $this->service['param'] );
+
+                break;
+            
+            
+            case 'GET':
+            default:
+                    $this->requestUrl.='&'. Parameters::getQueryString( $this->service['param'] );                
+                break;
+        }
+        
+        
+        return $this->make( $post );         
         
     }
     /***/
     
+    
+    
     /**
-     * Perform POST Request to Web Service
-     * @param array/string $data
-     * @return object
+     * Get response value by key
+     * @param string $needle - retrives response parameter using "dot" notation
+     * @param int $offset 
+     * @param int $length
+     * @return array
      */
-    public function post( $data ){
-       
-        // adding endpoints for given services on POST request, see config rsendpoint
-        $this->requestUrl.= in_array( $this->service, $this->rspoint['post'])
-                ? $this->endpoint.Parameters::getQueryString( $this->param )
-                : Parameters::getQueryString( $this->param );
+    public function getResponseByKey( $needle = false, $offset = 0, $length = null ){
         
-        $this->param['data'] = is_array( $data )
-                                ? json_encode( $data )
-                                : $data ;
+        // set respons to json
+        $this->setEndpoint('json');
         
-        #dd( $this->requestUrl );
+        // set default key parameter
+        $needle = empty( $needle ) 
+                    ? metaphone($this->service['responseDefaultKey']) 
+                    : metaphone($needle);
         
-        return $this->make( true );        
+        // get response
+        $obj = json_decode( $this->get(), true);
+            
+        // flatten array into single level array using 'dot' notation
+        $obj_dot = array_dot($obj);
+        // create empty response
+        $response = [];
+        // iterate 
+        foreach( $obj_dot as $key => $val){
+
+            // Calculate the metaphone key and compare with needle
+            if( strcmp( metaphone($key, strlen($needle)), $needle) === 0 ){
+                // set response value
+                array_set($response, $key, $val);
+            }
+        }
+
+        // finally extract slice of the array
+        #return array_slice($response, $offset, $length);
+
+        return count($response) < 1
+               ? $obj
+               : $response;
+
         
     }
-    /***/     
+    /***/ 
+    
+    /**
+     * Get response status
+     * @return mixed
+     */
+    public function getStatus(){
+        
+        // set response to json
+        $this->setEndpoint('json');
+        
+        // get response
+        $obj = json_decode( $this->get(), true);
+        
+        return array_get($obj, 'status', null);
+        
+    }
+    /***/    
+   
+  
     
     
     /*
@@ -247,27 +268,23 @@ class GoogleMaps{
     /**
      * Setup service parameters
      */
-    protected function build(){
+    protected function build( $service ){
         
-            $this->validateConfig();
+            $this->validateConfig( $service );
 
             // set default endpoint
             $this->setEndpoint();
             
-            // setting service key
-            $this->param = config('googlemaps.param.'.$this->service);
-                                                              
-
-            // setting service key
-            $this->param['key'] = is_array( config('googlemaps.key') )
-                                                  ? config('googlemaps.key.'.$this->service)
-                                                  : config('googlemaps.key'); 
+            // set web service parameters 
+            $this->service = config('googlemaps.service.'.$service);
             
-            // set request URL
-            $this->requestUrl = config('googlemaps.url.'.$this->service);    
+            // is service key set, use it, otherwise use default key
+            $this->key = empty( $this->service['key'] )
+                         ? config('googlemaps.key')
+                         : $this->service['key'];   
             
-            // request specific endpoints
-            $this->rspoint = config('googlemaps.rspoint');               
+            // set service url
+            $this->requestUrl = $this->service['url'];
     }
     /***/
     
@@ -276,7 +293,7 @@ class GoogleMaps{
      * Validate configuration file
      * @throws \ErrorException
      */ 
-    protected function validateConfig(){
+    protected function validateConfig( $service ){
         
             // Check for config file
             if( !\Config::has('googlemaps')){
@@ -288,31 +305,13 @@ class GoogleMaps{
             if(!array_key_exists('key', config('googlemaps') ) ){
                 
                 throw new \ErrorException('Unable to find Key parameter in configuration file.');
-            }
-
-            if( is_array(config('googlemaps.key') )
-                    && ( !array_key_exists($this->service, config('googlemaps.key')) 
-                    || config('googlemaps.key.'.$this->service) === "" )){
-                
-                throw new \ErrorException('Service Key must not be empty.');
             }            
             
             
-            
-            if( !is_array(config('googlemaps.key'))
-                    && config('googlemaps.key') === "" ){
-                
-                throw new \ErrorException('Service Key must not be empty.');
-            }             
-            
-            
             // Validate Key parameter
-            if(!array_key_exists('url', config('googlemaps') )
-                    && !array_key_exists($this->service, config('googlemaps.url') )
-                    || !count( config('googlemaps.url') )
-                    || !count( config('googlemaps.url.'.$this->service)  )
-                    ){
-                throw new \ErrorException('Web service URL must not be empty.');
+            if(!array_key_exists('service', config('googlemaps') )
+                    && !array_key_exists($service, config('googlemaps.service')) ){
+                throw new \ErrorException('Web service must be declared in the configuration file.');
             }            
                         
             
@@ -320,54 +319,12 @@ class GoogleMaps{
             if(!array_key_exists('endpoint', config('googlemaps') )
                     || !count(config('googlemaps.endpoint') < 1)){
                 throw new \ErrorException('End point must not be empty.');
-            }  
-             
-            
-            // Validate Service Parameters
-            if(!array_key_exists('param', config('googlemaps') )
-                    || !array_key_exists( $this->service, config('googlemaps.param') )
-                    || !count(config('googlemaps.param.'.$this->service) < 1)){
-                throw new \ErrorException('Service parameters must be defined in config file.');
-            }             
+            }              
                      
                     
     }
     /***/     
     
-    
-    
-    
-    /**
-     * Join array pairs into URL encoded string
-     * @param array $param - single dimension array
-     * @param string $join
-     * @param string $glue
-     * @param boolean $useKey
-     * @return string
-     */
-    public static function joinParam( $param = [], $join = '=', $glue = '&', $useKey = true){
-        
-        $request = [];
-        foreach($param as $key => $val)
-        {  
-            if( is_array( $val ) ){
-                self::joinParam( $val );
-                continue;
-            }            
-            // ommit parameters with empty values
-            if( !empty( $val )){
-
-                self::$urlParam[] = $useKey
-                            ? $key . $join .urlencode($val)
-                            : $join .$val;
-            }
-        } 
-        
-        return implode($glue, self::$urlParam);      
-    }
-    /***/
-    
-
     
     /**
      * Make cURL request to given URL
@@ -381,10 +338,11 @@ class GoogleMaps{
        if( $isPost ){
         curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
         curl_setopt($ch,CURLOPT_POST, 1);
-        curl_setopt($ch,CURLOPT_POSTFIELDS, $this->param['data'] );       
+        curl_setopt($ch,CURLOPT_POSTFIELDS, $isPost );       
        }
        
-      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);   
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);  
+      curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 
        $output = curl_exec($ch);
        
@@ -400,5 +358,4 @@ class GoogleMaps{
     }
     /***/        
       
-           
 }
