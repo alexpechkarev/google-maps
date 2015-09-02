@@ -1,6 +1,6 @@
 ## Collection of Google Maps API Web Services for Laravel 5
 Provides convenient way of setting up and making requests to Maps API from [Laravel] (http://laravel.com/) application. 
-For services documentation, API key and Usage Limits visit [Google Maps API Web Services] (https://developers.google.com/maps/documentation/webservices/), also check [**Maps API for Terms of Service License Restrictions**] (https://developers.google.com/maps/terms#section_10_12).
+For services documentation, API key and Usage Limits visit [Google Maps API Web Services] (https://developers.google.com/maps/documentation/webservices/), also check [Maps API for Terms of Service License Restrictions] (https://developers.google.com/maps/terms#section_10_12).
 
 Features
 ------------
@@ -16,7 +16,7 @@ Features
 
 Dependency
 ------------
-* [PHP cURL] (http://php.net/manual/en/curl.installation.php) required
+* [PHP cURL] (http://php.net/manual/en/curl.installation.php)
 * [PHP 5] (http://php.net/)
 
 
@@ -41,7 +41,7 @@ Alternatively  edit composer.json by adding following line and run `composer upd
 Configuration
 ------------
 
-Publish configuration file using `php artisan vendor:publish` or simply copy package configuration file and paste into `config/googlmaps.php`
+Publish configuration file using ```php php artisan vendor:publish``` or simply copy package configuration file and paste into `config/googlmaps.php`
 
 Open configuration file `config/googlmaps.php` and add your service key
 ```php
