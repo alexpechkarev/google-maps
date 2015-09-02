@@ -54,10 +54,10 @@ Open configuration file **`config/googlmaps.php`** and add your service key
     'key'       => 'ADD YOUR SERVICE KEY HERE',
 ```
 
-If you like to use different keys for any of the services, see **`service`** array in `config/googlmaps.php` and specify your API Key there.
+If you like to use different keys for any of the services, see `service` array in **`config/googlmaps.php`** and specify your API Key there.
 
 
-Register package service provider and facade in **'config/app.php'**
+Register package service provider and facade in 'config/app.php'
 
 ```php
 'providers' => [
@@ -82,7 +82,7 @@ $response = \GoogleMaps::load('geocoding')
 ```
 
 By default, where appropriate, `output` parameter set to `JSON`. Don't forget to decode JSON string into PHP variable. 
-See [**Processing Response**] (https://developers.google.com/maps/documentation/webservices/#Parsing) for more details on parsing returning output.
+See [Processing Response] (https://developers.google.com/maps/documentation/webservices/#Parsing) for more details on parsing returning output.
 
 Output parameter can be set using `setEndpoint()` method:
 
@@ -141,13 +141,15 @@ $response = \GoogleMaps::load('placeadd')
 Available methods
 ------------
 
-**`load( string 'service name' )`** - load web service by name 
+*`load( string 'service name' )`* - load web service by name 
 
 Accepts string as parameter, web service name as specified in configuration file.
-Returns instance of WebService class, method is chainable.
-```
-\GM::load('geocoding')  
-\GM::load('directions') 
+Returns reference to it's self.
+
+```php
+
+\GoogleMaps::load('geocoding')  
+
 ```
 
 `setEndpoint( string 'endpoint' )` - set request output
