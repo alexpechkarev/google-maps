@@ -151,7 +151,7 @@ Available methods
 
 
 
-<a name="#load"></a>
+<a name="load"></a>
 **`load( string 'service name' )`** - load web service by name 
 
 Accepts string as parameter, web service name as specified in configuration file.
