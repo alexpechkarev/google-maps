@@ -143,7 +143,7 @@ Available methods
 
 * [`load( string 'service name' )`](#load)
 * [`setEndpoint( string 'endpoint' )`](#setEndpoint)
-* [`getEndpoint()`](#setEndpoint)](#getEndpoint)
+* [`getEndpoint()`](#getEndpoint)
 * [`setParamByKey( string 'key', string 'value')`](#setParamByKey)
 * [`setParam( array 'parameters')`](#setParam)
 * [`get()`](#get)
