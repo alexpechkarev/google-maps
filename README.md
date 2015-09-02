@@ -4,8 +4,8 @@ For services documentation, API key and Usage Limits visit [**Google Maps API We
 
 Features
 ------------
-[**Directions API**] (https://developers.google.com/maps/documentation/directions/)
-[**Distance Matrix API**] (https://developers.google.com/maps/documentation/distance-matrix/)
+-[**Directions API**] (https://developers.google.com/maps/documentation/directions/)
+-[**Distance Matrix API**] (https://developers.google.com/maps/documentation/distance-matrix/)
 [**Elevation API**] (https://developers.google.com/maps/documentation/elevation/)
 [**Geocoding API**] (https://developers.google.com/maps/documentation/geocoding/)
 [**Geolocation API**] (https://developers.google.com/maps/documentation/geolocation/)
