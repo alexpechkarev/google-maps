@@ -62,7 +62,7 @@ Register package service provider and facade in 'config/app.php'
 ```php
 'providers' => [
     ...
-    GoogleMaps\ServiceProvider\GoogleMapsServiceProvider,
+    'GoogleMaps\ServiceProvider\GoogleMapsServiceProvider',
 ]
 
 'aliases' => [
