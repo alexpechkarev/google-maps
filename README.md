@@ -142,12 +142,12 @@ Available methods
 ------------
 
 * [`load( string 'service name' )`](#load)
-* `setEndpoint( string 'endpoint' )`
-* `getEndpoint()`
-* `setParamByKey( string 'key', string 'value')`
-* `setParam( array 'parameters')`
-* `get()`
-* `getResponseByKey( string 'key' = false)`
+* [`setEndpoint( string 'endpoint' )`](#setEndpoint)
+* [`getEndpoint()`](#setEndpoint)](#getEndpoint)
+* [`setParamByKey( string 'key', string 'value')`](#setParamByKey)
+* [`setParam( array 'parameters')`](#setParam)
+* [`get()`](#get)
+* [`getResponseByKey( string 'key' = false)`](#getResponseByKey)
 
 
 
@@ -163,8 +163,9 @@ Returns reference to it's self.
 ... 
 
 ```
+---
 
-
+<a name="setEndpoint"></a>
 **`setEndpoint( string 'endpoint' )`** - set request output
 
 Accepts string as parameter, `json` or `xml`, if omitted defaulted to `json`.
@@ -176,7 +177,9 @@ $response = \GoogleMaps::load('geocoding')
 		...
 ```
 
+---
 
+<a name="getEndpoint"></a>
 **`getEndpoint()`** - get current request output
 
 Returns string.
@@ -189,7 +192,9 @@ $endpoint = \GoogleMaps::load('geocoding')
 echo $endpoint; // output 'json'
 ```
 
+---
 
+<a name="setParamByKey"></a>
 **`setParamByKey( string 'key', string 'value')`** - set request parameter using key:value pair
 
 Accepts two parameters:
@@ -206,7 +211,9 @@ $endpoint = \GoogleMaps::load('geocoding')
     ...
 ```
 
+---
 
+<a name="setParam"></a>
 **`setParam( array 'parameters')`** - set all request parameters at once
 
 Accepts array of parameters 
@@ -224,7 +231,9 @@ $response = \GoogleMaps::load('geocoding')
 ...
 ```
 
+---
 
+<a name="get"></a>
 **`get()`** - perform web service request (irrespectively to request type POST or GET )
 
 Returns web service response in the format specified by **`setEndpoint()`** method, if omitted defaulted to `JSON`. 
@@ -244,7 +253,9 @@ $response = \GoogleMaps::load('geocoding')
 var_dump( json_decode( $response ) );  // output 
 ```
 
+---
 
+<a name="getResponseByKey"></a>
 **`getResponseByKey( string 'key' = false)`** - perform  web service request and attempts to return value for given key. 
 Will return full response object in case when `status` field is not equal `OK`.
 
@@ -262,3 +273,16 @@ $response = \GoogleMaps::load('geocoding')
 var_dump( json_decode( $response ) );  
 ```
 
+
+Support
+-------
+
+[Please open an issue on GitHub](https://github.com/alexpechkarev/google-maps/issues)
+
+
+License
+-------
+
+Collection of Google Maps API Web Services for Laravel 5 is released under the MIT License. See the bundled
+[LICENSE](https://github.com/alexpechkarev/google-maps/blob/master/LICENSE)
+file for details.
