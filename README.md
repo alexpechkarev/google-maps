@@ -4,27 +4,19 @@ For services documentation, API key and Usage Limits visit [**Google Maps API We
 
 Features
 ------------
-*[**Directions API**] (https://developers.google.com/maps/documentation/directions/)
-
-*[**Distance Matrix API**] (https://developers.google.com/maps/documentation/distance-matrix/)
-
+[**Directions API**] (https://developers.google.com/maps/documentation/directions/)
+[**Distance Matrix API**] (https://developers.google.com/maps/documentation/distance-matrix/)
 [**Elevation API**] (https://developers.google.com/maps/documentation/elevation/)
-
 [**Geocoding API**] (https://developers.google.com/maps/documentation/geocoding/)
-
 [**Geolocation API**] (https://developers.google.com/maps/documentation/geolocation/)
-
 [**Roads API**] (https://developers.google.com/maps/documentation/roads/)
-
 [**Time Zone API**] (https://developers.google.com/maps/documentation/timezone/)
-
 [**Places API Web Services**] (https://developers.google.com/places/web-service/)
 
 
 Dependency
 ------------
 [**PHP cURL**] (http://php.net/manual/en/curl.installation.php) required
-
 [**PHP 5**] (http://php.net/)
 
 
@@ -148,7 +140,7 @@ $response = \GoogleMaps::load('placeadd')
 Available methods
 ------------
 
-`**load( string 'service name' )**` - load web service by name 
+**`load( string 'service name' )`** - load web service by name 
 
 Accepts string as parameter, web service name as specified in configuration file.
 Returns instance of WebService class, method is chainable.
