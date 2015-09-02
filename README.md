@@ -141,7 +141,7 @@ $response = \GoogleMaps::load('placeadd')
 Available methods
 ------------
 
-* [`load( string 'service name' )`](###Load)
+* [`load( string 'service name' )`](#load)
 * `setEndpoint( string 'endpoint' )`
 * `getEndpoint()`
 * `setParamByKey( string 'key', string 'value')`
@@ -151,7 +151,7 @@ Available methods
 
 
 
-###Load()
+<a name="#load"></a>
 **`load( string 'service name' )`** - load web service by name 
 
 Accepts string as parameter, web service name as specified in configuration file.
