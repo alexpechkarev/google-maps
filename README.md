@@ -29,7 +29,7 @@ Issue following command in console:
 composer require alexpechkarev/google-maps:dev-master
 ```
 
-Alternatively  edit composer.json by adding following line and run `composer update`
+Alternatively  edit composer.json by adding following line and run **`composer update`**
 ```php
 "require": { 
 		....,
@@ -41,9 +41,9 @@ Alternatively  edit composer.json by adding following line and run `composer upd
 Configuration
 ------------
 
-Publish configuration file using **`php artisan vendor:publish`** or simply copy package configuration file and paste into `config/googlmaps.php`
+Publish configuration file using **`php artisan vendor:publish`** or simply copy package configuration file and paste into **`config/googlmaps.php`**
 
-Open configuration file `config/googlmaps.php` and add your service key
+Open configuration file **`config/googlmaps.php`** and add your service key
 ```php
     /*
     |----------------------------------
@@ -54,10 +54,10 @@ Open configuration file `config/googlmaps.php` and add your service key
     'key'       => 'ADD YOUR SERVICE KEY HERE',
 ```
 
-If you like to use different keys for any of the services, see `service` array in `config/googlmaps.php` and specify your API Key there.
+If you like to use different keys for any of the services, see **`service`** array in `config/googlmaps.php` and specify your API Key there.
 
 
-Register package service provider and facade in 'config/app.php'
+Register package service provider and facade in **'config/app.php'**
 
 ```php
 'providers' => [
