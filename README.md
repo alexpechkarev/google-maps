@@ -149,7 +149,7 @@ Available methods
 * [`get()`](#get)
 * [`getResponseByKey( string 'key' = false)`](#getResponseByKey)
 
-
+---
 
 <a name="load"></a>
 **`load( string 'service name' )`** - load web service by name 
