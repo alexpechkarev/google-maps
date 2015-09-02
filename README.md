@@ -41,7 +41,7 @@ Alternatively  edit composer.json by adding following line and run `composer upd
 Configuration
 ------------
 
-Publish configuration file using ```php php artisan vendor:publish``` or simply copy package configuration file and paste into `config/googlmaps.php`
+Publish configuration file using **`php artisan vendor:publish`** or simply copy package configuration file and paste into `config/googlmaps.php`
 
 Open configuration file `config/googlmaps.php` and add your service key
 ```php
