@@ -154,7 +154,7 @@ Available methods
 <a name="load"></a>
 **`load( $serviceName )`** - load web service by name 
 
-Accepts string as parameter, web service name as specified in configuration file.--
+Accepts string as parameter, web service name as specified in configuration file.  
 Returns reference to it's self.
 
 ```php
