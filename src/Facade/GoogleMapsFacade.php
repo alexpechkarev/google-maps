@@ -1,4 +1,4 @@
-<?php namespace App\GoogleMaps\Facade;
+<?php namespace GoogleMaps\Facade;
 
 use Illuminate\Support\Facades\Facade;
 

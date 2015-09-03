@@ -41,7 +41,22 @@ Alternatively  edit composer.json by adding following line and run **`composer u
 Configuration
 ------------
 
-Publish configuration file using **`php artisan vendor:publish`** or simply copy package configuration file and paste into **`config/googlmaps.php`**
+Register package service provider and facade in 'config/app.php'
+
+```php
+'providers' => [
+    ...
+    'GoogleMaps\ServiceProvider\GoogleMapsServiceProvider',
+]
+
+'aliases' => [
+    ...
+    'GoogleMaps' => ' GoogleMaps\Facade\GoogleMapsFacade',
+]
+```
+
+
+Publish configuration file using **`php artisan vendor:publish --tag=googlemaps --force`** or simply copy package configuration file and paste into **`config/googlmaps.php`**
 
 Open configuration file **`config/googlmaps.php`** and add your service key
 ```php
@@ -56,20 +71,6 @@ Open configuration file **`config/googlmaps.php`** and add your service key
 
 If you like to use different keys for any of the services, you can overwrite master API Key by specifying it in the `service` array for selected web service. 
 
-
-Register package service provider and facade in 'config/app.php'
-
-```php
-'providers' => [
-    ...
-    'GoogleMaps\ServiceProvider\GoogleMapsServiceProvider',
-]
-
-'aliases' => [
-    ...
-    'GoogleMaps' => ' GoogleMaps\Facade\GoogleMapsFacade',
-]
-```
 
 Usage
 ------------

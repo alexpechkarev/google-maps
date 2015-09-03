@@ -1,4 +1,4 @@
-<?php namespace App\GoogleMaps;
+<?php namespace GoogleMaps;
 /**
  * Description of Parameters
  *

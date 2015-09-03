@@ -1,4 +1,4 @@
-<?php namespace App\GoogleMaps\ServiceProvider;
+<?php namespace GoogleMaps\ServiceProvider;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -22,8 +22,8 @@ class GoogleMapsServiceProvider extends ServiceProvider {
 	public function boot()
 	{
             $this->publishes([
-                    __DIR__.'/config/googlemaps.php' => config_path('googlemaps.php'),
-                ]);             
+                    __DIR__.'/../config/googlemaps.php' => config_path('googlemaps.php'),
+                ], 'googlemaps');             
        
 	}
 
@@ -37,7 +37,7 @@ class GoogleMapsServiceProvider extends ServiceProvider {
 
             $this->app->bind('GoogleMaps', function($app)
 		{
-			return new \App\GoogleMaps\GoogleMaps();
+			return new \GoogleMaps\GoogleMaps();
 		});
 
             

@@ -1,4 +1,4 @@
-<?php namespace App\GoogleMaps;
+<?php namespace GoogleMaps;
 
 /**
  * Description of GoogleMaps
@@ -6,7 +6,7 @@
  * @author Alexander Pechkarev <alexpechkarev@gmail.com>
  */
 
-use \App\GoogleMaps\Parameters;
+use \GoogleMaps\Parameters;
 
 class GoogleMaps{
     

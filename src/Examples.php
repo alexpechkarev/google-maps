@@ -29,7 +29,7 @@ class ExampleController extends Controller {
            * Usin Place Id
            */ 
            
-          $d['a'] = \GM::load('geocoding')                  
+          $d['a'] = \GoogleMaps::load('geocoding')                  
                 ->setParamByKey('place_id', 'ChIJd8BlQ2BZwokRAFUEcm_qrcA')                
                 ->get();
           
@@ -37,7 +37,7 @@ class ExampleController extends Controller {
           /**
            * Reverse geocoding with components parameters
            */
-          $d['b'] = \GM::load('geocoding')                  
+          $d['b'] = \GoogleMaps::load('geocoding')                  
                 >setParamByKey('latlng', '40.714224,-73.961452')
                 ->setParamByKey('components.administrative_area', 'TX')
                 ->setParamByKey('components.country', 'US')
@@ -46,7 +46,7 @@ class ExampleController extends Controller {
           /**
            * Setting all parameters at once and retrieve locations parameters from response 
            */
-          $d['c'] = \GM::load('geocoding')
+          $d['c'] = \GoogleMaps::load('geocoding')
 
                 ->setParam([
                     'address' => 'santa cruz',
@@ -71,7 +71,7 @@ class ExampleController extends Controller {
 		/**
                  * Get directions response
                  */                    
-             $d['a'] =   \GM::load('directions')
+             $d['a'] =   \GoogleMaps::load('directions')
                      
                     ->setParamByKey('origin', 'Toronto')
                     ->setParamByKey('destination', 'Montreal')     
@@ -80,7 +80,7 @@ class ExampleController extends Controller {
                     /**
                      * Get html_instructions from response
                      */
-             $d['b'] =   \GM::load('directions')
+             $d['b'] =   \GoogleMaps::load('directions')
                     ->setParam([
                         'origin'          => 'place_id:ChIJ685WIFYViEgRHlHvBbiD5nE', 
                         'destination'     => 'place_id:ChIJA01I-8YVhkgRGJb0fW4UX7Y', 
@@ -106,7 +106,7 @@ class ExampleController extends Controller {
             /**
              * Get distance matrix response
              */
-            $d['a'] = \GM::load('distancematrix')
+            $d['a'] = \GoogleMaps::load('distancematrix')
                     
                     ->setParamByKey('origins', 'Vancouver+BC|Seattle')
                     ->setParamByKey('destinations', 'San Francisco|Victoria BC')                      
@@ -115,7 +115,7 @@ class ExampleController extends Controller {
             /**
              * Obtain elements parametrs from response
              */        
-            $d['b'] = \GM::load('distancematrix')                    
+            $d['b'] = \GoogleMaps::load('distancematrix')                    
                     ->setParam([
                     'origins'       => ['Vancouver BC', 'Seattle'],
                     'destinations'  => ['San Francisco','Victoria BC'],
@@ -131,16 +131,16 @@ class ExampleController extends Controller {
         public function getElevation()
 	{
                             
-            $d['a'] =  \GM::load('elevation')
+            $d['a'] =  \GoogleMaps::load('elevation')
                     ->setParamByKey('locations', '39.7391536,-104.9847034') // can be given as an array ['36.578581,-118.291994', '36.23998,-116.83171']
                     ->get();
 
-            $d['b'] =  \GM::load('elevation')                                    
+            $d['b'] =  \GoogleMaps::load('elevation')                                    
                    ->setParamByKey('path', ['40.714728,-73.998672','-34.397,150.644']) 
                    ->setParamByKey('samples', 3) 
                    ->get();
                        
-            $d['c'] =  \GM::load('elevation')              
+            $d['c'] =  \GoogleMaps::load('elevation')              
                    ->setParamByKey('path', 'enc:gfo}EtohhUxD@bAxJmGF') 
                    ->setParamByKey('samples', 3)   
                    ->getResponseByKey('results.elevation');                     
@@ -186,12 +186,12 @@ class ExampleController extends Controller {
 
         ];
 		        
-                $d['a'] =  \GM::load('geolocate')
+                $d['a'] =  \GoogleMaps::load('geolocate')
                             ->setParam($data)
                             ->get();
                           
                   
-                $d['b'] =  \GM::load('geolocate')                  
+                $d['b'] =  \GoogleMaps::load('geolocate')                  
                    ->setParamByKey('homeMobileCountryCode', 310)
                           ->setParamByKey('homeMobileNetworkCode', 260)
                           ->setParamByKey('radioType', 'gsm')
@@ -221,11 +221,11 @@ class ExampleController extends Controller {
         
     public function getSnapToRoads()
 	{                            
-            $d['a'] = \GM::load('snapToRoads')
+            $d['a'] = \GoogleMaps::load('snapToRoads')
                     ->setParamByKey('path', '-35.27801,149.12958|-35.28032,149.12907|-35.28099,149.12929|-35.28144,149.12984|-35.28194,149.13003|-35.28282,149.12956|-35.28302,149.12881|-35.28473,149.12836')
                     ->get();
             
-            $d['b'] = \GM::load('snapToRoads')            
+            $d['b'] = \GoogleMaps::load('snapToRoads')            
                 ->setParamByKey('path', ['60.170880,24.942795','60.170879,24.942796','60.170877,24.942796'])
                 ->getResponseByKey('snappedPoints');
             
@@ -235,12 +235,12 @@ class ExampleController extends Controller {
      
     public function getSpeedLimits()
 	{                            
-            $d['a'] =  \GM::load('speedLimits')
+            $d['a'] =  \GoogleMaps::load('speedLimits')
                 ->setParamByKey('path', '60.170880,24.942795|60.170879,24.942796|60.170877,24.942796')
                 ->get();
 
             
-            $d['b'] =  \GM::load('speedLimits')
+            $d['b'] =  \GoogleMaps::load('speedLimits')
                 ->setParamByKey('placeId', ['ChIJ1Wi6I2pNFmsRQL9GbW7qABM','ChIJ58xCoGlNFmsRUEZUbW7qABM', 'ChIJ9RhaiGlNFmsR0IxAbW7qABM'])                    
                 ->getResponseByKey('snappedPoints');
                 
@@ -252,7 +252,7 @@ class ExampleController extends Controller {
         
    public function getTimeZone(){
        
-       $d =   \GM::load('timezone')
+       $d =   \GoogleMaps::load('timezone')
                 ->setParam([
                    'location' => '39.6034810,-119.6822510',
                     'timestamp' => '1331161200'
@@ -264,7 +264,7 @@ class ExampleController extends Controller {
    
    public function getNearbySearch(){
        
-       $d =   \GM::load('nearbysearch')
+       $d =   \GoogleMaps::load('nearbysearch')
                
                 ->setParam([
                     'location'  => '-33.8670522,151.1957362',
@@ -280,7 +280,7 @@ class ExampleController extends Controller {
    
    public function getTextSearch(){
        
-       $d =   \GM::load('textsearch')
+       $d =   \GoogleMaps::load('textsearch')
                ->setParam([
                     'query'     => 'restaurants in Lytham St Annes',
                     'radius'    => '500',
@@ -293,7 +293,7 @@ class ExampleController extends Controller {
    
    public function getRadarSearch(){
        
-       $d =   \GM::load('radarsearch')              
+       $d =   \GoogleMaps::load('radarsearch')              
                ->setParam([
                     'location'  => '51.503186,-0.126446',
                     'radius'    => '500',
@@ -306,7 +306,7 @@ class ExampleController extends Controller {
    
    public function getPlaceDetails(){
        
-       $d =   \GM::load('placedetails')      
+       $d =   \GoogleMaps::load('placedetails')      
                 ->setParamByKey('placeid', 'ChIJN1t_tDeuEmsRUsoyG83frY4')
                 ->getResponseByKey('result.geometry.location');   
                
@@ -317,7 +317,7 @@ class ExampleController extends Controller {
    
    public function getPlaceAdd(){
        
-       $d =  \GM::load('placeadd')              
+       $d =  \GoogleMaps::load('placeadd')              
                ->setParam([
                 'location' => [
                     'lat' => -33.8669710,
@@ -339,7 +339,7 @@ class ExampleController extends Controller {
    
    public function getPlaceDelete(){
        
-       $d =  \GM::load('placedelete')
+       $d =  \GoogleMaps::load('placedelete')
             ->setParam(['place_id' => 'qgYvCi0wMDAwMDAwMTlmZDQ3MzNjOjZiMTJhZTM3YjQ3OjJlOTkyOTRiMWQ1OTdmZGU'])
             ->get();
        
@@ -348,7 +348,7 @@ class ExampleController extends Controller {
    
    public function getPlacePhoto(){
        
-       $d =  \GM::load('placephoto')
+       $d =  \GoogleMaps::load('placephoto')
             ->setParamByKey('maxwidth', '400')
             ->setParamByKey('photoreference', 'CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU')     
             ->get();
@@ -358,7 +358,7 @@ class ExampleController extends Controller {
    
    public function getPlaceAutoComplete(){
        
-       $d =   \GM::load('placeautocomplete')
+       $d =   \GoogleMaps::load('placeautocomplete')
                 ->setParamByKey('input', 'Vict')
                 ->setParamByKey('types', '(cities)')                    
                 ->setParamByKey('language', 'fr') 
@@ -370,7 +370,7 @@ class ExampleController extends Controller {
    
    public function getPlaceQueryAutoComplete(){
        
-       $d =  \GM::load('placequeryautocomplete')
+       $d =  \GoogleMaps::load('placequeryautocomplete')
             ->setParamByKey('input', 'Pizza near Lon')
             ->setParamByKey('language', 'gb') 
             ->getResponseByKey('predictions.place_id');               
