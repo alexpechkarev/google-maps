@@ -141,20 +141,20 @@ $response = \GoogleMaps::load('placeadd')
 Available methods
 ------------
 
-* [`load( string 'service name' )`](#load)
-* [`setEndpoint( string 'endpoint' )`](#setEndpoint)
+* [`load( $serviceName )`](#load)
+* [`setEndpoint( $endpoint )`](#setEndpoint)
 * [`getEndpoint()`](#getEndpoint)
-* [`setParamByKey( string 'key', string 'value')`](#setParamByKey)
-* [`setParam( array 'parameters')`](#setParam)
+* [`setParamByKey( $key, $value)`](#setParamByKey)
+* [`setParam( $parameters)`](#setParam)
 * [`get()`](#get)
-* [`getResponseByKey( string 'key' = false)`](#getResponseByKey)
+* [`getResponseByKey( $key )`](#getResponseByKey)
 
 ---
 
 <a name="load"></a>
-**`load( string 'service name' )`** - load web service by name 
+**`load( $serviceName )`** - load web service by name 
 
-Accepts string as parameter, web service name as specified in configuration file.
+Accepts string as parameter, web service name as specified in configuration file.--
 Returns reference to it's self.
 
 ```php
@@ -198,8 +198,8 @@ echo $endpoint; // output 'json'
 **`setParamByKey( string 'key', string 'value')`** - set request parameter using key:value pair
 
 Accepts two parameters:
-`key` - body parameter name
-`value` - body parameter value 
+* `key` - body parameter name
+* `value` - body parameter value 
 
 Deeply nested array can use 'dot' notation to assign value.
 Returns reference to it's self.
