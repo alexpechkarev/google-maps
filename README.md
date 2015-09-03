@@ -54,7 +54,7 @@ Open configuration file **`config/googlmaps.php`** and add your service key
     'key'       => 'ADD YOUR SERVICE KEY HERE',
 ```
 
-If you like to use different keys for any of the services, see `service` array in **`config/googlmaps.php`** and specify your API Key there.
+If you like to use different keys for any of the services, you can overwrite master API Key by specifying it in the `service` array for selected web service. 
 
 
 Register package service provider and facade in 'config/app.php'
@@ -104,38 +104,35 @@ $response = \GoogleMaps::load('geocoding')
                      	'country'              => 'US',
                       ]
 
-])
- ->get();
+                ])
+                ->get();
  ```
  
 Alternatively parameters can be set using `setParamByKey()` method. For deeply nested array use "dot" notation as per example below.
 
 ```php
 $response = \GoogleMaps::load('geocoding')
-              ->setParamByKey('address', 'santa cruz')
-              ->setParamByKey('components.administrative_area', 'TX')
-              ->setParamByKey('components.country', 'US')
-              ->get();
+
 ```
 
 Another example showing request to Places API Place Add service:
 
 ```php
 $response = \GoogleMaps::load('placeadd')
-          ->setParam([
-             'location' => [
-                'lat'   => -33.8669710,
-                'lng'   => 151.1958750
-              ],
-             'accuracy' => 0,
-             "name"     =>  "Google Shoes!",
-             "address"  => "48 Pirrama Road, Pyrmont, NSW 2009, Australia",
-             "types"    => ["shoe_store"],
-             "website"  => "http://www.google.com.au/",
-             "language" => "en-AU",
-             "phone_number"     =>  "(02) 9374 4000"                       
-                    ])
-            ->get();	
+                ->setParam([
+                   'location' => [
+                        'lat'  => -33.8669710,
+                        'lng'  => 151.1958750
+                      ],
+                   'accuracy'           => 0,
+                   "name"               =>  "Google Shoes!",
+                   "address"            => "48 Pirrama Road, Pyrmont, NSW 2009, Australia",
+                   "types"              => ["shoe_store"],
+                   "website"            => "http://www.google.com.au/",
+                   "language"           => "en-AU",
+                   "phone_number"       =>  "(02) 9374 4000"                       
+                          ])
+                  ->get();	
 ```
 
 Available methods
@@ -166,9 +163,9 @@ Returns reference to it's self.
 ---
 
 <a name="setEndpoint"></a>
-**`setEndpoint( string 'endpoint' )`** - set request output
+**`setEndpoint( $endpoint )`** - set request output
 
-Accepts string as parameter, `json` or `xml`, if omitted defaulted to `json`.
+Accepts string as parameter, `json` or `xml`, if omitted defaulted to `json`.  
 Returns reference to it's self.
 
 ```php
@@ -195,13 +192,13 @@ echo $endpoint; // output 'json'
 ---
 
 <a name="setParamByKey"></a>
-**`setParamByKey( string 'key', string 'value')`** - set request parameter using key:value pair
+**`setParamByKey( $key, $value )`** - set request parameter using key:value pair
 
 Accepts two parameters:
 * `key` - body parameter name
 * `value` - body parameter value 
 
-Deeply nested array can use 'dot' notation to assign value.
+Deeply nested array can use 'dot' notation to assign value.  
 Returns reference to it's self.
 
 ```php
@@ -214,20 +211,20 @@ $endpoint = \GoogleMaps::load('geocoding')
 ---
 
 <a name="setParam"></a>
-**`setParam( array 'parameters')`** - set all request parameters at once
+**`setParam( $parameters)`** - set all request parameters at once
 
-Accepts array of parameters 
+Accepts array of parameters  
 Returns reference to it's self.
 
 ```php
 $response = \GoogleMaps::load('geocoding')
-               ->setParam([
-                  'address'     => 'santa cruz',
-                  'components'  => [
-                       'administrative_area'   => 'TX',
-                       'country'               => 'US',
-                        ]
-                    ]) // return $this
+                ->setParam([
+                   'address'     => 'santa cruz',
+                   'components'  => [
+                        'administrative_area'   => 'TX',
+                        'country'               => 'US',
+                         ]
+                     ]) // return $this
 ...
 ```
 
@@ -241,14 +238,14 @@ Use `json_decode()` to convert JSON string into PHP variable. See [Processing Re
 
 ```php
 $response = \GoogleMaps::load('geocoding')
-               ->setParam([
-                  'address'    => 'santa cruz',
-                  'components' => [
-                       'administrative_area'   => 'TX',
-                       'country'               => 'US',
-                        ]
-                    ]) 
-		->get();
+                ->setParam([
+                   'address'    => 'santa cruz',
+                   'components' => [
+                        'administrative_area'   => 'TX',
+                        'country'               => 'US',
+                         ]
+                     ]) 
+                 ->get();
 
 var_dump( json_decode( $response ) );  // output 
 ```
@@ -256,19 +253,19 @@ var_dump( json_decode( $response ) );  // output
 ---
 
 <a name="getResponseByKey"></a>
-**`getResponseByKey( string 'key' = false)`** - perform  web service request and attempts to return value for given key. 
+**`getResponseByKey( $key)`** - perform  web service request and attempts to return value for given key.   
 Will return full response object in case when `status` field is not equal `OK`.
 
 Accepted parameter:
-`key` - body parameter name
+* `key` - body parameter name
 
 Deeply nested array can use 'dot' notation to retrieve value.
 
 ```php
 $response = \GoogleMaps::load('geocoding')
-   ->setParamByKey('address', 'santa cruz')
-   ->setParamByKey('components.administrative_area', 'TX')
-   ->getByKey('results.geometry.location');
+                ->setParamByKey('address', 'santa cruz')
+                ->setParamByKey('components.administrative_area', 'TX')
+                ->getResponseByKey('results.geometry.location');
 
 var_dump( json_decode( $response ) );  
 ```
