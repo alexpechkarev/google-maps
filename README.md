@@ -51,7 +51,7 @@ Register package service provider and facade in 'config/app.php'
 
 'aliases' => [
     ...
-    'GoogleMaps' => ' GoogleMaps\Facade\GoogleMapsFacade',
+    'GoogleMaps' => 'GoogleMaps\Facade\GoogleMapsFacade',
 ]
 ```
 
