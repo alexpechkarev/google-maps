@@ -26,14 +26,14 @@ Installation
 Issue following command in console:
 
 ```php
-composer require alexpechkarev/google-maps:dev-master
+composer require alexpechkarev/google-maps:1.0
 ```
 
 Alternatively  edit composer.json by adding following line and run **`composer update`**
 ```php
 "require": { 
 		....,
-		"alexpechkarev/google-maps":"dev-master",
+		"alexpechkarev/google-maps":"1.0",
 	
 	},
 ```
