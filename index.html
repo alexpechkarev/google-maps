@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Google-maps by alexpechkarev</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Google-maps</h1>
+      <h2 class="project-tagline">Collection of Google Maps API Web Services for Laravel</h2>
+      <a href="https://github.com/alexpechkarev/google-maps" class="btn">View on GitHub</a>
+      <a href="https://github.com/alexpechkarev/google-maps/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/alexpechkarev/google-maps/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h2>
+<a id="collection-of-google-maps-api-web-services-for-laravel-5" class="anchor" href="#collection-of-google-maps-api-web-services-for-laravel-5" aria-hidden="true"><span class="octicon octicon-link"></span></a>Collection of Google Maps API Web Services for Laravel 5</h2>
+
+<p>Provides convenient way of setting up and making requests to Maps API from <a href="http://laravel.com/">Laravel</a> application. 
+For services documentation, API key and Usage Limits visit <a href="https://developers.google.com/maps/documentation/webservices/">Google Maps API Web Services</a>, also check <a href="https://developers.google.com/maps/terms#section_10_12">Maps API for Terms of Service License Restrictions</a>.</p>
+
+<h2>
+<a id="features" class="anchor" href="#features" aria-hidden="true"><span class="octicon octicon-link"></span></a>Features</h2>
+
+<ul>
+<li><a href="https://developers.google.com/maps/documentation/directions/">Directions API</a></li>
+<li><a href="https://developers.google.com/maps/documentation/distance-matrix/">Distance Matrix API</a></li>
+<li><a href="https://developers.google.com/maps/documentation/elevation/">Elevation API</a></li>
+<li><a href="https://developers.google.com/maps/documentation/geocoding/">Geocoding API</a></li>
+<li><a href="https://developers.google.com/maps/documentation/geolocation/">Geolocation API</a></li>
+<li><a href="https://developers.google.com/maps/documentation/roads/">Roads API</a></li>
+<li><a href="https://developers.google.com/maps/documentation/timezone/">Time Zone API</a></li>
+<li><a href="https://developers.google.com/places/web-service/">Places API Web Services</a></li>
+</ul>
+
+<h2>
+<a id="dependency" class="anchor" href="#dependency" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dependency</h2>
+
+<ul>
+<li><a href="http://php.net/manual/en/curl.installation.php">PHP cURL</a></li>
+<li><a href="http://php.net/">PHP 5</a></li>
+</ul>
+
+<h2>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>Issue following command in console:</p>
+
+<div class="highlight highlight-php"><pre><span class="pl-s1"><span class="pl-c1">composer</span> <span class="pl-k">require</span> <span class="pl-c1">alexpechkarev</span><span class="pl-k">/</span><span class="pl-c1">google</span><span class="pl-k">-</span><span class="pl-c1">maps</span>:<span class="pl-c1">dev</span><span class="pl-k">-</span><span class="pl-c1">master</span></span></pre></div>
+
+<p>Alternatively  edit composer.json by adding following line and run <strong><code>composer update</code></strong></p>
+
+<div class="highlight highlight-php"><pre><span class="pl-s1"><span class="pl-s"><span class="pl-pds">"</span>require<span class="pl-pds">"</span></span>: { </span>
+<span class="pl-s1">        <span class="pl-k">....</span>,</span>
+<span class="pl-s1">        <span class="pl-s"><span class="pl-pds">"</span>alexpechkarev/google-maps<span class="pl-pds">"</span></span>:<span class="pl-s"><span class="pl-pds">"</span>dev-master<span class="pl-pds">"</span></span>,</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    },</span></pre></div>
+
+<h2>
+<a id="configuration" class="anchor" href="#configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configuration</h2>
+
+<p>Register package service provider and facade in 'config/app.php'</p>
+
+<div class="highlight highlight-php"><pre><span class="pl-s1"><span class="pl-s"><span class="pl-pds">'</span>providers<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> [</span>
+<span class="pl-s1">    <span class="pl-k">...</span></span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>GoogleMaps\ServiceProvider\GoogleMapsServiceProvider<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">]</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-s"><span class="pl-pds">'</span>aliases<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> [</span>
+<span class="pl-s1">    <span class="pl-k">...</span></span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>GoogleMaps<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span> GoogleMaps\Facade\GoogleMapsFacade<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">]</span></pre></div>
+
+<p>Publish configuration file using <strong><code>php artisan vendor:publish --tag=googlemaps --force</code></strong> or simply copy package configuration file and paste into <strong><code>config/googlmaps.php</code></strong></p>
+
+<p>Open configuration file <strong><code>config/googlmaps.php</code></strong> and add your service key</p>
+
+<div class="highlight highlight-php"><pre><span class="pl-s1">    <span class="pl-c">/*</span></span>
+<span class="pl-s1"><span class="pl-c">    |----------------------------------</span></span>
+<span class="pl-s1"><span class="pl-c">    | Service Keys</span></span>
+<span class="pl-s1"><span class="pl-c">    |------------------------------------</span></span>
+<span class="pl-s1"><span class="pl-c">    */</span></span>
+<span class="pl-s1"></span>
+<span class="pl-s1">    <span class="pl-s"><span class="pl-pds">'</span>key<span class="pl-pds">'</span></span>       <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>ADD YOUR SERVICE KEY HERE<span class="pl-pds">'</span></span>,</span></pre></div>
+
+<p>If you like to use different keys for any of the services, you can overwrite master API Key by specifying it in the <code>service</code> array for selected web service. </p>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>Here is an example of making request to Geocoding API:</p>
+
+<div class="highlight highlight-php"><pre><span class="pl-s1"><span class="pl-smi">$response</span> <span class="pl-k">=</span> <span class="pl-c1">\</span><span class="pl-c1">GoogleMaps</span><span class="pl-k">::</span>load(<span class="pl-s"><span class="pl-pds">'</span>geocoding<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1">        <span class="pl-k">-&gt;</span>setParam ([<span class="pl-s"><span class="pl-pds">'</span>address<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span><span class="pl-s"><span class="pl-pds">'</span>santa cruz<span class="pl-pds">'</span></span>])</span>
+<span class="pl-s1">        <span class="pl-k">-&gt;</span>get();</span></pre></div>
+
+<p>By default, where appropriate, <code>output</code> parameter set to <code>JSON</code>. Don't forget to decode JSON string into PHP variable. 
+See <a href="https://developers.google.com/maps/documentation/webservices/#Parsing">Processing Response</a> for more details on parsing returning output.</p>
+
+<p>Output parameter can be set using <code>setEndpoint()</code> method:</p>
+
+<div class="highlight highlight-php"><pre><span class="pl-s1"><span class="pl-smi">$response</span> <span class="pl-k">=</span> <span class="pl-c1">\</span><span class="pl-c1">GoogleMaps</span><span class="pl-k">::</span>load(<span class="pl-s"><span class="pl-pds">'</span>geocoding<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1">        <span class="pl-k">-&gt;</span>setEndpoint(<span class="pl-s"><span class="pl-pds">'</span>xml<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1">        <span class="pl-k">-&gt;</span>setParam ([<span class="pl-s"><span class="pl-pds">'</span>address<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span><span class="pl-s"><span class="pl-pds">'</span>santa cruz<span class="pl-pds">'</span></span>])</span>
+<span class="pl-s1">        <span class="pl-k">-&gt;</span>get();</span></pre></div>
+
+<p>Required parameters can be specified as an array of <code>key:value</code> pairs:</p>
+
+<div class="highlight highlight-php"><pre><span class="pl-s1"><span class="pl-smi">$response</span> <span class="pl-k">=</span> <span class="pl-c1">\</span><span class="pl-c1">GoogleMaps</span><span class="pl-k">::</span>load(<span class="pl-s"><span class="pl-pds">'</span>geocoding<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1">        <span class="pl-k">-&gt;</span>setParam ([</span>
+<span class="pl-s1">            <span class="pl-s"><span class="pl-pds">'</span>address<span class="pl-pds">'</span></span>    <span class="pl-k">=&gt;</span><span class="pl-s"><span class="pl-pds">'</span>santa cruz<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">                <span class="pl-s"><span class="pl-pds">'</span>components<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> [</span>
+<span class="pl-s1">                        <span class="pl-s"><span class="pl-pds">'</span>administrative_area<span class="pl-pds">'</span></span>  <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>TX<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">                        <span class="pl-s"><span class="pl-pds">'</span>country<span class="pl-pds">'</span></span>              <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>US<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">                      ]</span>
+<span class="pl-s1"></span>
+<span class="pl-s1">                ])</span>
+<span class="pl-s1">                <span class="pl-k">-&gt;</span>get();</span></pre></div>
+
+<p>Alternatively parameters can be set using <code>setParamByKey()</code> method. For deeply nested array use "dot" notation as per example below.</p>
+
+<div class="highlight highlight-php"><pre><span class="pl-s1"><span class="pl-smi">$response</span> <span class="pl-k">=</span> <span class="pl-c1">\</span><span class="pl-c1">GoogleMaps</span><span class="pl-k">::</span>load(<span class="pl-s"><span class="pl-pds">'</span>geocoding<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1"></span></pre></div>
+
+<p>Another example showing request to Places API Place Add service:</p>
+
+<div class="highlight highlight-php"><pre><span class="pl-s1"><span class="pl-smi">$response</span> <span class="pl-k">=</span> <span class="pl-c1">\</span><span class="pl-c1">GoogleMaps</span><span class="pl-k">::</span>load(<span class="pl-s"><span class="pl-pds">'</span>placeadd<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1">                <span class="pl-k">-&gt;</span>setParam([</span>
+<span class="pl-s1">                   <span class="pl-s"><span class="pl-pds">'</span>location<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> [</span>
+<span class="pl-s1">                        <span class="pl-s"><span class="pl-pds">'</span>lat<span class="pl-pds">'</span></span>  <span class="pl-k">=&gt;</span> <span class="pl-k">-</span><span class="pl-c1">33.8669710</span>,</span>
+<span class="pl-s1">                        <span class="pl-s"><span class="pl-pds">'</span>lng<span class="pl-pds">'</span></span>  <span class="pl-k">=&gt;</span> <span class="pl-c1">151.1958750</span></span>
+<span class="pl-s1">                      ],</span>
+<span class="pl-s1">                   <span class="pl-s"><span class="pl-pds">'</span>accuracy<span class="pl-pds">'</span></span>           <span class="pl-k">=&gt;</span> <span class="pl-c1">0</span>,</span>
+<span class="pl-s1">                   <span class="pl-s"><span class="pl-pds">"</span>name<span class="pl-pds">"</span></span>               <span class="pl-k">=&gt;</span>  <span class="pl-s"><span class="pl-pds">"</span>Google Shoes!<span class="pl-pds">"</span></span>,</span>
+<span class="pl-s1">                   <span class="pl-s"><span class="pl-pds">"</span>address<span class="pl-pds">"</span></span>            <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">"</span>48 Pirrama Road, Pyrmont, NSW 2009, Australia<span class="pl-pds">"</span></span>,</span>
+<span class="pl-s1">                   <span class="pl-s"><span class="pl-pds">"</span>types<span class="pl-pds">"</span></span>              <span class="pl-k">=&gt;</span> [<span class="pl-s"><span class="pl-pds">"</span>shoe_store<span class="pl-pds">"</span></span>],</span>
+<span class="pl-s1">                   <span class="pl-s"><span class="pl-pds">"</span>website<span class="pl-pds">"</span></span>            <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">"</span>http://www.google.com.au/<span class="pl-pds">"</span></span>,</span>
+<span class="pl-s1">                   <span class="pl-s"><span class="pl-pds">"</span>language<span class="pl-pds">"</span></span>           <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">"</span>en-AU<span class="pl-pds">"</span></span>,</span>
+<span class="pl-s1">                   <span class="pl-s"><span class="pl-pds">"</span>phone_number<span class="pl-pds">"</span></span>       <span class="pl-k">=&gt;</span>  <span class="pl-s"><span class="pl-pds">"</span>(02) 9374 4000<span class="pl-pds">"</span></span>                       </span>
+<span class="pl-s1">                          ])</span>
+<span class="pl-s1">                  <span class="pl-k">-&gt;</span>get();  </span></pre></div>
+
+<h2>
+<a id="available-methods" class="anchor" href="#available-methods" aria-hidden="true"><span class="octicon octicon-link"></span></a>Available methods</h2>
+
+<ul>
+<li><a href="#load"><code>load( $serviceName )</code></a></li>
+<li><a href="#setEndpoint"><code>setEndpoint( $endpoint )</code></a></li>
+<li><a href="#getEndpoint"><code>getEndpoint()</code></a></li>
+<li><a href="#setParamByKey"><code>setParamByKey( $key, $value)</code></a></li>
+<li><a href="#setParam"><code>setParam( $parameters)</code></a></li>
+<li><a href="#get"><code>get()</code></a></li>
+<li><a href="#getResponseByKey"><code>getResponseByKey( $key )</code></a></li>
+</ul>
+
+<hr>
+
+<p><a name="load"></a>
+<strong><code>load( $serviceName )</code></strong> - load web service by name </p>
+
+<p>Accepts string as parameter, web service name as specified in configuration file.<br>
+Returns reference to it's self.</p>
+
+<div class="highlight highlight-php"><pre><span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-c1">\</span><span class="pl-c1">GoogleMaps</span><span class="pl-k">::</span>load(<span class="pl-s"><span class="pl-pds">'</span>geocoding<span class="pl-pds">'</span></span>) </span>
+<span class="pl-s1"><span class="pl-k">...</span> </span>
+<span class="pl-s1"></span></pre></div>
+
+<hr>
+
+<p><a name="setEndpoint"></a>
+<strong><code>setEndpoint( $endpoint )</code></strong> - set request output</p>
+
+<p>Accepts string as parameter, <code>json</code> or <code>xml</code>, if omitted defaulted to <code>json</code>.<br>
+Returns reference to it's self.</p>
+
+<div class="highlight highlight-php"><pre><span class="pl-s1"><span class="pl-smi">$response</span> <span class="pl-k">=</span> <span class="pl-c1">\</span><span class="pl-c1">GoogleMaps</span><span class="pl-k">::</span>load(<span class="pl-s"><span class="pl-pds">'</span>geocoding<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1">        <span class="pl-k">-&gt;</span>setEndpoint(<span class="pl-s"><span class="pl-pds">'</span>json<span class="pl-pds">'</span></span>)  <span class="pl-c">// return $this</span></span>
+<span class="pl-s1">        <span class="pl-k">...</span></span></pre></div>
+
+<hr>
+
+<p><a name="getEndpoint"></a>
+<strong><code>getEndpoint()</code></strong> - get current request output</p>
+
+<p>Returns string.</p>
+
+<div class="highlight highlight-php"><pre><span class="pl-s1"><span class="pl-smi">$endpoint</span> <span class="pl-k">=</span> <span class="pl-c1">\</span><span class="pl-c1">GoogleMaps</span><span class="pl-k">::</span>load(<span class="pl-s"><span class="pl-pds">'</span>geocoding<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1">        <span class="pl-k">-&gt;</span>setEndpoint(<span class="pl-s"><span class="pl-pds">'</span>json<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1">        <span class="pl-k">-&gt;</span>getEndpoint();</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-c1">echo</span> <span class="pl-smi">$endpoint</span>; <span class="pl-c">// output 'json'</span></span></pre></div>
+
+<hr>
+
+<p><a name="setParamByKey"></a>
+<strong><code>setParamByKey( $key, $value )</code></strong> - set request parameter using key:value pair</p>
+
+<p>Accepts two parameters:</p>
+
+<ul>
+<li>
+<code>key</code> - body parameter name</li>
+<li>
+<code>value</code> - body parameter value </li>
+</ul>
+
+<p>Deeply nested array can use 'dot' notation to assign value.<br>
+Returns reference to it's self.</p>
+
+<div class="highlight highlight-php"><pre><span class="pl-s1"><span class="pl-smi">$endpoint</span> <span class="pl-k">=</span> <span class="pl-c1">\</span><span class="pl-c1">GoogleMaps</span><span class="pl-k">::</span>load(<span class="pl-s"><span class="pl-pds">'</span>geocoding<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1">   <span class="pl-k">-&gt;</span>setParamByKey(<span class="pl-s"><span class="pl-pds">'</span>address<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>santa cruz<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1">   <span class="pl-k">-&gt;</span>setParamByKey(<span class="pl-s"><span class="pl-pds">'</span>components.administrative_area<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>TX<span class="pl-pds">'</span></span>) <span class="pl-c">//return $this</span></span>
+<span class="pl-s1">    <span class="pl-k">...</span></span></pre></div>
+
+<hr>
+
+<p><a name="setParam"></a>
+<strong><code>setParam( $parameters)</code></strong> - set all request parameters at once</p>
+
+<p>Accepts array of parameters<br>
+Returns reference to it's self.</p>
+
+<div class="highlight highlight-php"><pre><span class="pl-s1"><span class="pl-smi">$response</span> <span class="pl-k">=</span> <span class="pl-c1">\</span><span class="pl-c1">GoogleMaps</span><span class="pl-k">::</span>load(<span class="pl-s"><span class="pl-pds">'</span>geocoding<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1">                <span class="pl-k">-&gt;</span>setParam([</span>
+<span class="pl-s1">                   <span class="pl-s"><span class="pl-pds">'</span>address<span class="pl-pds">'</span></span>     <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>santa cruz<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">                   <span class="pl-s"><span class="pl-pds">'</span>components<span class="pl-pds">'</span></span>  <span class="pl-k">=&gt;</span> [</span>
+<span class="pl-s1">                        <span class="pl-s"><span class="pl-pds">'</span>administrative_area<span class="pl-pds">'</span></span>   <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>TX<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">                        <span class="pl-s"><span class="pl-pds">'</span>country<span class="pl-pds">'</span></span>               <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>US<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">                         ]</span>
+<span class="pl-s1">                     ]) <span class="pl-c">// return $this</span></span>
+<span class="pl-s1"><span class="pl-k">...</span></span></pre></div>
+
+<hr>
+
+<p><a name="get"></a>
+<strong><code>get()</code></strong> - perform web service request (irrespectively to request type POST or GET )</p>
+
+<p>Returns web service response in the format specified by <strong><code>setEndpoint()</code></strong> method, if omitted defaulted to <code>JSON</code>. 
+Use <code>json_decode()</code> to convert JSON string into PHP variable. See <a href="https://developers.google.com/maps/documentation/webservices/#Parsing">Processing Response</a> for more details on parsing returning output.</p>
+
+<div class="highlight highlight-php"><pre><span class="pl-s1"><span class="pl-smi">$response</span> <span class="pl-k">=</span> <span class="pl-c1">\</span><span class="pl-c1">GoogleMaps</span><span class="pl-k">::</span>load(<span class="pl-s"><span class="pl-pds">'</span>geocoding<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1">                <span class="pl-k">-&gt;</span>setParam([</span>
+<span class="pl-s1">                   <span class="pl-s"><span class="pl-pds">'</span>address<span class="pl-pds">'</span></span>    <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>santa cruz<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">                   <span class="pl-s"><span class="pl-pds">'</span>components<span class="pl-pds">'</span></span> <span class="pl-k">=&gt;</span> [</span>
+<span class="pl-s1">                        <span class="pl-s"><span class="pl-pds">'</span>administrative_area<span class="pl-pds">'</span></span>   <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>TX<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">                        <span class="pl-s"><span class="pl-pds">'</span>country<span class="pl-pds">'</span></span>               <span class="pl-k">=&gt;</span> <span class="pl-s"><span class="pl-pds">'</span>US<span class="pl-pds">'</span></span>,</span>
+<span class="pl-s1">                         ]</span>
+<span class="pl-s1">                     ]) </span>
+<span class="pl-s1">                 <span class="pl-k">-&gt;</span>get();</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-c1">var_dump</span>( <span class="pl-c1">json_decode</span>( <span class="pl-smi">$response</span> ) );  <span class="pl-c">// output </span></span></pre></div>
+
+<hr>
+
+<p><a name="getResponseByKey"></a>
+<strong><code>getResponseByKey( $key)</code></strong> - perform  web service request and attempts to return value for given key.<br>
+Will return full response object in case when <code>status</code> field is not equal <code>OK</code>.</p>
+
+<p>Accepted parameter:</p>
+
+<ul>
+<li>
+<code>key</code> - body parameter name</li>
+</ul>
+
+<p>Deeply nested array can use 'dot' notation to retrieve value.</p>
+
+<div class="highlight highlight-php"><pre><span class="pl-s1"><span class="pl-smi">$response</span> <span class="pl-k">=</span> <span class="pl-c1">\</span><span class="pl-c1">GoogleMaps</span><span class="pl-k">::</span>load(<span class="pl-s"><span class="pl-pds">'</span>geocoding<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1">                <span class="pl-k">-&gt;</span>setParamByKey(<span class="pl-s"><span class="pl-pds">'</span>address<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>santa cruz<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1">                <span class="pl-k">-&gt;</span>setParamByKey(<span class="pl-s"><span class="pl-pds">'</span>components.administrative_area<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>TX<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1">                <span class="pl-k">-&gt;</span>getResponseByKey(<span class="pl-s"><span class="pl-pds">'</span>results.geometry.location<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-c1">var_dump</span>( <span class="pl-c1">json_decode</span>( <span class="pl-smi">$response</span> ) );  </span></pre></div>
+
+<h2>
+<a id="support" class="anchor" href="#support" aria-hidden="true"><span class="octicon octicon-link"></span></a>Support</h2>
+
+<p><a href="https://github.com/alexpechkarev/google-maps/issues">Please open an issue on GitHub</a></p>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>Collection of Google Maps API Web Services for Laravel 5 is released under the MIT License. See the bundled
+<a href="https://github.com/alexpechkarev/google-maps/blob/master/LICENSE">LICENSE</a>
+file for details.</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/alexpechkarev/google-maps">Google-maps</a> is maintained by <a href="https://github.com/alexpechkarev">alexpechkarev</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
