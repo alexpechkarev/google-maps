@@ -1,7 +1,9 @@
 {
 	"name": "alexpechkarev/google-maps",
-	"description": "Collection of Google Maps Web Services for Laravel",
+	"description": "Collection of Google Maps API Web Services for Laravel",
+        "version":"1.0.0",
 	"keywords": ["google maps api", "geocoding api", "directions api", "distance matrix api", "elevation api", "geolocation api", "roads api", "time zone api", "places api web service"],
+        "homepage":"https://alexpechkarev.github.io/google-maps/",
 	"license": "MIT",
         "authors": [
             {
