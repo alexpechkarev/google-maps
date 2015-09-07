@@ -156,7 +156,11 @@ class GoogleMaps{
     }
     /***/
     
-
+    
+    /**
+     * Get Web Service Response
+     * @return type
+     */
     public function get(){
         
         $post = false;
@@ -191,6 +195,44 @@ class GoogleMaps{
     }
     /***/
     
+    
+   /**
+    * Get Web Service Response and Decoding polyline parameter 
+    * @param string $param - response key
+    * @return string - JSON
+    */ 
+   public function get_pld( $param = 'routes.overview_polyline.points' ){
+       
+       // set output to JSON
+       $this->setEndpoint('json');
+       
+       $needle = metaphone($param);
+       
+        // get response
+        $obj = json_decode( $this->get(), true);       
+                        
+        // flatten array into single level array using 'dot' notation
+        $obj_dot = array_dot($obj);
+        // create empty response
+        $response = [];
+        // iterate 
+        foreach( $obj_dot as $key => $val){
+
+            // Calculate the metaphone key and compare with needle
+            $val =  strcmp( metaphone($key, strlen($needle)), $needle) === 0 
+                    ? $this->decodePolyline($val) // if matched decode polyline
+                    : $val;
+            
+                array_set($response, $key, $val);
+        }        
+        
+
+        return json_encode($response, JSON_PRETTY_PRINT) ;
+
+        
+        
+    }
+    /***/     
     
     
     /**
@@ -264,6 +306,18 @@ class GoogleMaps{
     |--------------------------------------------------------------------------
     |
     */     
+    
+    /**
+     * Decode Polyline string
+     * @param string $points
+     * @return array
+     */
+    protected function decodePolyline( $points ){
+        
+        return \Polyline::Decode( $points );
+    }
+    /***/    
+    
     
     /**
      * Setup service parameters
