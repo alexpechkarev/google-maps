@@ -16,6 +16,16 @@ return [
     
     'key'       => 'ADD YOUR SERVICE KEY HERE',
         
+    /*
+    |--------------------------------------------------------------------------
+    | Verify SSL Peer
+    |--------------------------------------------------------------------------
+    |
+    | Will be used for all web services to verify 
+    | SSL peer (SSL certificate validation)
+    |
+     */
+    'ssl_verify_peer' => FALSE,    
 
     /*
     |--------------------------------------------------------------------------
@@ -65,7 +75,8 @@ return [
                         'type'                  => 'GET',
                         'key'                   =>  null,
                         'endpoint'              =>  true,
-                        'responseDefaultKey'    => 'geocoded_waypoints',
+                        'responseDefaultKey'    =>  'geocoded_waypoints',
+                        'decodePolyline'        =>  true, // true = decode overview_polyline.points to an array of points
                         'param'                 => [
                                                     'origin'          => null, // required
                                                     'destination'     => null, //required

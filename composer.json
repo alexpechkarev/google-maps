@@ -1,7 +1,7 @@
 {
 	"name": "alexpechkarev/google-maps",
 	"description": "Collection of Google Maps API Web Services for Laravel",
-        "version":"1.0.1",
+        "version":"1.0.2",
 	"keywords": ["google maps api", "geocoding api", "directions api", "distance matrix api", "elevation api", "geolocation api", "roads api", "time zone api", "places api web service"],
         "homepage":"https://alexpechkarev.github.io/google-maps/",
 	"license": "MIT",
@@ -14,7 +14,7 @@
         "minimum-stability": "stable",
 	"require": { 
 		"laravel/framework": "5.*",
-                "emcconville/google-map-polyline-encoding-tool" : ">=1.2.1"
+                "alexpechkarev/geometry-library" : "1.0.0"
 	},
 
         "require-dev": {
