@@ -85,14 +85,6 @@ $response = \GoogleMaps::load('geocoding')
 By default, where appropriate, `output` parameter set to `JSON`. Don't forget to decode JSON string into PHP variable. 
 See [Processing Response] (https://developers.google.com/maps/documentation/webservices/#Parsing) for more details on parsing returning output.
 
-Output parameter can be set using `setEndpoint()` method:
-
-```php
-$response = \GoogleMaps::load('geocoding')
- 		->setEndpoint('xml')
- 		->setParam (['address' =>'santa cruz'])
- 		->get();
- ```
 
 Required parameters can be specified as an array of `key:value` pairs:
 
@@ -112,7 +104,10 @@ $response = \GoogleMaps::load('geocoding')
 Alternatively parameters can be set using `setParamByKey()` method. For deeply nested array use "dot" notation as per example below.
 
 ```php
-$response = \GoogleMaps::load('geocoding')
+$endpoint = \GoogleMaps::load('geocoding')
+   ->setParamByKey('address', 'santa cruz')
+   ->setParamByKey('components.administrative_area', 'TX') //return $this
+    ... 
 
 ```
 
