@@ -1,6 +1,6 @@
 ## Collection of Google Maps API Web Services for Laravel 5
 Provides convenient way of setting up and making requests to Maps API from [Laravel] (http://laravel.com/) application. 
-For services documentation, API key and Usage Limits visit [Google Maps API Web Services] (https://developers.google.com/maps/documentation/webservices/), also check [Maps API for Terms of Service License Restrictions] (https://developers.google.com/maps/terms#section_10_12).
+For services documentation, API key and Usage Limits visit [Google Maps API Web Services] (https://developers.google.com/maps/documentation/webservices/), and [Maps API for Terms of Service License Restrictions] (https://developers.google.com/maps/terms#section_10_12).
 
 Features
 ------------
@@ -140,7 +140,8 @@ Available methods
 * [`setParamByKey( $key, $value)`](#setParamByKey)
 * [`setParam( $parameters)`](#setParam)
 * [`get()`](#get)
-* [`getResponseByKey( $key )`](#getResponseByKey)
+* [`get( $key )`](#get)
+* [`containsLocation( $lat, $lng )`](#containsLocation)
 * [`isLocationOnEdge( $lat, $lng, $tolrance)`](#isLocationOnEdge)
 
 ---
@@ -229,43 +230,60 @@ $response = \GoogleMaps::load('geocoding')
 
 <a name="get"></a>
 **`get()`** - perform web service request (irrespectively to request type POST or GET )
+**`get( $key )`** - accepts string response body key, use 'dot' notation for deeply nested array
 
 Returns web service response in the format specified by **`setEndpoint()`** method, if omitted defaulted to `JSON`. 
 Use `json_decode()` to convert JSON string into PHP variable. See [Processing Response] (https://developers.google.com/maps/documentation/webservices/#Parsing) for more details on parsing returning output.
 
 ```php
 $response = \GoogleMaps::load('geocoding')
-                ->setParam([
-                   'address'    => 'santa cruz',
-                   'components' => [
-                        'administrative_area'   => 'TX',
-                        'country'               => 'US',
-                         ]
-                     ]) 
+                ->setParamByKey('address', 'santa cruz')
+                ->setParamByKey('components.administrative_area', 'TX') 
                  ->get();
 
 var_dump( json_decode( $response ) );  // output 
+
+/*
+{\n
+   "results" : [\n
+      {\n
+         "address_components" : [\n
+            {\n
+               "long_name" : "277",\n
+               "short_name" : "277",\n
+               "types" : [ "street_number" ]\n
+            },\n
+            ...
+*/
+
+
 ```
 
----
-
-<a name="getResponseByKey"></a>
-**`getResponseByKey( $key)`** - perform  web service request and attempts to return value for given key.   
-Will return full response object in case when `status` field is not equal `OK`.
-
-Accepted parameter:
-* `key` - body parameter name
-
-Deeply nested array can use 'dot' notation to retrieve value.
+Example with `$key` parameter
 
 ```php
 $response = \GoogleMaps::load('geocoding')
-                ->setParamByKey('address', 'santa cruz')
-                ->setParamByKey('components.administrative_area', 'TX')
-                ->getResponseByKey('results.geometry.location');
+                ->setParamByKey('latlng', '40.714224,-73.961452') 
+                 ->get('results.formatted_address');
 
-var_dump( json_decode( $response ) );  
+var_dump( json_decode( $response ) );  // output 
+
+/*
+array:1 [▼
+  "results" => array:9 [▼
+    0 => array:1 [▼
+      "formatted_address" => "277 Bedford Ave, Brooklyn, NY 11211, USA"
+    ]
+    1 => array:1 [▼
+      "formatted_address" => "Grand St/Bedford Av, Brooklyn, NY 11211, USA"
+    ]
+            ...
+*/
+
+
 ```
+
+---
 
 <a name="isLocationOnEdge"></a>
 **`isLocationOnEdge( $lat, $lng, $tolrance = 0.1 )`** - To determine whether a point falls on or near a polyline, or on or near the edge of a polygon, pass the point, the polyline/polygon, and optionally a tolerance value in degrees.
@@ -279,12 +297,17 @@ Accepted parameter:
 
 ```php
 $response = \GoogleMaps::load('directions')
-            ->setParamByKey('origin', 'Toronto')
-            ->setParamByKey('destination', 'Montreal')     
-            ->isLocationOnEdge(25.774,-80.190);
+            ->setParam([
+                'origin'          => 'place_id:ChIJ685WIFYViEgRHlHvBbiD5nE', 
+                'destination'     => 'place_id:ChIJA01I-8YVhkgRGJb0fW4UX7Y', 
+            ])
+           ->isLocationOnEdge(55.86483,-4.25161);
 
-var_dump( $response  );  // false
+    dd( $response  );  // true
 ```
+
+---
+
 
 <a name="containsLocation"></a>
 **`containsLocation( $lat, $lng )`** -To find whether a given point falls within a polygon.
@@ -297,11 +320,13 @@ Accepted parameter:
 
 ```php
 $response = \GoogleMaps::load('directions')
-            ->setParamByKey('origin', 'Toronto')
-            ->setParamByKey('destination', 'Montreal')     
-            ->containsLocation(25.774,-80.190);
+            ->setParam([
+                'origin'          => 'place_id:ChIJ685WIFYViEgRHlHvBbiD5nE', 
+                'destination'     => 'place_id:ChIJA01I-8YVhkgRGJb0fW4UX7Y', 
+            ])
+           ->containsLocation(55.86483,-4.25161);
 
-var_dump( $response  );  // false
+    dd( $response  );  // true
 ```
 
 Support

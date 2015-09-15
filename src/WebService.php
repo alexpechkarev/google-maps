@@ -51,7 +51,17 @@ class WebService{
     |
     |
     */     
-    protected $requestUrl;     
+    protected $requestUrl; 
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Verify SSL Peer
+    |--------------------------------------------------------------------------
+    |
+    |
+    |
+    */     
+    protected $verifySSL;        
            
         
     
@@ -143,51 +153,25 @@ class WebService{
     }
     /***/
     
-    
     /**
      * Get Web Service Response
-     * @return type
+     * @param string $needle - response key
+     * @return string
      */
-    public function get(){
-        
-        $post = false;
-        
-        // use output parameter if required by the service
-        $this->requestUrl.= $this->service['endpoint']
-                            ? $this->endpoint
-                            : ''; 
-        
-        // set API Key
-        $this->requestUrl.= 'key='.urlencode( $this->key );
-        
-
-        switch( $this->service['type'] ){
-            
-            case 'POST':
-                
-                    $post =  json_encode( $this->service['param'] );
-
-                break;
-            
-            
-            case 'GET':
-            default:
-                    $this->requestUrl.='&'. Parameters::getQueryString( $this->service['param'] );                
-                break;
-        }
-        
-        
-        return $this->make( $post );         
-        
+    public function get( $needle = false ){
+       
+        return empty( $needle )
+                ? $this->getResponse()
+                : $this->getResponseByKey( $needle );
     }
-    /***/
+    
     
        
     
     
     /**
      * Get response value by key
-     * @param string $needle - retrives response parameter using "dot" notation
+     * @param string $needle - retrieves response parameter using "dot" notation
      * @param int $offset 
      * @param int $length
      * @return array
@@ -279,6 +263,11 @@ class WebService{
             
             // set service url
             $this->requestUrl = $this->service['url'];
+            
+            // is ssl_verify_peer key set, use it, otherwise use default key
+            $this->verifySSL = empty(config('googlemaps.ssl_verify_peer')) 
+                            ? FALSE
+                            :config('googlemaps.ssl_verify_peer');            
     }
     /***/
     
@@ -320,6 +309,47 @@ class WebService{
     /***/     
     
     
+    
+    /**
+     * Get Web Service Response
+     * @return type
+     */
+    protected function getResponse(){
+        
+        $post = false;
+        
+        // use output parameter if required by the service
+        $this->requestUrl.= $this->service['endpoint']
+                            ? $this->endpoint
+                            : ''; 
+        
+        // set API Key
+        $this->requestUrl.= 'key='.urlencode( $this->key );
+        
+
+        switch( $this->service['type'] ){
+            
+            case 'POST':
+                
+                    $post =  json_encode( $this->service['param'] );
+
+                break;
+            
+            
+            case 'GET':
+            default:
+                    $this->requestUrl.='&'. Parameters::getQueryString( $this->service['param'] );                
+                break;
+        }
+        
+        
+        return $this->make( $post );         
+        
+    }
+    /***/
+        
+    
+    
     /**
      * Make cURL request to given URL
      * @param boolean $isPost
@@ -335,6 +365,7 @@ class WebService{
         curl_setopt($ch,CURLOPT_POSTFIELDS, $isPost );       
        }
        
+      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->verifySSL);
       curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);  
       curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 

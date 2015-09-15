@@ -6,7 +6,6 @@
  * @author Alexander Pechkarev <alexpechkarev@gmail.com>
  */
 
-use \GoogleMaps\Parameters;
 use GeometryLibrary\PolyUtil;
 
 class Directions extends \GoogleMaps\WebService{
@@ -18,24 +17,17 @@ class Directions extends \GoogleMaps\WebService{
      * Get Web Service Response
      * @return type
      */
-    public function get(){
+    public function get( $needle = false ){
         
-        // use output parameter if required by the service
-        $this->requestUrl.= $this->service['endpoint']
-                            ? $this->endpoint
-                            : ''; 
-        
-        // set API Key
-        $this->requestUrl.= 'key='.urlencode( $this->key );
-        
-        // build query string
-        $this->requestUrl.='&'. Parameters::getQueryString( $this->service['param'] ); 
-
+        // is decodePolyline true?  set endpoint to json
+        if( $this->service['decodePolyline'] ){
+            $this->setEndpoint('json');
+        }
         
         
         return $this->service['decodePolyline']
-                    ? $this->decode( $this->make() )
-                    : $this->make();         
+                    ? $this->decode( parent::get( $needle ) )
+                    : parent::get( $needle );        
         
         
     }
