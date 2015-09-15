@@ -141,6 +141,7 @@ Available methods
 * [`setParam( $parameters)`](#setParam)
 * [`get()`](#get)
 * [`getResponseByKey( $key )`](#getResponseByKey)
+* [`isLocationOnEdge( $lat, $lng, $tolrance)`](#isLocationOnEdge)
 
 ---
 
@@ -266,6 +267,42 @@ $response = \GoogleMaps::load('geocoding')
 var_dump( json_decode( $response ) );  
 ```
 
+<a name="isLocationOnEdge"></a>
+**`isLocationOnEdge( $lat, $lng, $tolrance = 0.1 )`** - To determine whether a point falls on or near a polyline, or on or near the edge of a polygon, pass the point, the polyline/polygon, and optionally a tolerance value in degrees.
+
+This method only available with Google Maps Directions API.
+
+Accepted parameter:
+* `$lat` - double latitude 
+* `$lng` - double longitude 
+* `$tolrance` - double
+
+```php
+$response = \GoogleMaps::load('directions')
+            ->setParamByKey('origin', 'Toronto')
+            ->setParamByKey('destination', 'Montreal')     
+            ->isLocationOnEdge(25.774,-80.190);
+
+var_dump( $response  );  // false
+```
+
+<a name="containsLocation"></a>
+**`containsLocation( $lat, $lng )`** -To find whether a given point falls within a polygon.
+
+This method only available with Google Maps Directions API.
+
+Accepted parameter:
+* `$lat` - double latitude 
+* `$lng` - double longitude 
+
+```php
+$response = \GoogleMaps::load('directions')
+            ->setParamByKey('origin', 'Toronto')
+            ->setParamByKey('destination', 'Montreal')     
+            ->containsLocation(25.774,-80.190);
+
+var_dump( $response  );  // false
+```
 
 Support
 -------
