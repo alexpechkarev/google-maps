@@ -229,8 +229,8 @@ $response = \GoogleMaps::load('geocoding')
 ---
 
 <a name="get"></a>
-**`get()`** - perform web service request (irrespectively to request type POST or GET )
-**`get( $key )`** - accepts string response body key, use 'dot' notation for deeply nested array
+* **`get()`** - perform web service request (irrespectively to request type POST or GET )
+* **`get( $key )`** - accepts string response body key, use 'dot' notation for deeply nested array
 
 Returns web service response in the format specified by **`setEndpoint()`** method, if omitted defaulted to `JSON`. 
 Use `json_decode()` to convert JSON string into PHP variable. See [Processing Response] (https://developers.google.com/maps/documentation/webservices/#Parsing) for more details on parsing returning output.
