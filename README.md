@@ -1,6 +1,6 @@
 ## Collection of Google Maps API Web Services for Laravel 5
 Provides convenient way of setting up and making requests to Maps API from [Laravel] (http://laravel.com/) application. 
-For services documentation, API key and Usage Limits visit [Google Maps API Web Services] (https://developers.google.com/maps/documentation/webservices/), and [Maps API for Terms of Service License Restrictions] (https://developers.google.com/maps/terms#section_10_12).
+For services documentation, API key and Usage Limits visit [Google Maps API Web Services] (https://developers.google.com/maps/documentation/webservices/) and [Maps API for Terms of Service License Restrictions] (https://developers.google.com/maps/terms#section_10_12).
 
 Features
 ------------
