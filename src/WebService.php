@@ -267,7 +267,9 @@ class WebService{
             // is ssl_verify_peer key set, use it, otherwise use default key
             $this->verifySSL = empty(config('googlemaps.ssl_verify_peer')) 
                             ? FALSE
-                            :config('googlemaps.ssl_verify_peer');            
+                            :config('googlemaps.ssl_verify_peer');
+
+            $this->clearParameters();            
     }
     /***/
     
@@ -381,6 +383,13 @@ class WebService{
       return $output;
 
     }
+
+    protected function clearParameters()
+    {
+        Parameters::resetParams();
+    }
+
+
     /***/        
       
 }
