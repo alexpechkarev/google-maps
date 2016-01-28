@@ -117,7 +117,10 @@ class Parameters{
     /***/    
     
    
-    
+    public static function resetParams()
+    {
+        self::$urlParam = [];
+    }
 }
 
 ?>
