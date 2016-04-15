@@ -94,8 +94,8 @@ class Parameters{
     protected static function joinParam( $param = [], $join = '=', $glue = '&', $useKey = true){
         
         
-        #dd($param);
-        
+       
+        $allParam = [];
         
         foreach($param as $key => $val)
         {  
@@ -104,15 +104,20 @@ class Parameters{
             }            
             // ommit parameters with empty values
             if( !empty( $val )){
-                self::$urlParam[] = $useKey
+                #self::$urlParam[] = $useKey
+                $allParam[] = $useKey
                             ? $key . $join .urlencode($val)
                             : $join .urlencode($val);
             }
         } 
         
-        return !is_null( self::$urlParam)
-                ? implode($glue, str_replace(['%252C'],[','],self::$urlParam) )
-                :'';      
+        return !is_null( $allParam )
+                ? implode($glue, str_replace(['%252C'],[','],$allParam) )
+                :'';         
+        
+//        return !is_null( self::$urlParam)
+//                ? implode($glue, str_replace(['%252C'],[','],self::$urlParam) )
+//                :'';      
     }
     /***/    
     
