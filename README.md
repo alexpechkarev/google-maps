@@ -58,9 +58,9 @@ Register package service provider and facade in 'config/app.php'
 ```
 
 
-Publish configuration file using **`php artisan vendor:publish --tag=googlemaps --force`** or simply copy package configuration file and paste into **`config/googlmaps.php`**
+Publish configuration file using **`php artisan vendor:publish --tag=googlemaps --force`** or simply copy package configuration file and paste into **`config/googlemaps.php`**
 
-Open configuration file **`config/googlmaps.php`** and add your service key
+Open configuration file **`config/googlemaps.php`** and add your service key
 ```php
     /*
     |----------------------------------
