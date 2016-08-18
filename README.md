@@ -2,7 +2,7 @@
 Provides convenient way of setting up and making requests to Maps API from [Laravel] (http://laravel.com/) application. 
 For services documentation, API key and Usage Limits visit [Google Maps API Web Services] (https://developers.google.com/maps/documentation/webservices/) and [Maps API for Terms of Service License Restrictions] (https://developers.google.com/maps/terms#section_10_12).
 
-[Demo](http://mapio.eu1.frbit.net/) use of this package.
+Checkout this package in action - [mapio.co.uk](mapio.co.uk)
 
 Features
 ------------
