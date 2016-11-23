@@ -368,7 +368,7 @@ return [
                                                     'location'      => null,
                                                     'radius'        => null,
                                                     'language'      => null,
-                                                    'types'         => null,
+                                                    'type'          => null, // types depricated, one type may be specified
                                                     'components'    => null,
                                                     ]           
         ],  
