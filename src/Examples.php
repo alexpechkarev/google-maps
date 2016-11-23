@@ -269,8 +269,8 @@ class ExampleController extends Controller {
                 ->setParam([
                     'location'  => '-33.8670522,151.1957362',
                     'radius'    => '500',
-                    'name'      => 'cruise',
-                    'types'     => 'food',
+                    'name'      => 'sydney',
+                    'type'      => 'airport',
                 ])
                 ->getResponseByKey('results.photos');               
        
@@ -284,7 +284,7 @@ class ExampleController extends Controller {
                ->setParam([
                     'query'     => 'restaurants in Lytham St Annes',
                     'radius'    => '500',
-                    'types'     => 'food',
+                    'types'     => 'restaurant',
                 ])
                 ->getResponseByKey('results.formatted_address');      
        
@@ -297,7 +297,7 @@ class ExampleController extends Controller {
                ->setParam([
                     'location'  => '51.503186,-0.126446',
                     'radius'    => '500',
-                    'types'     => 'museum',
+                    'type'      => 'museum',
                 ])
                 ->getResponseByKey('results.place_id');                  
        
@@ -323,13 +323,13 @@ class ExampleController extends Controller {
                     'lat' => -33.8669710,
                     'lng' => 151.1958750
                 ],
-                'accuracy' => 0,
-                "name" =>  "Google Shoes!",
-                "phone_number" =>  "(02) 9374 4000",
-                "address" => "48 Pirrama Road, Pyrmont, NSW 2009, Australia",
-                "types" => ["shoe_store"],
-                "website"=> "http://www.google.com.au/",
-                "language"=> "en-AU"                        
+                'accuracy' 	=> 0,
+                "name" 		=>  "Google Shoes!",
+                "phone_number" 	=>  "(02) 9374 4000",
+                "address" 	=> "48 Pirrama Road, Pyrmont, NSW 2009, Australia",
+                "type"    	=> "shoe_store",
+                "website"      	=> "http://www.google.com.au/",
+                "language" 	=> "en-AU"                        
             ])
            ->getResponseByKey('place_id');                 
        
@@ -360,7 +360,7 @@ class ExampleController extends Controller {
        
        $d =   \GoogleMaps::load('placeautocomplete')
                 ->setParamByKey('input', 'Vict')
-                ->setParamByKey('types', '(cities)')                    
+                ->setParamByKey('type', 'cities')                    
                 ->setParamByKey('language', 'fr') 
                 ->getResponseByKey('predictions.place_id');                
                     
