@@ -231,7 +231,7 @@ return [
                                                     'name'          => null,
                                                     'opennow'       => null,
                                                     'rankby'        => null,
-                                                    'types'         => null,
+                                                    'type'          => null, // types depricated, one type may be specified
                                                     'pagetoken'     => null,
                                                     'zagatselected' => null,
                                                     ]           
@@ -254,7 +254,7 @@ return [
                                                     'minprice'      => null,
                                                     'maxprice'      => null,
                                                     'opennow'       => null,
-                                                    'types'         => null,
+                                                    'type'          => null, // types depricated, one type may be specified
                                                     'pagetoken'     => null,
                                                     'zagatselected' => null,
                                                    ]           
@@ -277,7 +277,7 @@ return [
                                                     'maxprice'      => null,
                                                     'opennow'       => null,
                                                     'name'          => null,
-                                                    'types'         => null,
+                                                    'type'          => null, // types depricated, one type may be specified
                                                     'zagatselected' => null,
                                                     ]           
         ],
@@ -313,7 +313,7 @@ return [
                                                     'location'      => null,
                                                     'name'          => null,
                                                     'phone_number'  => null,
-                                                    'types'         => null,
+                                                    'type'          => null, // types depricated, one type may be specified
                                                     'website'       => null,
                                                     'name'          => null,
                                                     'name'          => null,
