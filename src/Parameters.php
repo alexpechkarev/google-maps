@@ -69,9 +69,17 @@ class Parameters{
            $param['location'] = self::joinParam( $param['location'], '', ',', false );
         } 
         
+        /**
+        * Place Search
+        * Deprecation notices: Premium data (Zagat), types parameter, id and reference fields
+        * Restricts the results to places matching the specified type. 
+        * Only one type may be specified (if more than one type is provided, all types following the first entry are ignored).
+        */
         if( isset($param['types']) && is_array($param['types'])){
-           $param['types'] = self::joinParam( $param['types'], '', '|', false );
-        }        
+           #$param['types'] = self::joinParam( $param['types'], '', '|', false );
+           $param['type'] = !empty( $param['types'][0] ) ? $param['types'][0] : "";
+        }     
+                     
         ///
                 
         // reset to empty array 
