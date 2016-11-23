@@ -22,20 +22,30 @@ Dependency
 * [PHP 5] (http://php.net/)
 
 
+Notes
+------------
+Deprication notices for Google Places API Web Service that effects Premium data (Zagat), types parameter, id and reference fields.
+
+* Nearby Search - **`types`** parameter depricated, use parameter **`type`** (string)
+* Place Details - the **`reference`** is now deprecated in favor of **`placeid`** (**`placeid`** originally used in this package)
+
+* Place Add - still uses **`types`** parameter as per [service documentation](https://developers.google.com/places/web-service/add-place)
+* Place Autocomplete - still uses **`types`** parameter as per [service documentation](https://developers.google.com/places/web-service/autocomplete)
+
 Installation
 ------------
 
 Issue following command in console:
 
 ```php
-composer require alexpechkarev/google-maps:1.0.5
+composer require alexpechkarev/google-maps:1.0.6
 ```
 
 Alternatively  edit composer.json by adding following line and run **`composer update`**
 ```php
 "require": { 
 		....,
-		"alexpechkarev/google-maps":"1.0.5",
+		"alexpechkarev/google-maps":"1.0.6",
 	
 	},
 ```
