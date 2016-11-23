@@ -327,7 +327,7 @@ class ExampleController extends Controller {
                 "name" 		=>  "Google Shoes!",
                 "phone_number" 	=>  "(02) 9374 4000",
                 "address" 	=> "48 Pirrama Road, Pyrmont, NSW 2009, Australia",
-                "type"    	=> "shoe_store",
+                "types"    	=> ["shoe_store"], // types and not type as per docs
                 "website"      	=> "http://www.google.com.au/",
                 "language" 	=> "en-AU"                        
             ])
@@ -360,7 +360,7 @@ class ExampleController extends Controller {
        
        $d =   \GoogleMaps::load('placeautocomplete')
                 ->setParamByKey('input', 'Vict')
-                ->setParamByKey('type', 'cities')                    
+                ->setParamByKey('types', 'cities')                    
                 ->setParamByKey('language', 'fr') 
                 ->getResponseByKey('predictions.place_id');                
                     
