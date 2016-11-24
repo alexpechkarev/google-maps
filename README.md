@@ -28,9 +28,10 @@ Deprication notices for Google Places API Web Service that effects Premium data 
 
 * Nearby Search - **`types`** parameter depricated, use parameter **`type`** (string)
 * Place Details - the **`reference`** is now deprecated in favor of **`placeid`** (**`placeid`** originally used in this package)
-
 * Place Add - still uses **`types`** parameter as per [service documentation](https://developers.google.com/places/web-service/add-place)
 * Place Autocomplete - still uses **`types`** parameter as per [service documentation](https://developers.google.com/places/web-service/autocomplete)
+
+
 
 Installation
 ------------
