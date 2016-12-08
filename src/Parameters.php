@@ -19,7 +19,7 @@ class Parameters{
         
         // Geocoding components parameter
         if( isset($param['components']) && is_array($param['components'])){
-           $param['components'] = self::joinParam( $param['components'], ':', '&');
+           $param['components'] = self::joinParam( $param['components'], ':', '|');
         }   
         ///
         
