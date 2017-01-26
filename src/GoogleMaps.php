@@ -21,7 +21,7 @@ class GoogleMaps extends \GoogleMaps\WebService{
       /**
        * Bootstraping Web Service
        * @param string $service
-       * @return GooglMaps\WebService
+       * @return \GoogleMaps\WebService
        */
       public function load( $service ){
           
