@@ -1,25 +1,25 @@
 ## Collection of Google Maps API Web Services for Laravel 5
-Provides convenient way of setting up and making requests to Maps API from [Laravel] (http://laravel.com/) application. 
-For services documentation, API key and Usage Limits visit [Google Maps API Web Services] (https://developers.google.com/maps/documentation/webservices/) and [Maps API for Terms of Service License Restrictions] (https://developers.google.com/maps/terms#section_10_12).
+Provides convenient way of setting up and making requests to Maps API from [Laravel](http://laravel.com/) application. 
+For services documentation, API key and Usage Limits visit [Google Maps API Web Services](https://developers.google.com/maps/documentation/webservices/) and [Maps API for Terms of Service License Restrictions](https://developers.google.com/maps/terms#section_10_12).
 
 
 
 Features
 ------------
-* [Directions API] (https://developers.google.com/maps/documentation/directions/)
-* [Distance Matrix API] (https://developers.google.com/maps/documentation/distance-matrix/)
-* [Elevation API] (https://developers.google.com/maps/documentation/elevation/)
-* [Geocoding API] (https://developers.google.com/maps/documentation/geocoding/)
-* [Geolocation API] (https://developers.google.com/maps/documentation/geolocation/)
-* [Roads API] (https://developers.google.com/maps/documentation/roads/)
-* [Time Zone API] (https://developers.google.com/maps/documentation/timezone/)
-* [Places API Web Services] (https://developers.google.com/places/web-service/)
+* [Directions API](https://developers.google.com/maps/documentation/directions/)
+* [Distance Matrix API](https://developers.google.com/maps/documentation/distance-matrix/)
+* [Elevation API](https://developers.google.com/maps/documentation/elevation/)
+* [Geocoding API](https://developers.google.com/maps/documentation/geocoding/)
+* [Geolocation API](https://developers.google.com/maps/documentation/geolocation/)
+* [Roads API](https://developers.google.com/maps/documentation/roads/)
+* [Time Zone API](https://developers.google.com/maps/documentation/timezone/)
+* [Places API Web Services](https://developers.google.com/places/web-service/)
 
 
 Dependency
 ------------
-* [PHP cURL] (http://php.net/manual/en/curl.installation.php)
-* [PHP 5] (http://php.net/)
+* [PHP cURL](http://php.net/manual/en/curl.installation.php)
+* [PHP 5](http://php.net/)
 
 
 Notes
@@ -96,7 +96,7 @@ $response = \GoogleMaps::load('geocoding')
 ```
 
 By default, where appropriate, `output` parameter set to `JSON`. Don't forget to decode JSON string into PHP variable. 
-See [Processing Response] (https://developers.google.com/maps/documentation/webservices/#Parsing) for more details on parsing returning output.
+See [Processing Response](https://developers.google.com/maps/documentation/webservices/#Parsing) for more details on parsing returning output.
 
 
 Required parameters can be specified as an array of `key:value` pairs:
@@ -246,7 +246,7 @@ $response = \GoogleMaps::load('geocoding')
 * **`get( $key )`** - accepts string response body key, use 'dot' notation for deeply nested array
 
 Returns web service response in the format specified by **`setEndpoint()`** method, if omitted defaulted to `JSON`. 
-Use `json_decode()` to convert JSON string into PHP variable. See [Processing Response] (https://developers.google.com/maps/documentation/webservices/#Parsing) for more details on parsing returning output.
+Use `json_decode()` to convert JSON string into PHP variable. See [Processing Response](https://developers.google.com/maps/documentation/webservices/#Parsing) for more details on parsing returning output.
 
 ```php
 $response = \GoogleMaps::load('geocoding')
