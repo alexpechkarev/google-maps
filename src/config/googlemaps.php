@@ -317,7 +317,6 @@ return [
                                                     'type'          => null, // types depricated, one type may be specified
                                                     'website'       => null,
                                                     'name'          => null,
-                                                    'name'          => null,
                                                     ]           
         ],
         
