@@ -39,14 +39,14 @@ Installation
 Issue following command in console:
 
 ```php
-composer require alexpechkarev/google-maps:1.0.7
+composer require alexpechkarev/google-maps:1.0.8
 ```
 
 Alternatively  edit composer.json by adding following line and run **`composer update`**
 ```php
 "require": { 
 		....,
-		"alexpechkarev/google-maps":"1.0.7",
+		"alexpechkarev/google-maps":"1.0.8",
 	
 	},
 ```
