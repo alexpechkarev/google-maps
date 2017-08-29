@@ -119,13 +119,18 @@ class Parameters{
             }
         } 
         
-        return !is_null( $allParam )
-                ? implode($glue, str_replace(['%252C'],[','],$allParam) )
-                :'';         
-        
-//        return !is_null( self::$urlParam)
-//                ? implode($glue, str_replace(['%252C'],[','],self::$urlParam) )
-//                :'';      
+        // no parameters given 
+        if( is_null( $allParam ) ) {
+                return '';
+        }
+
+        // replace special characters
+        $allParam = str_replace(['%252C'], [','], $allParam);
+        $allParam = str_replace(['%3A'], [':'], $allParam);
+        $allParam = str_replace(['%7C'], ['|'], $allParam);
+
+        return  implode($glue, $allParam );
+     
     }
     /***/    
     
