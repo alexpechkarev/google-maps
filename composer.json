@@ -27,7 +27,8 @@
 	"minimum-stability": "stable",
 	"require": {
 		"illuminate/support": "5.*",
-		"alexpechkarev/geometry-library" : "1.0.0"
+		"alexpechkarev/geometry-library" : "1.0.0",
+		"jbroadway/urlify": "^1.1"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "4.7.*"
