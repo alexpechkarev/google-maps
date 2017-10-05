@@ -5,6 +5,8 @@
  * @author Alexander Pechkarev <alexpechkarev@gmail.com>
  */
 
+use Jbroadway/Urlify;
+
 class Parameters{
       
     
@@ -114,8 +116,8 @@ class Parameters{
             if( !empty( $val )){
                 #self::$urlParam[] = $useKey
                 $allParam[] = $useKey
-                            ? $key . $join .urlencode($val)
-                            : $join .urlencode($val);
+                            ? $key . $join .urlencode(Urlify::downcode($val))
+                            : $join .urlencode(Urlify::downcode($val));
             }
         } 
         
