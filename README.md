@@ -59,12 +59,12 @@ Register package service provider and facade in 'config/app.php'
 ```php
 'providers' => [
     ...
-    'GoogleMaps\ServiceProvider\GoogleMapsServiceProvider',
+    GoogleMaps\ServiceProvider\GoogleMapsServiceProvider::class,
 ]
 
 'aliases' => [
     ...
-    'GoogleMaps' => 'GoogleMaps\Facade\GoogleMapsFacade',
+    'GoogleMaps' => GoogleMaps\Facade\GoogleMapsFacade::class,
 ]
 ```
 
