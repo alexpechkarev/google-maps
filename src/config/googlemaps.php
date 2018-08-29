@@ -316,7 +316,6 @@ return [
                                                     'types'         => null,// according to docs types still required asstring param
                                                     'type'          => null, // types depricated, one type may be specified
                                                     'website'       => null,
-                                                    'name'          => null,
                                                     ]           
         ],
         
