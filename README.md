@@ -24,6 +24,13 @@ Dependency
 
 Notes
 ------------
+[Rmoving Place Add, Delete & Radar Search features(https://cloud.google.com/blog/products/maps-platform/announcing-deprecation-of-place-add)
+
+Requests to the Places API attempting to use these features will receive an error response
+* Place Add 
+* Place Delete 
+* Radar Search 
+
 Deprication notices for Google Places API Web Service that effects Premium data (Zagat), types parameter, id and reference fields.
 
 * Nearby Search - **`types`** parameter depricated, use parameter **`type`** (string)
