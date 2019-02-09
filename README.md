@@ -24,7 +24,7 @@ Dependency
 
 Notes
 ------------
-[Rmoving Place Add, Delete & Radar Search features(https://cloud.google.com/blog/products/maps-platform/announcing-deprecation-of-place-add)
+[Rmoving Place Add, Delete & Radar Search features](https://cloud.google.com/blog/products/maps-platform/announcing-deprecation-of-place-add)
 
 Requests to the Places API attempting to use these features will receive an error response
 * Place Add 
