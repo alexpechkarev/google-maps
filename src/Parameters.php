@@ -101,12 +101,15 @@ class Parameters{
      * @param boolean $useKey
      * @return string
      */
-    protected static function joinParam( $param = [], $join = '=', $glue = '&', $useKey = true)
-    {
+    protected static function joinParam( $param = [], $join = '=', $glue = '&', $useKey = true){
+
+
+
         $allParam = [];
 
-        foreach ($param as $key => $val) {
-            if (is_array($val)) {
+        foreach ($param as $key => $val)
+        {
+            if( is_array( $val ) ){
                 if ($useKey && isset($val[0]) && is_array($val[0]) === false) {
                     $newValue = [];
                     foreach ($val as $element) {
@@ -120,15 +123,16 @@ class Parameters{
             }
 
             // ommit parameters with empty values
-            if (!empty( $val )){
+            if( !empty( $val )){
+                #self::$urlParam[] = $useKey
                 $allParam[] = $useKey
-                    ? $key . $join .urlencode(URLify::downcode($val))
-                    : $join .urlencode(URLify::downcode($val));
+                        ? $key . $join .urlencode(URLify::downcode($val))
+                        : $join .urlencode(URLify::downcode($val));
             }
         }
 
         // no parameters given
-        if (is_null($allParam)) {
+        if( is_null( $allParam ) ) {
             return '';
         }
 
