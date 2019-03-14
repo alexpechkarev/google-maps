@@ -106,8 +106,9 @@ class Parameters{
         $allParam = [];
 
         foreach ($param as $key => $val) {
-            if (is_array( $val ) ) {
-                if ($useKey && isset($val[0])) {
+            if (is_array($val)) {
+                if ($useKey && isset($val[0]) && is_array($val[0]) === false) {
+                    $newValue = [];
                     foreach ($val as $element) {
                         $newValue[] = $key . $join . self::replaceCharacters($element);
                     }
@@ -120,7 +121,6 @@ class Parameters{
 
             // ommit parameters with empty values
             if (!empty( $val )){
-                #self::$urlParam[] = $useKey
                 $allParam[] = $useKey
                     ? $key . $join .urlencode(URLify::downcode($val))
                     : $join .urlencode(URLify::downcode($val));
@@ -128,13 +128,13 @@ class Parameters{
         }
 
         // no parameters given
-        if( is_null( $allParam ) ) {
+        if (is_null($allParam)) {
             return '';
         }
 
         $allParam = self::replaceCharacters($allParam);
 
-        return  implode($glue, $allParam );
+        return implode($glue, $allParam );
     }
 
     /**
