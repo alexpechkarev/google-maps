@@ -91,8 +91,8 @@ class Parameters{
 
     }
     /***/
-    
-    
+
+
     /**
      * Join array pairs into URL encoded string
      * @param array $param - single dimension array
@@ -102,45 +102,60 @@ class Parameters{
      * @return string
      */
     protected static function joinParam( $param = [], $join = '=', $glue = '&', $useKey = true){
-        
-        
-       
+
+
+
         $allParam = [];
-        
-        foreach($param as $key => $val)
-        {  
+
+        foreach ($param as $key => $val)
+        {
             if( is_array( $val ) ){
-                self::joinParam( $val, $join, $glue, $useKey);
-            }            
+                if ($useKey && isset($val[0]) && is_array($val[0]) === false) {
+                    $newValue = [];
+                    foreach ($val as $element) {
+                        $newValue[] = $key . $join . self::replaceCharacters($element);
+                    }
+
+                    return implode($glue, $newValue);
+                } else {
+                    $val = self::joinParam( $val, $join, $glue, $useKey);
+                }
+            }
+
             // ommit parameters with empty values
             if( !empty( $val )){
                 #self::$urlParam[] = $useKey
                 $allParam[] = $useKey
-                            ? $key . $join .urlencode(URLify::downcode($val))
-                            : $join .urlencode(URLify::downcode($val));
+                        ? $key . $join .urlencode(URLify::downcode($val))
+                        : $join .urlencode(URLify::downcode($val));
             }
-        } 
-        
-        // no parameters given 
-        if( is_null( $allParam ) ) {
-                return '';
         }
 
+        // no parameters given
+        if( is_null( $allParam ) ) {
+            return '';
+        }
+
+        $allParam = self::replaceCharacters($allParam);
+
+        return implode($glue, $allParam );
+    }
+
+    /**
+     * Replace special characters
+     * @param array $allParam
+     * @return mixed
+     */
+    private static function replaceCharacters($allParam)
+    {
         // replace special characters
         $allParam = str_replace(['%252C'], [','], $allParam);
         $allParam = str_replace(['%3A'], [':'], $allParam);
-        $allParam = str_replace(['%7C'], ['|'], $allParam);
-
-        return  implode($glue, $allParam );
-     
+        return str_replace(['%7C'], ['|'], $allParam);
     }
-    /***/    
-    
    
     public static function resetParams()
     {
         self::$urlParam = [];
     }
 }
-
-?>
