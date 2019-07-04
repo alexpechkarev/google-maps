@@ -1,6 +1,7 @@
 <?php namespace GoogleMaps;
 
 use GeometryLibrary\PolyUtil;
+use Illuminate\Support\Arr;
 
 /**
  * Description of GoogleMaps
@@ -43,12 +44,10 @@ class Directions extends WebService{
             'lng' => $lng
         ];
 
-        $polygon = array_get( json_decode( $this->get(), true ), 'routes.0.overview_polyline.points') ;
+        $polygon = Arr::get( json_decode( $this->get(), true ), 'routes.0.overview_polyline.points') ;
 
         return PolyUtil::isLocationOnEdge($point, $polygon, $tolrance);
-
     }
-    /***/
 
     /**
      * To find whether a given point falls within a polygon
@@ -64,11 +63,10 @@ class Directions extends WebService{
             'lng' => $lng
         ];
 
-        $polygon = array_get( json_decode( $this->get(), true ), 'routes.0.overview_polyline.points') ;
+        $polygon = Arr::get( json_decode( $this->get(), true ), 'routes.0.overview_polyline.points') ;
 
         return PolyUtil::containsLocation($point, $polygon);
     }
-    /***/
 
     /*
     |--------------------------------------------------------------------------
@@ -78,20 +76,19 @@ class Directions extends WebService{
     */
 
    /**
-    * Get web wervice polyline parameter being decoded
+    * Get web service polyline parameter being decoded
     * @param $rsp - string
     * @param string $param - response key
     * @return string - JSON
     */
-   protected function decode( $rsp, $param = 'routes.overview_polyline.points' ){
-
-       $needle = metaphone($param);
+    protected function decode( $rsp, $param = 'routes.overview_polyline.points' ){
+        $needle = metaphone($param);
 
         // get response
         $obj = json_decode( $rsp, true);
 
         // flatten array into single level array using 'dot' notation
-        $obj_dot = array_dot($obj);
+        $obj_dot = Arr::dot($obj);
         // create empty response
         $response = [];
         // iterate
@@ -102,7 +99,7 @@ class Directions extends WebService{
                     ? PolyUtil::decode($val) // if matched decode polyline
                     : $val;
 
-                array_set($response, $key, $val);
+                Arr::set($response, $key, $val);
         }
 
         return json_encode($response, JSON_PRETTY_PRINT) ;

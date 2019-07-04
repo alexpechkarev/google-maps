@@ -1,5 +1,7 @@
 <?php namespace GoogleMaps;
 
+use Illuminate\Support\Arr;
+
 /**
  * Description of GoogleMaps
  *
@@ -67,7 +69,8 @@ class WebService{
      */
     public function setEndpoint( $key = 'json' ){
 
-        $this->endpoint = array_get(config('googlemaps.endpoint'), $key, 'json?');
+        $this->endpoint = Arr::Get(config('googlemaps.endpoint'), $key, 'json?');
+
         return $this;
     }
 
@@ -88,9 +91,8 @@ class WebService{
      */
     public function setParamByKey($key, $value){
 
-         if( array_key_exists( $key, array_dot( $this->service['param'] ) ) ){
-
-             array_set($this->service['param'], $key, $value);
+         if( array_key_exists( $key, Arr::dot( $this->service['param'] ) ) ){
+             Arr::set($this->service['param'], $key, $value);
          }
 
          return $this;
@@ -99,13 +101,10 @@ class WebService{
     /**
      * Get parameter by the key
      * @param string $key
-     * @return mixed
+     * @return string|null
      */
     public function getParamByKey($key){
-
-         if( array_key_exists( $key, array_dot( $this->service['param'] ) ) ){
-             return array_get($this->service['param'], $key);
-         }
+        return Arr::get($this->service['param'], $key, null);
     }
 
     /**
@@ -161,7 +160,7 @@ class WebService{
         $obj = json_decode( $this->get(), true);
 
         // flatten array into single level array using 'dot' notation
-        $obj_dot = array_dot($obj);
+        $obj_dot = Arr::dot($obj);
         // create empty response
         $response = [];
         // iterate
@@ -170,7 +169,7 @@ class WebService{
             // Calculate the metaphone key and compare with needle
             if( strcmp( metaphone($key, strlen($needle)), $needle) === 0 ){
                 // set response value
-                array_set($response, $key, $val);
+                Arr::set($response, $key, $val);
             }
         }
 
@@ -194,8 +193,7 @@ class WebService{
         // get response
         $obj = json_decode( $this->get(), true);
 
-        return array_get($obj, 'status', null);
-
+        return Arr::get($obj, 'status', null);
     }
 
     /*
