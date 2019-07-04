@@ -28,11 +28,13 @@
 	"require": {
 		"illuminate/support": "5.*",
 		"alexpechkarev/geometry-library" : "1.0.0",
-		"jbroadway/urlify": "^1.1"
+		"jbroadway/urlify": "^1.1",
+		"ext-json": "*",
+		"ext-curl": "*"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "4.7.*"
-	},         
+	},
 	"autoload": {
 		"psr-4": {
 			"GoogleMaps\\": "src/"
@@ -42,5 +44,5 @@
 		"branch-alias": {
 			"dev-master": "1.0-dev"
 		}
-	}	
+	}
 }
