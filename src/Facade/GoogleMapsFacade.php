@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Illuminate\Html\HtmlBuilder
+ * @see \GoogleMaps\GoogleMaps
  */
 class GoogleMapsFacade extends Facade {
 
