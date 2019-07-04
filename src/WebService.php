@@ -60,19 +60,6 @@ class WebService{
     */
     protected $verifySSL;
 
-
-
-    /**
-     * Class constructor
-     */
-    public function __construct()
-      {
-      }
-      /***/
-
-
-
-
     /**
      * Setting endpoint
      * @param string $key
@@ -83,7 +70,6 @@ class WebService{
         $this->endpoint = array_get(config('googlemaps.endpoint'), $key, 'json?');
         return $this;
     }
-    /***/
 
     /**
      * Getting endpoint
@@ -93,8 +79,6 @@ class WebService{
 
         return $this->endpoint;
     }
-    /***/
-
 
     /**
      * Set parameter by key
@@ -111,8 +95,6 @@ class WebService{
 
          return $this;
     }
-    /***/
-
 
     /**
      * Get parameter by the key
@@ -122,11 +104,9 @@ class WebService{
     public function getParamByKey($key){
 
          if( array_key_exists( $key, array_dot( $this->service['param'] ) ) ){
-
              return array_get($this->service['param'], $key);
          }
     }
-    /***/
 
     /**
      * Set all parameters at once
@@ -139,7 +119,6 @@ class WebService{
 
         return $this;
     }
-    /***/
 
     /**
      * Return parameters array
@@ -148,7 +127,6 @@ class WebService{
     public function getParam(){
         return $this->service['param'];
     }
-    /***/
 
     /**
      * Get Web Service Response
@@ -162,10 +140,6 @@ class WebService{
                 : $this->getResponseByKey( $needle );
     }
 
-
-
-
-
     /**
      * Get response value by key
      * @param string $needle - retrieves response parameter using "dot" notation
@@ -175,7 +149,7 @@ class WebService{
      */
     public function getResponseByKey( $needle = false, $offset = 0, $length = null ){
 
-        // set respons to json
+        // set response to json
         $this->setEndpoint('json');
 
         // set default key parameter
@@ -206,10 +180,7 @@ class WebService{
         return count($response) < 1
                ? $obj
                : $response;
-
-
     }
-    /***/
 
     /**
      * Get response status
@@ -226,10 +197,6 @@ class WebService{
         return array_get($obj, 'status', null);
 
     }
-    /***/
-
-
-
 
     /*
     |--------------------------------------------------------------------------
@@ -238,10 +205,9 @@ class WebService{
     |
     */
 
-
-
     /**
      * Setup service parameters
+     * @throws \ErrorException
      */
     protected function build( $service ){
 
@@ -268,8 +234,6 @@ class WebService{
 
             $this->clearParameters();
     }
-    /***/
-
 
     /**
      * Validate configuration file
@@ -289,7 +253,6 @@ class WebService{
                 throw new \ErrorException('Unable to find Key parameter in configuration file.');
             }
 
-
             // Validate Key parameter
             if(!array_key_exists('service', config('googlemaps') )
                     && !array_key_exists($service, config('googlemaps.service')) ){
@@ -306,13 +269,11 @@ class WebService{
 
 
     }
-    /***/
-
-
 
     /**
      * Get Web Service Response
-     * @return type
+     * @return string
+     * @throws \ErrorException
      */
     protected function getResponse(){
 
@@ -326,68 +287,50 @@ class WebService{
         // set API Key
         $this->requestUrl.= 'key='.urlencode( $this->key );
 
-
         switch( $this->service['type'] ){
-
             case 'POST':
-
-                    $post =  json_encode( $this->service['param'] );
-
+                $post = json_encode( $this->service['param'] );
                 break;
-
-
-            case 'GET':
             default:
-                    $this->requestUrl.='&'. Parameters::getQueryString( $this->service['param'] );
+                $this->requestUrl.='&'. Parameters::getQueryString( $this->service['param'] );
                 break;
         }
 
-
         return $this->make( $post );
-
     }
-    /***/
-
-
 
     /**
      * Make cURL request to given URL
      * @param boolean $isPost
      * @return object
+     * @throws \ErrorException
      */
     protected function make( $isPost = false ){
 
-       $ch = curl_init( $this->requestUrl );
+        $ch = curl_init( $this->requestUrl );
 
-       if( $isPost ){
-        curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
-        curl_setopt($ch,CURLOPT_POST, 1);
-        curl_setopt($ch,CURLOPT_POSTFIELDS, $isPost );
-       }
+        if( $isPost ){
+            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+            curl_setopt($ch,CURLOPT_POST, 1);
+            curl_setopt($ch,CURLOPT_POSTFIELDS, $isPost );
+        }
 
-      curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->verifySSL);
-      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-      curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->verifySSL);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 
-       $output = curl_exec($ch);
+        $output = curl_exec($ch);
 
+        if( $output === false ){
+            throw new \ErrorException( curl_error($ch) );
+        }
 
-      if( $output === false ){
-          throw new \ErrorException( curl_error($ch) );
-      }
-
-
-      curl_close($ch);
-      return $output;
-
+        curl_close($ch);
+        return $output;
     }
 
     protected function clearParameters()
     {
         Parameters::resetParams();
     }
-
-
-    /***/
-
 }
