@@ -5,8 +5,7 @@
  *
  * @author Alexander Pechkarev <alexpechkarev@gmail.com>
  */
-class GoogleMaps extends WebService
-{
+class GoogleMaps extends WebService{
 
     /**
      * Array of classes to handle web service request

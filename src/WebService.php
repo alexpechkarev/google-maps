@@ -5,9 +5,6 @@
  *
  * @author Alexander Pechkarev <alexpechkarev@gmail.com>
  */
-
-use \GoogleMaps\Parameters;
-
 class WebService{
 
 
@@ -193,7 +190,7 @@ class WebService{
         $obj_dot = array_dot($obj);
         // create empty response
         $response = [];
-        // iterate 
+        // iterate
         foreach( $obj_dot as $key => $val){
 
             // Calculate the metaphone key and compare with needle
