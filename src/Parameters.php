@@ -112,7 +112,7 @@ class Parameters{
                 }
             }
 
-            // ommit parameters with empty values
+            // omit parameters with empty values
             if( !empty( $val )){
                 #self::$urlParam[] = $useKey
                 $allParam[] = $useKey

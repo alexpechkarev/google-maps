@@ -71,7 +71,7 @@ class WebService{
      */
     public function setEndpoint( $key = 'json' ){
 
-        $this->endpoint = Arr::get(config('googlemaps.endpoint'), $key, 'json?');
+        $this->endpoint = Config::get("googlemaps.endpoint.{$key}", 'json?');
 
         return $this;
     }
@@ -223,20 +223,20 @@ class WebService{
             $this->setEndpoint();
 
             // set web service parameters
-            $this->service = config('googlemaps.service.'.$service);
+            $this->service = Config::get('googlemaps.service.'.$service);
 
             // is service key set, use it, otherwise use default key
             $this->key = empty( $this->service['key'] )
-                         ? config('googlemaps.key')
+                         ? Config::get('googlemaps.key')
                          : $this->service['key'];
 
             // set service url
             $this->requestUrl = $this->service['url'];
 
             // is ssl_verify_peer key set, use it, otherwise use default key
-            $this->verifySSL = empty(config('googlemaps.ssl_verify_peer'))
+            $this->verifySSL = empty(Config::get('googlemaps.ssl_verify_peer'))
                             ? FALSE
-                            :config('googlemaps.ssl_verify_peer');
+                            : Config::get('googlemaps.ssl_verify_peer');
 
             $this->clearParameters();
     }
@@ -251,31 +251,26 @@ class WebService{
 
             // Check for config file
             if( ! Config::has('googlemaps')){
-
                 throw new ErrorException('Unable to find config file.');
             }
 
             // Validate Key parameter
-            if(!array_key_exists('key', config('googlemaps') ) ){
-
+            if(Config::has('googlemaps.key') === false){
                 throw new ErrorException('Unable to find Key parameter in configuration file.');
             }
 
             // Validate Key parameter
-            if(!array_key_exists('service', config('googlemaps') )
-                    && !array_key_exists($service, config('googlemaps.service')) ){
+            if(Config::has('googlemaps.service') === false || Config::has('googlemaps.service.'.$service) === false){
                 throw new ErrorException('Web service must be declared in the configuration file.');
             }
 
             // Validate Endpoint
-            $endpointCount = count(config('googlemaps.endpoint'));
-            $endpointsKeyExists = array_key_exists('endpoint', config('googlemaps'));
+            $endpointCount = count(Config::get('googlemaps.endpoint', []));
+            $endpointsKeyExists = Config::has('googlemaps.endpoint');
 
             if($endpointsKeyExists === false || $endpointCount < 1){
                 throw new ErrorException('End point must not be empty.');
             }
-
-
     }
 
     /**
