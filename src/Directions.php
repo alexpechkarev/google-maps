@@ -9,21 +9,22 @@ use Illuminate\Support\Arr;
  * @author Alexander Pechkarev <alexpechkarev@gmail.com>
  */
 class Directions extends WebService{
-
     /**
      * Get Web Service Response
+     *
+     * @param string|false $needle
      * @return string
+     * @throws \ErrorException
      */
     public function get( $needle = false ){
 
-        // is decodePolyline true?  set endpoint to json
         if( $this->service['decodePolyline'] ){
             $this->setEndpoint('json');
+
+            return $this->decode( parent::get( $needle ));
         }
 
-        return $this->service['decodePolyline']
-                    ? $this->decode( parent::get( $needle ) )
-                    : parent::get( $needle );
+        return parent::get( $needle );
     }
     /***/
 
@@ -32,12 +33,14 @@ class Directions extends WebService{
      * the edge of a polygon, pass the point, the polyline/polygon, and
      * optionally a tolerance value in degrees
      * https://developers.google.com/maps/documentation/javascript/geometry#isLocationOnEdge
+     *
      * @param double $lat
      * @param double $lng
-     * @param double $tolrance
+     * @param double $tolerance
      * @return boolean
+     * @throws \ErrorException
      */
-    public function isLocationOnEdge( $lat, $lng, $tolrance = 0.1){
+    public function isLocationOnEdge( $lat, $lng, $tolerance = 0.1){
 
         $point = [
             'lat' => $lat,
@@ -46,15 +49,17 @@ class Directions extends WebService{
 
         $polygon = Arr::get( json_decode( $this->get(), true ), 'routes.0.overview_polyline.points') ;
 
-        return PolyUtil::isLocationOnEdge($point, $polygon, $tolrance);
+        return PolyUtil::isLocationOnEdge($point, $polygon, $tolerance);
     }
 
     /**
      * To find whether a given point falls within a polygon
      * https://developers.google.com/maps/documentation/javascript/geometry#containsLocation
+     *
      * @param double $lat
      * @param double $lng
      * @return boolean
+     * @throws \ErrorException
      */
     public function containsLocation($lat, $lng){
 

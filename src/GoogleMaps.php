@@ -21,6 +21,7 @@ class GoogleMaps extends WebService{
      *
      * @param string $service
      * @return \GoogleMaps\WebService
+     * @throws \ErrorException
      */
     public function load($service) {
 

@@ -27,6 +27,7 @@
 	"minimum-stability": "stable",
 	"require": {
 		"illuminate/support": "5.*",
+		"illuminate/config": "5.*",
 		"alexpechkarev/geometry-library" : "1.0.0",
 		"jbroadway/urlify": "^1.1",
 		"ext-json": "*",

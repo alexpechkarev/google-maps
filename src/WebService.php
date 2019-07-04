@@ -1,6 +1,8 @@
 <?php namespace GoogleMaps;
 
+use ErrorException;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Config;
 
 /**
  * Description of GoogleMaps
@@ -69,7 +71,7 @@ class WebService{
      */
     public function setEndpoint( $key = 'json' ){
 
-        $this->endpoint = Arr::Get(config('googlemaps.endpoint'), $key, 'json?');
+        $this->endpoint = Arr::get(config('googlemaps.endpoint'), $key, 'json?');
 
         return $this;
     }
@@ -129,8 +131,10 @@ class WebService{
 
     /**
      * Get Web Service Response
-     * @param string $needle - response key
-     * @return string
+     *
+     * @param string|false $needle - response key
+     * @return string|array
+     * @throws \ErrorException
      */
     public function get( $needle = false ){
 
@@ -141,12 +145,12 @@ class WebService{
 
     /**
      * Get response value by key
-     * @param string $needle - retrieves response parameter using "dot" notation
-     * @param int $offset
-     * @param int $length
+     *
+     * @param string|bool $needle - retrieves response parameter using "dot" notation
      * @return array
+     * @throws \ErrorException
      */
-    public function getResponseByKey( $needle = false, $offset = 0, $length = null ){
+    public function getResponseByKey( $needle = false){
 
         // set response to json
         $this->setEndpoint('json');
@@ -183,7 +187,9 @@ class WebService{
 
     /**
      * Get response status
+     *
      * @return mixed
+     * @throws \ErrorException
      */
     public function getStatus(){
 
@@ -205,6 +211,8 @@ class WebService{
 
     /**
      * Setup service parameters
+     *
+     * @param $service
      * @throws \ErrorException
      */
     protected function build( $service ){
@@ -235,26 +243,28 @@ class WebService{
 
     /**
      * Validate configuration file
+     *
+     * @param $service
      * @throws \ErrorException
      */
     protected function validateConfig( $service ){
 
             // Check for config file
-            if( !\Config::has('googlemaps')){
+            if( ! Config::has('googlemaps')){
 
-                throw new \ErrorException('Unable to find config file.');
+                throw new ErrorException('Unable to find config file.');
             }
 
             // Validate Key parameter
             if(!array_key_exists('key', config('googlemaps') ) ){
 
-                throw new \ErrorException('Unable to find Key parameter in configuration file.');
+                throw new ErrorException('Unable to find Key parameter in configuration file.');
             }
 
             // Validate Key parameter
             if(!array_key_exists('service', config('googlemaps') )
                     && !array_key_exists($service, config('googlemaps.service')) ){
-                throw new \ErrorException('Web service must be declared in the configuration file.');
+                throw new ErrorException('Web service must be declared in the configuration file.');
             }
 
             // Validate Endpoint
@@ -262,7 +272,7 @@ class WebService{
             $endpointsKeyExists = array_key_exists('endpoint', config('googlemaps'));
 
             if($endpointsKeyExists === false || $endpointCount < 1){
-                throw new \ErrorException('End point must not be empty.');
+                throw new ErrorException('End point must not be empty.');
             }
 
 
@@ -320,7 +330,7 @@ class WebService{
         $output = curl_exec($ch);
 
         if( $output === false ){
-            throw new \ErrorException( curl_error($ch) );
+            throw new ErrorException( curl_error($ch) );
         }
 
         curl_close($ch);
