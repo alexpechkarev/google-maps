@@ -1,18 +1,16 @@
 <?php namespace GoogleMaps\ServiceProvider;
 
+use GoogleMaps\GoogleMaps;
 use Illuminate\Support\ServiceProvider;
 
-
-
 class GoogleMapsServiceProvider extends ServiceProvider {
-    
+
 	/**
 	 * Indicates if loading of the provider is deferred.
 	 *
 	 * @var bool
 	 */
 	protected $defer = true;
-        
 
 	/**
 	 * Bootstrap the application services.
@@ -21,10 +19,9 @@ class GoogleMapsServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-            $this->publishes([
-                    __DIR__.'/../config/googlemaps.php' => config_path('googlemaps.php'),
-                ], 'googlemaps');             
-       
+        $this->publishes([
+            __DIR__.'/../config/googlemaps.php' => config_path('googlemaps.php'),
+        ], 'googlemaps');
 	}
 
 	/**
@@ -33,18 +30,13 @@ class GoogleMapsServiceProvider extends ServiceProvider {
 	 * @return void
 	 */
 	public function register()
-	{
-
-            $this->app->bind('GoogleMaps', function($app)
-		{
-			return new \GoogleMaps\GoogleMaps();
-		});
-
-            
-            
+    {
+        $this->app->bind('GoogleMaps', function(){
+            return new GoogleMaps;
+        });
 	}
         /***/
-        
+
 	/**
 	 * Get the services provided by the provider.
 	 *
@@ -52,12 +44,12 @@ class GoogleMapsServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-            return array('GoogleMaps');
-	}        
-        
-        
+        return array('GoogleMaps');
+	}
 
-        
-        
+
+
+
+
 
 }
