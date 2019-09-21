@@ -46,14 +46,14 @@ Installation
 Issue following command in console:
 
 ```php
-composer require "alexpechkarev/google-maps":"5.6"
+composer require "alexpechkarev/google-maps":"5.7"
 ```
 
 Alternatively  edit composer.json by adding following line and run **`composer update`**
 ```php
 "require": { 
 		....,
-		"alexpechkarev/google-maps":"5.6",
+		"alexpechkarev/google-maps":"5.7",
 	
 	},
 ```
