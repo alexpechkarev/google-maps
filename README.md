@@ -46,7 +46,7 @@ Installation
 Issue following command in console:
 
 ```php
-composer require alexpechkarev/google-maps:5.1
+composer require "alexpechkarev/google-maps":"5.1"
 ```
 
 Alternatively  edit composer.json by adding following line and run **`composer update`**
