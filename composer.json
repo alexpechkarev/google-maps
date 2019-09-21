@@ -1,7 +1,7 @@
 {
 	"name": "alexpechkarev/google-maps",
-	"description": "Collection of Google Maps API Web Services for Laravel 5.7",
-	"version": "5.7",
+	"description": "Collection of Google Maps API Web Services for Laravel 5.8",
+	"version": "5.8",
 	"keywords": [
 		"google maps api",
 		"google maps api for laravel",
@@ -26,8 +26,8 @@
 	],
 	"minimum-stability": "stable",
 	"require": {
-		"illuminate/support": "5.7.*",
-		"illuminate/config": "5.7.*",
+		"illuminate/support": "5.8.*",
+		"illuminate/config": "5.8.*",
 		"alexpechkarev/geometry-library" : "1.0.0",
 		"jbroadway/urlify": "^1.1",
 		"ext-json": "*",
