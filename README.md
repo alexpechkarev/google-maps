@@ -19,7 +19,7 @@ Features
 Dependency
 ------------
 * [PHP cURL](http://php.net/manual/en/curl.installation.php)
-* [PHP 5](http://php.net/)
+* [PHP >=7.1.3](http://php.net/)
 
 
 Notes
