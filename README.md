@@ -1,4 +1,4 @@
-## Collection of Google Maps API Web Services for Laravel 5
+## Collection of Google Maps API Web Services for Laravel 6
 Provides convenient way of setting up and making requests to Maps API from [Laravel](http://laravel.com/) application. 
 For services documentation, API key and Usage Limits visit [Google Maps API Web Services](https://developers.google.com/maps/documentation/webservices/) and [Maps API for Terms of Service License Restrictions](https://developers.google.com/maps/terms#section_10_12).
 
@@ -19,7 +19,7 @@ Features
 Dependency
 ------------
 * [PHP cURL](http://php.net/manual/en/curl.installation.php)
-* [PHP 5](http://php.net/)
+* [PHP >= 7.2.0](http://php.net/)
 
 
 Notes
@@ -46,14 +46,14 @@ Installation
 Issue following command in console:
 
 ```php
-composer require alexpechkarev/google-maps:1.0.9
+composer require "alexpechkarev/google-maps":"6.0"
 ```
 
 Alternatively  edit composer.json by adding following line and run **`composer update`**
 ```php
 "require": { 
 		....,
-		"alexpechkarev/google-maps":"1.0.9",
+		"alexpechkarev/google-maps":"6.0",
 	
 	},
 ```
@@ -76,7 +76,7 @@ Register package service provider and facade in 'config/app.php'
 ```
 
 
-Publish configuration file using **`php artisan vendor:publish --tag=googlemaps --force`** or simply copy package configuration file and paste into **`config/googlemaps.php`**
+Publish configuration file using **`php artisan vendor:publish --tag=googlemaps`** or simply copy package configuration file and paste into **`config/googlemaps.php`**
 
 Open configuration file **`config/googlemaps.php`** and add your service key
 ```php
@@ -358,6 +358,6 @@ Support
 License
 -------
 
-Collection of Google Maps API Web Services for Laravel 5 is released under the MIT License. See the bundled
+Collection of Google Maps API Web Services for Laravel is released under the MIT License. See the bundled
 [LICENSE](https://github.com/alexpechkarev/google-maps/blob/master/LICENSE)
 file for details.
