@@ -139,6 +139,7 @@ class Parameters{
     private static function replaceCharacters($allParam)
     {
         // replace special characters
+        $allParam = str_replace(['%2C'], [','], $allParam);
         $allParam = str_replace(['%252C'], [','], $allParam);
         $allParam = str_replace(['%3A'], [':'], $allParam);
         return str_replace(['%7C'], ['|'], $allParam);
