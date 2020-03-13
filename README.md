@@ -1,4 +1,4 @@
-## Collection of Google Maps API Web Services for Laravel 6
+## Collection of Google Maps API Web Services for Laravel 7
 Provides convenient way of setting up and making requests to Maps API from [Laravel](http://laravel.com/) application. 
 For services documentation, API key and Usage Limits visit [Google Maps API Web Services](https://developers.google.com/maps/documentation/webservices/) and [Maps API for Terms of Service License Restrictions](https://developers.google.com/maps/terms#section_10_12).
 
@@ -45,15 +45,17 @@ Installation
 
 Issue following command in console:
 
+For laravel 6 use `6.0`.
+
 ```php
-composer require "alexpechkarev/google-maps":"6.0"
+composer require "alexpechkarev/google-maps":"7.0"
 ```
 
 Alternatively  edit composer.json by adding following line and run **`composer update`**
 ```php
 "require": { 
 		....,
-		"alexpechkarev/google-maps":"6.0",
+		"alexpechkarev/google-maps":"7.0",
 	
 	},
 ```
