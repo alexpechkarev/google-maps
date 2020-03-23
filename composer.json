@@ -28,7 +28,7 @@
 	"require": {
 		"illuminate/support": "^7.0",
 		"illuminate/config": "^7.0",
-		"alexpechkarev/geometry-library" : "1.0.1",
+		"alexpechkarev/geometry-library" : "^1.0",
 		"jbroadway/urlify": "^1.1",
 		"ext-json": "*",
 		"ext-curl": "*"
