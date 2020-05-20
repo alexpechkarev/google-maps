@@ -48,14 +48,14 @@ Issue following command in console:
 For laravel 6 use `6.0`.
 
 ```php
-composer require "alexpechkarev/google-maps":"7.0"
+composer require "alexpechkarev/google-maps":"7.0.1"
 ```
 
 Alternatively  edit composer.json by adding following line and run **`composer update`**
 ```php
 "require": { 
 		....,
-		"alexpechkarev/google-maps":"7.0",
+		"alexpechkarev/google-maps":"7.0.1",
 	
 	},
 ```
