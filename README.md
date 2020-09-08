@@ -1,8 +1,7 @@
-## Collection of Google Maps API Web Services for Laravel 7
-Provides convenient way of setting up and making requests to Maps API from [Laravel](http://laravel.com/) application. 
+## Collection of Google Maps API Web Services for Laravel
+
+Provides convenient way of setting up and making requests to Maps API from [Laravel](http://laravel.com/) application.
 For services documentation, API key and Usage Limits visit [Google Maps API Web Services](https://developers.google.com/maps/documentation/webservices/) and [Maps API for Terms of Service License Restrictions](https://developers.google.com/maps/terms#section_10_12).
-
-
 
 Features
 ------------
@@ -19,7 +18,7 @@ Features
 Dependency
 ------------
 * [PHP cURL](http://php.net/manual/en/curl.installation.php)
-* [PHP >= 7.2.0](http://php.net/)
+* [PHP >= 7.3.0](http://php.net/)
 
 
 Notes
@@ -27,9 +26,9 @@ Notes
 [Rmoving Place Add, Delete & Radar Search features](https://cloud.google.com/blog/products/maps-platform/announcing-deprecation-of-place-add)
 
 Requests to the Places API attempting to use these features will receive an error response
-* Place Add 
-* Place Delete 
-* Radar Search 
+* Place Add
+* Place Delete
+* Radar Search
 
 Deprication notices for Google Places API Web Service that effects Premium data (Zagat), types parameter, id and reference fields.
 
@@ -48,15 +47,15 @@ Issue following command in console:
 For laravel 6 use `6.0`.
 
 ```php
-composer require "alexpechkarev/google-maps":"7.1"
+composer require alexpechkarev/google-maps
 ```
 
 Alternatively  edit composer.json by adding following line and run **`composer update`**
 ```php
-"require": { 
+"require": {
 		....,
-		"alexpechkarev/google-maps":"7.1",
-	
+		"alexpechkarev/google-maps":"^8.0",
+
 	},
 ```
 
@@ -87,11 +86,11 @@ Open configuration file **`config/googlemaps.php`** and add your service key
     | Service Keys
     |------------------------------------
     */
-    
+
     'key'       => 'ADD YOUR SERVICE KEY HERE',
 ```
 
-If you like to use different keys for any of the services, you can overwrite master API Key by specifying it in the `service` array for selected web service. 
+If you like to use different keys for any of the services, you can overwrite master API Key by specifying it in the `service` array for selected web service.
 
 
 Usage
@@ -104,7 +103,7 @@ $response = \GoogleMaps::load('geocoding')
  		->get();
 ```
 
-By default, where appropriate, `output` parameter set to `JSON`. Don't forget to decode JSON string into PHP variable. 
+By default, where appropriate, `output` parameter set to `JSON`. Don't forget to decode JSON string into PHP variable.
 See [Processing Response](https://developers.google.com/maps/documentation/webservices/#Parsing) for more details on parsing returning output.
 
 
@@ -122,14 +121,14 @@ $response = \GoogleMaps::load('geocoding')
                 ])
                 ->get();
  ```
- 
+
 Alternatively parameters can be set using `setParamByKey()` method. For deeply nested array use "dot" notation as per example below.
 
 ```php
 $endpoint = \GoogleMaps::load('geocoding')
    ->setParamByKey('address', 'santa cruz')
    ->setParamByKey('components.administrative_area', 'TX') //return $this
-    ... 
+    ...
 
 ```
 
@@ -148,9 +147,9 @@ $response = \GoogleMaps::load('placeadd')
                    "types"              => ["shoe_store"],
                    "website"            => "http://www.google.com.au/",
                    "language"           => "en-AU",
-                   "phone_number"       =>  "(02) 9374 4000"                       
+                   "phone_number"       =>  "(02) 9374 4000"
                           ])
-                  ->get();	
+                  ->get();
 ```
 
 Available methods
@@ -169,15 +168,15 @@ Available methods
 ---
 
 <a name="load"></a>
-**`load( $serviceName )`** - load web service by name 
+**`load( $serviceName )`** - load web service by name
 
-Accepts string as parameter, web service name as specified in configuration file.  
+Accepts string as parameter, web service name as specified in configuration file.
 Returns reference to it's self.
 
 ```php
 
-\GoogleMaps::load('geocoding') 
-... 
+\GoogleMaps::load('geocoding')
+...
 
 ```
 ---
@@ -185,7 +184,7 @@ Returns reference to it's self.
 <a name="setEndpoint"></a>
 **`setEndpoint( $endpoint )`** - set request output
 
-Accepts string as parameter, `json` or `xml`, if omitted defaulted to `json`.  
+Accepts string as parameter, `json` or `xml`, if omitted defaulted to `json`.
 Returns reference to it's self.
 
 ```php
@@ -216,9 +215,9 @@ echo $endpoint; // output 'json'
 
 Accepts two parameters:
 * `key` - body parameter name
-* `value` - body parameter value 
+* `value` - body parameter value
 
-Deeply nested array can use 'dot' notation to assign value.  
+Deeply nested array can use 'dot' notation to assign value.
 Returns reference to it's self.
 
 ```php
@@ -233,7 +232,7 @@ $endpoint = \GoogleMaps::load('geocoding')
 <a name="setParam"></a>
 **`setParam( $parameters)`** - set all request parameters at once
 
-Accepts array of parameters  
+Accepts array of parameters
 Returns reference to it's self.
 
 ```php
@@ -254,16 +253,16 @@ $response = \GoogleMaps::load('geocoding')
 * **`get()`** - perform web service request (irrespectively to request type POST or GET )
 * **`get( $key )`** - accepts string response body key, use 'dot' notation for deeply nested array
 
-Returns web service response in the format specified by **`setEndpoint()`** method, if omitted defaulted to `JSON`. 
+Returns web service response in the format specified by **`setEndpoint()`** method, if omitted defaulted to `JSON`.
 Use `json_decode()` to convert JSON string into PHP variable. See [Processing Response](https://developers.google.com/maps/documentation/webservices/#Parsing) for more details on parsing returning output.
 
 ```php
 $response = \GoogleMaps::load('geocoding')
                 ->setParamByKey('address', 'santa cruz')
-                ->setParamByKey('components.administrative_area', 'TX') 
+                ->setParamByKey('components.administrative_area', 'TX')
                  ->get();
 
-var_dump( json_decode( $response ) );  // output 
+var_dump( json_decode( $response ) );  // output
 
 /*
 {\n
@@ -285,10 +284,10 @@ Example with `$key` parameter
 
 ```php
 $response = \GoogleMaps::load('geocoding')
-                ->setParamByKey('latlng', '40.714224,-73.961452') 
+                ->setParamByKey('latlng', '40.714224,-73.961452')
                  ->get('results.formatted_address');
 
-var_dump( json_decode( $response ) );  // output 
+var_dump( json_decode( $response ) );  // output
 
 /*
 array:1 [▼
@@ -313,15 +312,15 @@ array:1 [▼
 This method only available with Google Maps Directions API.
 
 Accepted parameter:
-* `$lat` - double latitude 
-* `$lng` - double longitude 
+* `$lat` - double latitude
+* `$lng` - double longitude
 * `$tolrance` - double
 
 ```php
 $response = \GoogleMaps::load('directions')
             ->setParam([
-                'origin'          => 'place_id:ChIJ685WIFYViEgRHlHvBbiD5nE', 
-                'destination'     => 'place_id:ChIJA01I-8YVhkgRGJb0fW4UX7Y', 
+                'origin'          => 'place_id:ChIJ685WIFYViEgRHlHvBbiD5nE',
+                'destination'     => 'place_id:ChIJA01I-8YVhkgRGJb0fW4UX7Y',
             ])
            ->isLocationOnEdge(55.86483,-4.25161);
 
@@ -337,14 +336,14 @@ $response = \GoogleMaps::load('directions')
 This method only available with Google Maps Directions API.
 
 Accepted parameter:
-* `$lat` - double latitude 
-* `$lng` - double longitude 
+* `$lat` - double latitude
+* `$lng` - double longitude
 
 ```php
 $response = \GoogleMaps::load('directions')
             ->setParam([
-                'origin'          => 'place_id:ChIJ685WIFYViEgRHlHvBbiD5nE', 
-                'destination'     => 'place_id:ChIJA01I-8YVhkgRGJb0fW4UX7Y', 
+                'origin'          => 'place_id:ChIJ685WIFYViEgRHlHvBbiD5nE',
+                'destination'     => 'place_id:ChIJA01I-8YVhkgRGJb0fW4UX7Y',
             ])
            ->containsLocation(55.86483,-4.25161);
 
