@@ -28,6 +28,28 @@ return [
     'ssl_verify_peer' => FALSE,
 
     /*
+     |--------------------------------------------------------------------------
+     | CURL's connection timeout
+     |--------------------------------------------------------------------------
+     |
+     | Will be used for all web services to limit
+     | the maximum time tha connection can take in seconds
+     |
+      */
+    'connection_timeout' => 1,
+
+    /*
+     |--------------------------------------------------------------------------
+     | CURL's request timeout
+     |--------------------------------------------------------------------------
+     |
+     | Will be used for all web services to limit
+     | the maximum time a request can take
+     |
+      */
+    'request_timeout' => 5,
+
+    /*
     |--------------------------------------------------------------------------
     | Service URL
     |--------------------------------------------------------------------------
