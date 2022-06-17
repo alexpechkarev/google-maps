@@ -36,7 +36,7 @@ return [
      | the maximum time tha connection can take in seconds
      |
       */
-    'connection_timeout' => 1,
+    'connection_timeout' => 5,
 
     /*
      |--------------------------------------------------------------------------
@@ -47,7 +47,7 @@ return [
      | the maximum time a request can take
      |
       */
-    'request_timeout' => 5,
+    'request_timeout' => 30,
 
     /*
     |--------------------------------------------------------------------------
