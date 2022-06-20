@@ -64,6 +64,26 @@ class WebService{
     */
     protected $verifySSL;
 
+    /*
+    |--------------------------------------------------------------------------
+    | Request's timeout
+    |--------------------------------------------------------------------------
+    |
+    |
+    |
+    */
+    protected $requestTimeout;
+
+    /*
+    |--------------------------------------------------------------------------
+    | Connection timeout
+    |--------------------------------------------------------------------------
+    |
+    |
+    |
+    */
+    protected $connectionTimeout;
+
     /**
      * Setting endpoint
      * @param string $key
@@ -238,6 +258,13 @@ class WebService{
                             ? FALSE
                             : Config::get('googlemaps.ssl_verify_peer');
 
+            // set the timeout for the connect phase
+            $this->connectionTimeout = Config::get("googlemaps.connection_timeout");
+
+            // set the maximum time the transfer is allowed to complete
+            $this->requestTimeout = Config::get("googlemaps.request_timeout");
+
+
             $this->clearParameters();
     }
 
@@ -318,6 +345,8 @@ class WebService{
             curl_setopt($ch,CURLOPT_POSTFIELDS, $isPost );
         }
 
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT,  $this->connectionTimeout);
+        curl_setopt($ch, CURLOPT_TIMEOUT,  $this->requestTimeout);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->verifySSL);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
