@@ -84,6 +84,16 @@ class WebService{
     */
     protected $connectionTimeout;
 
+    /*
+    |--------------------------------------------------------------------------
+    | Request's compression setting
+    |--------------------------------------------------------------------------
+    |
+    |
+    |
+    */
+    protected $requestUseCompression;
+
     /**
      * Setting endpoint
      * @param string $key
@@ -264,6 +274,8 @@ class WebService{
             // set the maximum time the transfer is allowed to complete
             $this->requestTimeout = Config::get("googlemaps.request_timeout");
 
+            // set the compression flag
+            $this->requestUseCompression = Config::get("googlemaps.request_use_compression");
 
             $this->clearParameters();
     }
@@ -332,7 +344,7 @@ class WebService{
     /**
      * Make cURL request to given URL
      * @param boolean $isPost
-     * @return object
+     * @return bool|string
      * @throws \ErrorException
      */
     protected function make( $isPost = false ){
@@ -350,6 +362,10 @@ class WebService{
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->verifySSL);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+
+        if ($this->requestUseCompression) {
+            curl_setopt($ch, CURLOPT_ENCODING, "");
+        }
 
         $output = curl_exec($ch);
 

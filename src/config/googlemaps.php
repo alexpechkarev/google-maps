@@ -50,6 +50,19 @@ return [
     'request_timeout' => 30,
 
     /*
+     |--------------------------------------------------------------------------
+     | CURL's CURLOPT_ENCODING
+     |--------------------------------------------------------------------------
+     |
+     | Will be used for all web services to use compression on requests.
+     |
+     | Sets the contents of the "Accept-Encoding:" header a containing all
+     | supported encoding types.
+     |
+      */
+    'request_use_compression' => false,
+
+    /*
     |--------------------------------------------------------------------------
     | Service URL
     |--------------------------------------------------------------------------
