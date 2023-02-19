@@ -54,6 +54,11 @@ class Parameters{
            $param['transit_mode'] = self::joinParam( $param['transit_mode'], '', '|', false );
         }
 
+        if( isset($param['alternatives']) && is_bool($param['alternatives'])){
+         $param['alternatives'] = $param['alternatives'] ? 'true' : 'false';
+       }        
+
+
         // Elevation & Road parameters
         if( isset($param['locations']) && is_array($param['locations'])){
            $param['locations'] = self::joinParam( $param['locations'], '', '|', false );
