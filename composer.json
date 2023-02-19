@@ -1,7 +1,7 @@
 {
     "name": "alexpechkarev/google-maps",
     "description": "Collection of Google Maps API Web Services for Laravel",
-    "version": "9.0",
+    "version": "10.0",
     "keywords": [
         "google maps api",
         "google maps api for laravel",
@@ -26,15 +26,15 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "illuminate/support": "^8.0 | ^9.0|^10.0",
-        "illuminate/config": "^8.0 | ^9.0|^10.0",
+        "illuminate/support": "^8.0|^9.0|^10.0",
+        "illuminate/config": "^8.0|^9.0|^10.0",
         "alexpechkarev/geometry-library": "^1.0.2|^1.0",
-        "jbroadway/urlify": "^1.1|dev-voku-portable-ascii-2.0",
+        "jbroadway/urlify": "^1.1|^1.2|dev-voku-portable-ascii-2.0",
         "ext-json": "*",
         "ext-curl": "*"
     },
     "require-dev": {
-        "phpunit/phpunit": "4.7.*|^9.5.10"
+        "phpunit/phpunit": "4.7.*|^9.6.3"
     },
     "autoload": {
         "psr-4": {
@@ -43,7 +43,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "8.0-dev"
+            "dev-master": "10.0-dev"
         },
         "laravel": {
             "providers": [

@@ -44,8 +44,6 @@ Installation
 
 Issue following command in console:
 
-For laravel 6 use `6.0`.
-
 ```php
 composer require alexpechkarev/google-maps
 ```
@@ -54,7 +52,7 @@ Alternatively  edit composer.json by adding following line and run **`composer u
 ```php
 "require": {
 		....,
-		"alexpechkarev/google-maps":"^8.0",
+		"alexpechkarev/google-maps":"^10.0",
 
 	},
 ```
