@@ -1,7 +1,6 @@
 {
     "name": "alexpechkarev/google-maps",
     "description": "Collection of Google Maps API Web Services for Laravel",
-    "version": "10.0",
     "keywords": [
         "google maps api",
         "google maps api for laravel",
