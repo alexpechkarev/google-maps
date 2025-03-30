@@ -27,9 +27,9 @@
         "illuminate/support": "^8.0|^9.0|^10.0|^11.0|^12.4",
         "illuminate/config": "^8.0|^9.0|^10.0|^11.0|^12.4",
         "alexpechkarev/geometry-library": "^1.0.5",
-        "jbroadway/urlify": "^1.1|^1.2.4",
         "ext-json": "*",
-        "ext-curl": "*"
+        "ext-curl": "*",
+        "jbroadway/urlify": "^1.2"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.6|^10.5"
