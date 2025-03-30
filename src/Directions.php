@@ -7,6 +7,7 @@ use Illuminate\Support\Arr;
  * Description of GoogleMaps
  *
  * @author Alexander Pechkarev <alexpechkarev@gmail.com>
+ * @deprecated see Routes
  */
 class Directions extends WebService{
     /**
