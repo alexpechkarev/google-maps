@@ -24,10 +24,10 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "illuminate/support": "^8.0|^9.0|^10.0|^11.0|^12.0",
-        "illuminate/config": "^8.0|^9.0|^10.0|^11.0|^12.0",
-        "alexpechkarev/geometry-library": "^1.0.2",
-        "jbroadway/urlify": "^1.1|^1.2|",
+        "illuminate/support": "^8.0|^9.0|^10.0|^11.0|^12.4",
+        "illuminate/config": "^8.0|^9.0|^10.0|^11.0|^12.4",
+        "alexpechkarev/geometry-library": "^1.0.5",
+        "jbroadway/urlify": "^1.1|^1.2.4",
         "ext-json": "*",
         "ext-curl": "*"
     },

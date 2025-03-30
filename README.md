@@ -8,7 +8,7 @@ For services documentation, API key usage limits, and terms of service, please r
 
 ---
 
-## Important Update: Routes API replaces Directions & Distance Matrix
+### Important Update: Routes API replaces Directions & Distance Matrix
 
 **The Google Maps Directions API and Distance Matrix API are deprecated.**
 
