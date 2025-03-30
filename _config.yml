@@ -1,0 +1,56 @@
+# Welcome to Jekyll!
+#
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely edit after that. If you find
+# yourself editing this file very often, consider using Jekyll's data files
+# feature for the data you need to update frequently.
+#
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
+
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+domain: https://github.com/alexpechkarev/google-maps 
+title: Collection of Google Maps API Web Services for Laravel
+author:
+  name: Alexander Pechkarev
+  email: "alepechkarev@gmail.com" 
+#email: your-email@example.com
+description: >- # this means to ignore newlines until "baseurl:"
+ Provides a convenient way of setting up and making requests to Google Maps APIs from your Laravel application. This package now includes support for the new Google Maps Routes API, which is the recommended replacement for calculating routes and route matrices. The Routes API offers enhanced features and performance.
+baseurl: "/google-maps" # the subpath of your site, e.g. /blog
+url: "https://github.com/alexpechkarev/google-maps" # the base hostname & protocol for your site, e.g. http://example.com
+github_username:  alexpechkarev
+show_downloads: true
+
+# Build settings
+markdown: kramdown
+preloading: true
+preconnect: true
+#theme: minima
+remote_theme: pages-themes/cayman@v0.2.0
+plugins:
+  - jekyll-feed
+  - jekyll-remote-theme
+  - jekyll-sitemap
+  - jekyll-gist
+  - jekyll-include-cache
+  - jekyll-archives
+  - jekyll-seo-tag
+  
+
+
+# Exclude from processing.
+# The following items will not be processed, by default. Create a custom list
+# to override the default setting.
+# exclude:
+#   - Gemfile
+#   - Gemfile.lock
+#   - node_modules
+#   - vendor/bundle/
+#   - vendor/cache/
+#   - vendor/gems/
+#   - vendor/ruby/
