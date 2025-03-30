@@ -130,6 +130,7 @@ $routeParams = [
 
 $responseArray = \GoogleMaps::load('routes') // Use 'routes' service
     ->setParam($routeParams)
+    ->setFieldMask('routes.duration,routes.distanceMeters,routes.polyline.encodedPolyline') // optional - used to specify fields to return 
     ->fetch(); // Use fetch() for Routes API
 
 // $responseArray is already a PHP array
@@ -152,6 +153,7 @@ $matrixParams = [
 
 $responseArray = \GoogleMaps::load('routematrix') // Use 'routematrix' service
     ->setParam($matrixParams)
+    ->setFieldMask('originIndex,destinationIndex,duration,distanceMeters,status,condition') // optional - used to specify fields to return 
     ->fetch(); // Use fetch() for Routes API
 
 // $responseArray is already a PHP array

@@ -14,6 +14,8 @@ class GoogleMaps extends WebService{
      */
     protected $webServices = [
         'directions' => Directions::class,
+        'routes' => Routes::class,
+        'routesmatrix' => Routes::class,
     ];
 
     /**
