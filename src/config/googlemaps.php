@@ -78,311 +78,365 @@ return [
     'service' => [
 
         'geocoding' => [
-                        'url'                   => 'https://maps.googleapis.com/maps/api/geocode/',
-                        'type'                  => 'GET',
-                        'key'                   =>  null,
-                        'endpoint'              =>  true,
-                        'responseDefaultKey'    => 'place_id',
-                        'param'                 => [
-                                                    'address'       => null,
-                                                    'bounds'        => null,
-                                                    'key'           => null,
-                                                    'region'        => null,
-                                                    'language'      => null,
-                                                    'result_type'   => null,
-                                                    'location_type' => null,
-                                                    'latlng'        => null,
-                                                    'place_id'      => null,
-                                                    'components'    => [
-                                                        'route'                 => null,
-                                                        'locality'              => null,
-                                                        'administrative_area'   => null,
-                                                        'postal_code'           => null,
-                                                        'country'               => null,
-                                                        ]
-                                                    ]
+            'url'                   => 'https://maps.googleapis.com/maps/api/geocode/',
+            'type'                  => 'GET',
+            'key'                   =>  null,
+            'endpoint'              =>  true,
+            'responseDefaultKey'    => 'place_id',
+            'param'                 => [
+                'address'       => null,
+                'bounds'        => null,
+                'key'           => null,
+                'region'        => null,
+                'language'      => null,
+                'result_type'   => null,
+                'location_type' => null,
+                'latlng'        => null,
+                'place_id'      => null,
+                'components'    => [
+                    'route'                 => null,
+                    'locality'              => null,
+                    'administrative_area'   => null,
+                    'postal_code'           => null,
+                    'country'               => null,
+                ]
+            ]
+        ],
+
+        // https://developers.google.com/maps/documentation/routes/reference/rest
+        'routes' => [
+            'url'                   => 'https://routes.googleapis.com/directions/v2:computeRoutes',
+            'type'                  => 'POST',
+            'key'                   =>  null,
+            'endpoint'              =>  true,
+            'decodePolyline'        =>  true, // true = decode overview_polyline.points to an array of points
+            'param'                         => [
+                'origin'                    => null, // required
+                'destination'               => null, //required
+                'intermediates'             => null,
+                'travelMode'                => null,
+                'transitRoutingPreference'  => null,
+                'polylineQuality'           => null,
+                'polylineEncoding'          => null,
+                'departureTime'             => null,
+                'arrivalTime'               => null,
+                'computeAlternativeRoutes'  => null,
+                'routeModifiers'            => null,
+                'languageCode'              => null,
+                'regionCode'                => null,
+                'units'                     => null,
+                'optimizeWaypointOrder'     => false,
+                'requestedReferenceRoutes'  => null,
+                'extraComputations'         => null,
+                'trafficModel'              => null,
+                'transitPreferences'        => null,
+            ]
         ],
 
 
 
+        // https://developers.google.com/maps/documentation/routes/reference/rest/v2/TopLevel/computeRouteMatrix
+        'routematrix' => [
+            'url'                   => 'https://routes.googleapis.com/distanceMatrix/v2:computeRouteMatrix',
+            'type'                  => 'POST',
+            'key'                   =>  null,
+            'endpoint'              =>  true,
+            'param'                         => [
+                'origins'                   => null, // required
+                'destinations'              => null, //required
+                'travelMode'                => null,
+                'routingPreference'         => null,
+                'departureTime'             => null,
+                'arrivalTime'               => null,
+                'languageCode'              => null,
+                'regionCode'                => null,
+                'units'                     => null,
+                'extraComputations'         => null,
+                'trafficModel'              => null,
+                'transitPreferences'        => null,
+            ]
+        ],
+
+
+        // Deprecated
         'directions' => [
-                        'url'                   => 'https://maps.googleapis.com/maps/api/directions/',
-                        'type'                  => 'GET',
-                        'key'                   =>  null,
-                        'endpoint'              =>  true,
-                        'responseDefaultKey'    =>  'geocoded_waypoints',
-                        'decodePolyline'        =>  true, // true = decode overview_polyline.points to an array of points
-                        'param'                 => [
-                                                    'origin'          => null, // required
-                                                    'destination'     => null, //required
-                                                    'mode'            => null,
-                                                    'waypoints'       => null,
-                                                    'place_id'        => null,
-                                                    'alternatives'    => null,
-                                                    'avoid'           => null,
-                                                    'language'        => null,
-                                                    'units'           => null,
-                                                    'region'          => null,
-                                                    'departure_time'  => null,
-                                                    'arrival_time'    => null,
-                                                    'transit_mode'    => null,
-                                                    'transit_routing_preference' => null,
-                                                    ]
+            'url'                   => 'https://maps.googleapis.com/maps/api/directions/',
+            'type'                  => 'GET',
+            'key'                   =>  null,
+            'endpoint'              =>  true,
+            'responseDefaultKey'    =>  'geocoded_waypoints',
+            'decodePolyline'        =>  true, // true = decode overview_polyline.points to an array of points
+            'param'                 => [
+                'origin'          => null, // required
+                'destination'     => null, //required
+                'mode'            => null,
+                'waypoints'       => null,
+                'place_id'        => null,
+                'alternatives'    => null,
+                'avoid'           => null,
+                'language'        => null,
+                'units'           => null,
+                'region'          => null,
+                'departure_time'  => null,
+                'arrival_time'    => null,
+                'transit_mode'    => null,
+                'transit_routing_preference' => null,
+            ]
         ],
 
-
+        // Deprecated
         'distancematrix' => [
-                        'url'                   => 'https://maps.googleapis.com/maps/api/distancematrix/',
-                        'type'                  => 'GET',
-                        'key'                   =>  null,
-                        'endpoint'              =>  true,
-                        'responseDefaultKey'    => 'origin_addresses',
-                        'param'                 => [
-                                                    'origins'        => null,
-                                                    'destinations'   => null,
-                                                    'key'            => null,
-                                                    'mode'           => null,
-                                                    'language'       => null,
-                                                    'avoid'          => null,
-                                                    'units'          => null,
-                                                    'departure_time' => null,
-                                                    'arrival_time'   => null,
-                                                    'transit_mode'   => null,
-                                                    'transit_routing_preference' => null,
+            'url'                   => 'https://maps.googleapis.com/maps/api/distancematrix/',
+            'type'                  => 'GET',
+            'key'                   =>  null,
+            'endpoint'              =>  true,
+            'responseDefaultKey'    => 'origin_addresses',
+            'param'                 => [
+                'origins'        => null,
+                'destinations'   => null,
+                'key'            => null,
+                'mode'           => null,
+                'language'       => null,
+                'avoid'          => null,
+                'units'          => null,
+                'departure_time' => null,
+                'arrival_time'   => null,
+                'transit_mode'   => null,
+                'transit_routing_preference' => null,
 
-                                                    ]
+            ]
         ],
 
 
         'elevation' => [
-                        'url'                   => 'https://maps.googleapis.com/maps/api/elevation/',
-                        'type'                  => 'GET',
-                        'key'                   =>  null,
-                        'endpoint'              =>  true,
-                        'responseDefaultKey'    => 'elevation',
-                        'param'                 => [
-                                                    'locations'     => null,
-                                                    'path'          => null,
-                                                    'samples'       => null,
-                                                    'key'           => null,
-                                                    ]
+            'url'                   => 'https://maps.googleapis.com/maps/api/elevation/',
+            'type'                  => 'GET',
+            'key'                   =>  null,
+            'endpoint'              =>  true,
+            'responseDefaultKey'    => 'elevation',
+            'param'                 => [
+                'locations'     => null,
+                'path'          => null,
+                'samples'       => null,
+                'key'           => null,
+            ]
         ],
 
 
         'geolocate' => [
-                        'url'                   => 'https://www.googleapis.com/geolocation/v1/geolocate?',
-                        'type'                  => 'POST',
-                        'key'                   =>  null,
-                        'endpoint'              =>  false,
-                        'responseDefaultKey'    => 'location',
-                        'param'                 => [
-                                                    'homeMobileCountryCode' => null,
-                                                    'homeMobileNetworkCode' => null,
-                                                    'radioType'             => null,
-                                                    'carrier'               => null,
-                                                    'considerIp'            => null,
-                                                    'cellTowers' => [
-                                                        'cellId'            => null,
-                                                        'locationAreaCode'  => null,
-                                                        'mobileCountryCode' => null,
-                                                        'mobileNetworkCode' => null,
-                                                        'age'               => null,
-                                                        'signalStrength'    => null,
-                                                        'timingAdvance'     => null,
-                                                        ],
-                                                    'wifiAccessPoints' => [
-                                                        'macAddress'        => null,
-                                                        'signalStrength'    => null,
-                                                        'age'               => null,
-                                                        'channel'           => null,
-                                                        'signalToNoiseRatio'=> null,
-                                                        ],
-                                                    ]
+            'url'                   => 'https://www.googleapis.com/geolocation/v1/geolocate?',
+            'type'                  => 'POST',
+            'key'                   =>  null,
+            'endpoint'              =>  false,
+            'responseDefaultKey'    => 'location',
+            'param'                 => [
+                'homeMobileCountryCode' => null,
+                'homeMobileNetworkCode' => null,
+                'radioType'             => null,
+                'carrier'               => null,
+                'considerIp'            => null,
+                'cellTowers' => [
+                    'cellId'            => null,
+                    'locationAreaCode'  => null,
+                    'mobileCountryCode' => null,
+                    'mobileNetworkCode' => null,
+                    'age'               => null,
+                    'signalStrength'    => null,
+                    'timingAdvance'     => null,
+                ],
+                'wifiAccessPoints' => [
+                    'macAddress'        => null,
+                    'signalStrength'    => null,
+                    'age'               => null,
+                    'channel'           => null,
+                    'signalToNoiseRatio' => null,
+                ],
+            ]
         ],
 
 
 
         'snapToRoads' => [
-                        'url'                   => 'https://roads.googleapis.com/v1/snapToRoads?',
-                        'type'                  => 'GET',
-                        'key'                   =>  null,
-                        'endpoint'              =>  false,
-                        'responseDefaultKey'    => 'snappedPoints',
-                        'param'                 => [
-                                                    'locations'     => null,
-                                                    'path'          => null,
-                                                    'samples'       => null,
-                                                    'key'           => null,
-                                                    ]
+            'url'                   => 'https://roads.googleapis.com/v1/snapToRoads?',
+            'type'                  => 'GET',
+            'key'                   =>  null,
+            'endpoint'              =>  false,
+            'responseDefaultKey'    => 'snappedPoints',
+            'param'                 => [
+                'locations'     => null,
+                'path'          => null,
+                'samples'       => null,
+                'key'           => null,
+            ]
         ],
 
 
         'speedLimits' => [
-                        'url'                   => 'https://roads.googleapis.com/v1/speedLimits?',
-                        'type'                  => 'GET',
-                        'key'                   =>  null,
-                        'endpoint'              =>  false,
-                        'responseDefaultKey'    => 'speedLimits',
-                        'param'                 => [
-                                                    'path'          => null,
-                                                    'placeId'       => null,
-                                                    'units'         => null,
-                                                    'key'           => null,
-                                                    ]
+            'url'                   => 'https://roads.googleapis.com/v1/speedLimits?',
+            'type'                  => 'GET',
+            'key'                   =>  null,
+            'endpoint'              =>  false,
+            'responseDefaultKey'    => 'speedLimits',
+            'param'                 => [
+                'path'          => null,
+                'placeId'       => null,
+                'units'         => null,
+                'key'           => null,
+            ]
         ],
 
 
         'timezone' => [
-                        'url'                   => 'https://maps.googleapis.com/maps/api/timezone/',
-                        'type'                  => 'GET',
-                        'key'                   =>  null,
-                        'endpoint'              =>  true,
-                        'responseDefaultKey'    => 'dstOffset',
-                        'param'                 => [
-                                                    'location'  => null,
-                                                    'timestamp' => null,
-                                                    'key'       => null,
-                                                    'language'  => null,
+            'url'                   => 'https://maps.googleapis.com/maps/api/timezone/',
+            'type'                  => 'GET',
+            'key'                   =>  null,
+            'endpoint'              =>  true,
+            'responseDefaultKey'    => 'dstOffset',
+            'param'                 => [
+                'location'  => null,
+                'timestamp' => null,
+                'key'       => null,
+                'language'  => null,
 
-                                                    ]
+            ]
         ],
 
 
 
         'nearbysearch' => [
-                        'url'                   => 'https://maps.googleapis.com/maps/api/place/nearbysearch/',
-                        'type'                  => 'GET',
-                        'key'                   =>  null,
-                        'endpoint'              =>  true,
-                        'responseDefaultKey'    => 'results',
-                        'param'                 => [
-                                                    'key'           => null,
-                                                    'location'      => null,
-                                                    'radius'        => null,
-                                                    'keyword'       => null,
-                                                    'language'      => null,
-                                                    'minprice'      => null,
-                                                    'maxprice'      => null,
-                                                    'name'          => null,
-                                                    'opennow'       => null,
-                                                    'rankby'        => null,
-                                                    'type'          => null, // types depricated, one type may be specified
-                                                    'pagetoken'     => null,
-                                                    'zagatselected' => null,
-                                                    ]
+            'url'                   => 'https://maps.googleapis.com/maps/api/place/nearbysearch/',
+            'type'                  => 'GET',
+            'key'                   =>  null,
+            'endpoint'              =>  true,
+            'responseDefaultKey'    => 'results',
+            'param'                 => [
+                'key'           => null,
+                'location'      => null,
+                'radius'        => null,
+                'keyword'       => null,
+                'language'      => null,
+                'minprice'      => null,
+                'maxprice'      => null,
+                'name'          => null,
+                'opennow'       => null,
+                'rankby'        => null,
+                'type'          => null, // types depricated, one type may be specified
+                'pagetoken'     => null,
+                'zagatselected' => null,
+            ]
         ],
 
 
 
         'textsearch' => [
-                        'url'                   => 'https://maps.googleapis.com/maps/api/place/textsearch/',
-                        'type'                  => 'GET',
-                        'key'                   =>  null,
-                        'endpoint'              =>  true,
-                        'responseDefaultKey'    => 'results',
-                        'param'                 => [
-                                                    'key'           => null,
-                                                    'query'         => null,
-                                                    'location'      => null,
-                                                    'radius'        => null,
-                                                    'language'      => null,
-                                                    'minprice'      => null,
-                                                    'maxprice'      => null,
-                                                    'opennow'       => null,
-                                                    'type'          => null, // types deprecated, one type may be specified
-                                                    'pagetoken'     => null,
-                                                    'zagatselected' => null,
-                                                   ]
+            'url'                   => 'https://maps.googleapis.com/maps/api/place/textsearch/',
+            'type'                  => 'GET',
+            'key'                   =>  null,
+            'endpoint'              =>  true,
+            'responseDefaultKey'    => 'results',
+            'param'                 => [
+                'key'           => null,
+                'query'         => null,
+                'location'      => null,
+                'radius'        => null,
+                'language'      => null,
+                'minprice'      => null,
+                'maxprice'      => null,
+                'opennow'       => null,
+                'type'          => null, // types deprecated, one type may be specified
+                'pagetoken'     => null,
+                'zagatselected' => null,
+            ]
         ],
 
 
 
         'radarsearch' => [
-                        'url'                   => 'https://maps.googleapis.com/maps/api/place/radarsearch/',
-                        'type'                  => 'GET',
-                        'key'                   =>  null,
-                        'endpoint'              =>  true,
-                        'responseDefaultKey'    => 'geometry',
-                        'param'                 => [
-                                                    'key'           => null,
-                                                    'radius'        => null,
-                                                    'location'      => null,
-                                                    'keyword'       => null,
-                                                    'minprice'      => null,
-                                                    'maxprice'      => null,
-                                                    'opennow'       => null,
-                                                    'name'          => null,
-                                                    'type'          => null, // types depricated, one type may be specified
-                                                    'zagatselected' => null,
-                                                    ]
+            'url'                   => 'https://maps.googleapis.com/maps/api/place/radarsearch/',
+            'type'                  => 'GET',
+            'key'                   =>  null,
+            'endpoint'              =>  true,
+            'responseDefaultKey'    => 'geometry',
+            'param'                 => [
+                'key'           => null,
+                'radius'        => null,
+                'location'      => null,
+                'keyword'       => null,
+                'minprice'      => null,
+                'maxprice'      => null,
+                'opennow'       => null,
+                'name'          => null,
+                'type'          => null, // types depricated, one type may be specified
+                'zagatselected' => null,
+            ]
         ],
 
 
 
         'placedetails' => [
-                        'url'                   => 'https://maps.googleapis.com/maps/api/place/details/',
-                        'type'                  => 'GET',
-                        'key'                   =>  null,
-                        'endpoint'              =>  true,
-                        'responseDefaultKey'    => 'result',
-                        'param'                 => [
-                                                    'key'           => null,
-                                                    'placeid'       => null,
-                                                    'extensions'    => null,
-                                                    'language'      => null,
-                                                    ]
+            'url'                   => 'https://maps.googleapis.com/maps/api/place/details/',
+            'type'                  => 'GET',
+            'key'                   =>  null,
+            'endpoint'              =>  true,
+            'responseDefaultKey'    => 'result',
+            'param'                 => [
+                'key'           => null,
+                'placeid'       => null,
+                'extensions'    => null,
+                'language'      => null,
+            ]
         ],
 
 
         'placeadd' => [
-                        'url'                   => 'https://maps.googleapis.com/maps/api/place/add/',
-                        'type'                  => 'POST',
-                        'key'                   =>  null,
-                        'endpoint'              =>  true,
-                        'responseDefaultKey'    => 'place_id',
-                        'param'                 => [
-                                                    'key'           => null,
-                                                    'accuracy'      => null,
-                                                    'address'       => null,
-                                                    'language'      => null,
-                                                    'location'      => null,
-                                                    'name'          => null,
-                                                    'phone_number'  => null,
-                                                    'types'         => null,// according to docs types still required as string parameter
-                                                    'type'          => null, // types deprecated, one type may be specified
-                                                    'website'       => null,
-                                                    ]
+            'url'                   => 'https://maps.googleapis.com/maps/api/place/add/',
+            'type'                  => 'POST',
+            'key'                   =>  null,
+            'endpoint'              =>  true,
+            'responseDefaultKey'    => 'place_id',
+            'param'                 => [
+                'key'           => null,
+                'accuracy'      => null,
+                'address'       => null,
+                'language'      => null,
+                'location'      => null,
+                'name'          => null,
+                'phone_number'  => null,
+                'types'         => null, // according to docs types still required as string parameter
+                'type'          => null, // types deprecated, one type may be specified
+                'website'       => null,
+            ]
         ],
 
 
         'placedelete' => [
-                        'url'                   => 'https://maps.googleapis.com/maps/api/place/delete/',
-                        'type'                  => 'POST',
-                        'key'                   =>  null,
-                        'endpoint'              =>  true,
-                        'responseDefaultKey'    => 'status',
-                        'param'                 => [
-                                                    'key'           => null,
-                                                    'place_id'      => null,
+            'url'                   => 'https://maps.googleapis.com/maps/api/place/delete/',
+            'type'                  => 'POST',
+            'key'                   =>  null,
+            'endpoint'              =>  true,
+            'responseDefaultKey'    => 'status',
+            'param'                 => [
+                'key'           => null,
+                'place_id'      => null,
 
-                                                    ]
+            ]
         ],
 
 
 
 
         'placephoto' => [
-                        'url'                   => 'https://maps.googleapis.com/maps/api/place/photo?',
-                        'type'                  => 'GET',
-                        'key'                   =>  null,
-                        'endpoint'              =>  false,
-                        'responseDefaultKey'    => 'image',
-                        'param'                 => [
-                                                    'key'           => null,
-                                                    'photoreference'=> null,
-                                                    'maxheight'     => null,
-                                                    'maxwidth'      => null,
-                                                    ]
+            'url'                   => 'https://maps.googleapis.com/maps/api/place/photo?',
+            'type'                  => 'GET',
+            'key'                   =>  null,
+            'endpoint'              =>  false,
+            'responseDefaultKey'    => 'image',
+            'param'                 => [
+                'key'           => null,
+                'photoreference' => null,
+                'maxheight'     => null,
+                'maxwidth'      => null,
+            ]
         ],
 
 
@@ -390,40 +444,40 @@ return [
 
 
         'placeautocomplete' => [
-                        'url'                   => 'https://maps.googleapis.com/maps/api/place/autocomplete/',
-                        'type'                  => 'GET',
-                        'key'                   =>  null,
-                        'endpoint'              =>  true,
-                        'responseDefaultKey'    => 'predictions',
-                        'param'                 => [
-                                                    'key'           => null,
-                                                    'input'         => null,
-                                                    'offset'        => null,
-                                                    'location'      => null,
-                                                    'radius'        => null,
-                                                    'language'      => null,
-                                                    'types'         => null, // use string as parameter
-                                                    'type'          => null, // types deprecated, one type may be specified
-                                                    'components'    => null,
-                                                    ]
+            'url'                   => 'https://maps.googleapis.com/maps/api/place/autocomplete/',
+            'type'                  => 'GET',
+            'key'                   =>  null,
+            'endpoint'              =>  true,
+            'responseDefaultKey'    => 'predictions',
+            'param'                 => [
+                'key'           => null,
+                'input'         => null,
+                'offset'        => null,
+                'location'      => null,
+                'radius'        => null,
+                'language'      => null,
+                'types'         => null, // use string as parameter
+                'type'          => null, // types deprecated, one type may be specified
+                'components'    => null,
+            ]
         ],
 
 
 
         'placequeryautocomplete' => [
-                        'url'                   => 'https://maps.googleapis.com/maps/api/place/queryautocomplete/',
-                        'type'                  => 'GET',
-                        'key'                   =>  null,
-                        'endpoint'              =>  true,
-                        'responseDefaultKey'    => 'predictions',
-                        'param'                 => [
-                                                    'key'           => null,
-                                                    'input'         => null,
-                                                    'offset'        => null,
-                                                    'location'      => null,
-                                                    'radius'        => null,
-                                                    'language'      => null,
-                                                    ]
+            'url'                   => 'https://maps.googleapis.com/maps/api/place/queryautocomplete/',
+            'type'                  => 'GET',
+            'key'                   =>  null,
+            'endpoint'              =>  true,
+            'responseDefaultKey'    => 'predictions',
+            'param'                 => [
+                'key'           => null,
+                'input'         => null,
+                'offset'        => null,
+                'location'      => null,
+                'radius'        => null,
+                'language'      => null,
+            ]
         ],
 
     ],
