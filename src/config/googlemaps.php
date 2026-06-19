@@ -480,6 +480,89 @@ return [
             ]
         ],
 
+// --- Places API (New) Endpoints ---
+
+        // Text Search (New)
+        // Ref: https://places.googleapis.com/v1/places:searchText
+        'places_textsearch' => [
+            'url'                => 'https://places.googleapis.com/v1/places:searchText',
+            'type'               => 'POST',
+            'key'                => null,
+            'endpoint'           => false, // Set to false because it does not accept trailing legacy format modifiers like 'json/'
+            'responseDefaultKey' => 'places',
+            'headers'            => [
+                'X-Goog-FieldMask' => 'places.id,places.displayName,places.formattedAddress', // Highly recommended default safety mask
+            ],
+            'param'              => [
+                'textQuery'          => null, // required
+                'languageCode'      => null,
+                'regionCode'        => null,
+                'includedType'      => null,
+                'maxResultCount'    => null,
+                'locationBias'      => null,
+                'locationRestriction'=> null,
+                'evOptions'         => null,
+                'strictTypeFiltering'=> false,
+            ]
+        ],
+
+        // Nearby Search (New)
+        // Ref: https://places.googleapis.com/v1/places:searchNearby
+        'places_nearby' => [
+            'url'                => 'https://places.googleapis.com/v1/places:searchNearby',
+            'type'               => 'POST',
+            'key'                => null,
+            'endpoint'           => false,
+            'responseDefaultKey' => 'places',
+            'headers'            => [
+                'X-Goog-FieldMask' => 'places.id,places.displayName,places.primaryType',
+            ],
+            'param'              => [
+                'locationRestriction' => null, // required (contains circle/center geometries)
+                'includedTypes'       => null,
+                'excludedTypes'       => null,
+                'includedPrimaryTypes'=> null,
+                'excludedPrimaryTypes'=> null,
+                'maxResultCount'      => null,
+                'rankPreference'      => null,
+                'languageCode'        => null,
+                'regionCode'          => null,
+            ]
+        ],
+
+        // Place Details (New)
+        // Ref: https://places.googleapis.com/v1/places/{placeId}
+        'places_details' => [
+            'url'                => 'https://places.googleapis.com/v1/places/', // Append the placeId dynamically downstream
+            'type'               => 'GET',
+            'key'                => null,
+            'endpoint'           => false,
+            'responseDefaultKey' => 'id',
+            'headers'            => [
+                'X-Goog-FieldMask' => 'id,displayName,formattedAddress,types',
+            ],
+            'param'              => [
+                'languageCode' => null,
+                'regionCode'   => null,
+                'sessionToken' => null,
+            ]
+        ],
+
+        // Place Photo (New)
+        // Ref: https://places.googleapis.com/v1/{name=places/*/photos/*/media}
+        'places_photo' => [
+            'url'                => 'https://places.googleapis.com/v1/', // Append photo resource name dynamically
+            'type'               => 'GET',
+            'key'                => null,
+            'endpoint'           => false,
+            'responseDefaultKey' => 'photoUri',
+            'param'              => [
+                'maxHeightPx'           => null,
+                'maxWidthPx'            => null,
+                'skipHttpRedirect'      => true, // Returns a JSON object with 'photoUri' instead of streaming raw binary data
+            ]
+        ],    
+
     ],
 
 
