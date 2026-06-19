@@ -6,51 +6,35 @@ use Illuminate\Support\Facades\Config;
 
 /**
  * Description of GoogleMaps
- *
- * @author Alexander Pechkarev <alexpechkarev@gmail.com>
+ * * @author Alexander Pechkarev <alexpechkarev@gmail.com>
  */
-class WebService{
-
-
+class WebService
+{
     /*
     |--------------------------------------------------------------------------
     | Default Endpoint
     |--------------------------------------------------------------------------
-    |
     */
     protected $endpoint;
-
-
 
     /*
     |--------------------------------------------------------------------------
     | Web Service
     |--------------------------------------------------------------------------
-    |
-    |
-    |
     */
     protected $service;
-
 
     /*
     |--------------------------------------------------------------------------
     | API Key
     |--------------------------------------------------------------------------
-    |
-    |
-    |
     */
     protected $key;
-
 
     /*
     |--------------------------------------------------------------------------
     | Service URL
     |--------------------------------------------------------------------------
-    |
-    |
-    |
     */
     protected $requestUrl;
 
@@ -58,9 +42,6 @@ class WebService{
     |--------------------------------------------------------------------------
     | Verify SSL Peer
     |--------------------------------------------------------------------------
-    |
-    |
-    |
     */
     protected $verifySSL;
 
@@ -68,9 +49,6 @@ class WebService{
     |--------------------------------------------------------------------------
     | Request's timeout
     |--------------------------------------------------------------------------
-    |
-    |
-    |
     */
     protected $requestTimeout;
 
@@ -78,9 +56,6 @@ class WebService{
     |--------------------------------------------------------------------------
     | Connection timeout
     |--------------------------------------------------------------------------
-    |
-    |
-    |
     */
     protected $connectionTimeout;
 
@@ -88,9 +63,6 @@ class WebService{
     |--------------------------------------------------------------------------
     | Request's compression setting
     |--------------------------------------------------------------------------
-    |
-    |
-    |
     */
     protected $requestUseCompression;
 
@@ -100,9 +72,7 @@ class WebService{
      * @return $this
      */
     public function setEndpoint( $key = 'json' ){
-
         $this->endpoint = Config::get("googlemaps.endpoint.{$key}", 'json?');
-
         return $this;
     }
 
@@ -111,7 +81,6 @@ class WebService{
      * @return string
      */
     public function getEndpoint( ){
-
         return $this->endpoint;
     }
 
@@ -122,12 +91,10 @@ class WebService{
      * @return $this
      */
     public function setParamByKey($key, $value){
-
-         if( array_key_exists( $key, Arr::dot( $this->service['param'] ) ) ){
-             Arr::set($this->service['param'], $key, $value);
-         }
-
-         return $this;
+        if( array_key_exists( $key, Arr::dot( $this->service['param'] ) ) ){ 
+            Arr::set($this->service['param'], $key, $value); 
+        }
+        return $this;
     }
 
     /**
@@ -135,8 +102,8 @@ class WebService{
      * @param string $key
      * @return string|null
      */
-    public function getParamByKey($key){
-        return Arr::get($this->service['param'], $key, null);
+    public function getParamByKey($key){ 
+        return Arr::get($this->service['param'], $key, null); 
     }
 
     /**
@@ -145,9 +112,7 @@ class WebService{
      * @return $this
      */
     public function setParam( $param ){
-
         $this->service['param'] = array_merge( $this->service['param'], $param );
-
         return $this;
     }
 
@@ -155,163 +120,96 @@ class WebService{
      * Return parameters array
      * @return array
      */
-    public function getParam(){
-        return $this->service['param'];
+    public function getParam(){ 
+        return $this->service['param']; 
     }
 
     /**
      * Get Web Service Response
-     *
-     * @param string|false $needle - response key
+     * * @param string|false $needle - response key
      * @return string|array
      * @throws \ErrorException
      */
     public function get( $needle = false ){
-
-        return empty( $needle )
-                ? $this->getResponse()
-                : $this->getResponseByKey( $needle );
+        return empty( $needle ) ? $this->getResponse() : $this->getResponseByKey( $needle );
     }
 
     /**
      * Get response value by key
-     *
-     * @param string|bool $needle - retrieves response parameter using "dot" notation
+     * * @param string|bool $needle - retrieves response parameter using "dot" notation
      * @return array
      * @throws \ErrorException
      */
     public function getResponseByKey( $needle = false){
-
-        // set response to json
         $this->setEndpoint('json');
-
-        // set default key parameter
-        $needle = empty( $needle )
-                    ? metaphone($this->service['responseDefaultKey'])
-                    : metaphone($needle);
-
-        // get response
+        $needle = empty( $needle ) ? metaphone($this->service['responseDefaultKey']) : metaphone($needle);
+        
         $obj = json_decode( $this->get(), true);
-
-        // flatten array into single level array using 'dot' notation
-        $obj_dot = Arr::dot($obj);
-        // create empty response
+        $obj_dot = Arr::dot($obj); 
         $response = [];
-        // iterate
+        
         foreach( $obj_dot as $key => $val){
-
-            // Calculate the metaphone key and compare with needle
-            if( strcmp( metaphone($key, strlen($needle)), $needle) === 0 ){
-                // set response value
-                Arr::set($response, $key, $val);
-            }
+            if( strcmp( metaphone($key, strlen($needle)), $needle) === 0 ){ 
+                Arr::set($response, $key, $val); 
+            } 
         }
-
-        // finally extract slice of the array
-        #return array_slice($response, $offset, $length);
-
-        return count($response) < 1
-               ? $obj
-               : $response;
+        
+        return count($response) < 1 ? $obj : $response;
     }
 
     /**
      * Get response status
-     *
-     * @return mixed
+     * * @return mixed
      * @throws \ErrorException
      */
     public function getStatus(){
-
-        // set response to json
         $this->setEndpoint('json');
-
-        // get response
         $obj = json_decode( $this->get(), true);
-
         return Arr::get($obj, 'status', null);
     }
 
-    /*
-    |--------------------------------------------------------------------------
-    | Protected methods
-    |--------------------------------------------------------------------------
-    |
-    */
-
     /**
      * Setup service parameters
-     *
-     * @param $service
+     * * @param $service
      * @throws \ErrorException
      */
     protected function build( $service ){
-
-            $this->validateConfig( $service );
-
-            // set default endpoint
-            $this->setEndpoint();
-
-            // set web service parameters
-            $this->service = Config::get('googlemaps.service.'.$service);
-
-            // is service key set, use it, otherwise use default key
-            $this->key = empty( $this->service['key'] )
-                         ? Config::get('googlemaps.key')
-                         : $this->service['key'];
-
-            // set service url
-            $this->requestUrl = $this->service['url'];
-
-            // is ssl_verify_peer key set, use it, otherwise use default key
-            // Default securely to TRUE. Ensure strict boolean mapping.
-            $this->verifySSL = Config::get('googlemaps.ssl_verify_peer', true);
-            // $this->verifySSL = empty(Config::get('googlemaps.ssl_verify_peer'))
-            //                 ? FALSE
-            //                 : Config::get('googlemaps.ssl_verify_peer');
-
-            // set the timeout for the connect phase
-            $this->connectionTimeout = Config::get("googlemaps.connection_timeout");
-
-            // set the maximum time the transfer is allowed to complete
-            $this->requestTimeout = Config::get("googlemaps.request_timeout");
-
-            // set the compression flag
-            $this->requestUseCompression = Config::get("googlemaps.request_use_compression");
-
-            $this->clearParameters();
+        $this->validateConfig( $service );
+        $this->setEndpoint();
+        
+        $this->service = Config::get('googlemaps.service.'.$service);
+        $this->key = empty( $this->service['key'] ) ? Config::get('googlemaps.key') : $this->service['key'];
+        $this->requestUrl = $this->service['url'];
+        
+        $this->verifySSL = Config::get('googlemaps.ssl_verify_peer', true);
+        $this->connectionTimeout = Config::get("googlemaps.connection_timeout");
+        $this->requestTimeout = Config::get("googlemaps.request_timeout");
+        $this->requestUseCompression = Config::get("googlemaps.request_use_compression");
+        
+        $this->clearParameters();
     }
 
     /**
      * Validate configuration file
-     *
-     * @param $service
+     * * @param $service
      * @throws \ErrorException
      */
     protected function validateConfig( $service ){
-
-            // Check for config file
-            if( ! Config::has('googlemaps')){
-                throw new ErrorException('Unable to find config file.');
-            }
-
-            // Validate Key parameter
-            if(Config::has('googlemaps.key') === false){
-                throw new ErrorException('Unable to find Key parameter in configuration file.');
-            }
-
-            // Validate Key parameter
-            if(Config::has('googlemaps.service') === false || Config::has('googlemaps.service.'.$service) === false){
-                throw new ErrorException('Web service must be declared in the configuration file.');
-            }
-
-            // Validate Endpoint
-            $endpointCount = count(Config::get('googlemaps.endpoint', []));
-            $endpointsKeyExists = Config::has('googlemaps.endpoint');
-
-            if($endpointsKeyExists === false || $endpointCount < 1){
-                throw new ErrorException('End point must not be empty.');
-            }
+        if( ! Config::has('googlemaps')){ 
+            throw new ErrorException('Unable to find config file.'); 
+        }
+        if(Config::has('googlemaps.key') === false){ 
+            throw new ErrorException('Unable to find Key parameter in configuration file.'); 
+        }
+        if(Config::has('googlemaps.service') === false || Config::has('googlemaps.service.'.$service) === false){ 
+            throw new ErrorException('Web service must be declared in the configuration file.'); 
+        }
+        
+        $endpointCount = count(Config::get('googlemaps.endpoint', [])); 
+        $endpointsKeyExists = Config::has('googlemaps.endpoint');
+        if($endpointsKeyExists === false || $endpointCount < 1){ 
+            throw new ErrorException('End point must not be empty.'); 
+        }
     }
 
     /**
@@ -319,51 +217,68 @@ class WebService{
      * @return string
      * @throws \ErrorException
      */
-    protected function getResponse(){
-
+    protected function getResponse()
+    {
         $post = false;
+        
+        // OPTIMIZATION: Isolate calculations to a local variable to prevent URL string compounding corruption bugs
+        $executionUrl = $this->requestUrl;
+        $executionUrl .= $this->service['endpoint'] ? $this->endpoint : '';
+        $executionUrl .= 'key=' . urlencode($this->key);
 
-        // use output parameter if required by the service
-        $this->requestUrl.= $this->service['endpoint']
-                            ? $this->endpoint
-                            : '';
-
-        // set API Key
-        $this->requestUrl.= 'key='.urlencode( $this->key );
-
-        switch( $this->service['type'] ){
+        switch ($this->service['type']) {
             case 'POST':
-                $post = json_encode( $this->service['param'] );
+                $post = json_encode($this->service['param']);
                 break;
             default:
-                $this->requestUrl.='&'. Parameters::getQueryString( $this->service['param'] );
+                $executionUrl .= '&' . Parameters::getQueryString($this->service['param']);
                 break;
         }
 
-        return $this->make( $post );
+        return $this->make($executionUrl, $post);
     }
 
     /**
      * Make cURL request to given URL
-     * @param boolean $isPost
+     * @param string $url
+     * @param string|boolean $isPost
      * @return bool|string
      * @throws \ErrorException
      */
-    protected function make( $isPost = false ){
+    protected function make($url, $isPost = false)
+    {
+        $ch = curl_init($url);
+        
+        // Define clean baseline header matrices
+        $headers = [];
 
-        $ch = curl_init( $this->requestUrl );
-
-        if( $isPost ){
-            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
-            curl_setopt($ch,CURLOPT_POST, 1);
-            curl_setopt($ch,CURLOPT_POSTFIELDS, $isPost );
+        if ($isPost) {
+            $headers[] = 'Content-Type: application/json';
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $isPost);
         }
 
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT,  $this->connectionTimeout);
-        curl_setopt($ch, CURLOPT_TIMEOUT,  $this->requestTimeout);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->verifySSL);
+        // OPTIMIZATION: Check for and inject any custom fields defined in config headers (e.g. X-Goog-FieldMask)
+        if (!empty($this->service['headers']) && is_array($this->service['headers'])) {
+            foreach ($this->service['headers'] as $headerKey => $headerValue) {
+                if (!empty($headerValue)) {
+                    $headers[] = "{$headerKey}: {$headerValue}";
+                }
+            }
+        }
+
+        if (!empty($headers)) {
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        }
+
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $this->connectionTimeout);
+        curl_setopt($ch, CURLOPT_TIMEOUT, $this->requestTimeout);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        
+        // OPTIMIZATION: Enforce complete host name common verification logic rules
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, $this->verifySSL);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, $this->verifySSL ? 2 : 0);
 
         if ($this->requestUseCompression) {
             curl_setopt($ch, CURLOPT_ENCODING, "");
@@ -371,16 +286,15 @@ class WebService{
 
         $output = curl_exec($ch);
 
-        if( $output === false ){
-            throw new ErrorException( curl_error($ch) );
+        if ($output === false) {
+            throw new ErrorException(curl_error($ch));
         }
 
         curl_close($ch);
         return $output;
     }
 
-    protected function clearParameters()
-    {
-        Parameters::resetParams();
+    protected function clearParameters() { 
+        Parameters::resetParams(); 
     }
 }
