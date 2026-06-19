@@ -264,9 +264,11 @@ class WebService{
             $this->requestUrl = $this->service['url'];
 
             // is ssl_verify_peer key set, use it, otherwise use default key
-            $this->verifySSL = empty(Config::get('googlemaps.ssl_verify_peer'))
-                            ? FALSE
-                            : Config::get('googlemaps.ssl_verify_peer');
+            // Default securely to TRUE. Ensure strict boolean mapping.
+            $this->verifySSL = Config::get('googlemaps.ssl_verify_peer', true);
+            // $this->verifySSL = empty(Config::get('googlemaps.ssl_verify_peer'))
+            //                 ? FALSE
+            //                 : Config::get('googlemaps.ssl_verify_peer');
 
             // set the timeout for the connect phase
             $this->connectionTimeout = Config::get("googlemaps.connection_timeout");
